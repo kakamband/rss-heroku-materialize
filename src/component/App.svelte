@@ -1,5 +1,9 @@
 <script lang="ts">
+  import { getFeeds } from "../api/rssFeedProxy.ts";
+
 	export let name: string;
+
+  getFeeds();
 </script>
 
 <main>
