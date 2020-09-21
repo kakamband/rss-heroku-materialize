@@ -23,6 +23,9 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "node-html-parser": "^1.2.20",
     "sirv-cli": "^1.0.0"
   }
 }
