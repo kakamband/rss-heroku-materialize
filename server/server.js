@@ -1,40 +1,25 @@
-const express = require('express')
-const app = express()
-const port = 8080
+const express = require("express");
+const app = express();
+const port = 8080;
 
-const fetch = require('node-fetch');
-const parser = require('node-html-parser');
+const RssParser = require("rss-parser");
+const rssParser = new RssParser();
 
-app.get('/', (req, res) => {
+const getFeeds = async (url) => {
+  const data = await rssParser.parseURL(url);
+  const feeds = data.items.map(({ title, isoDate, link }) => ({ title, isoDate, link }));
+  return feeds;
+};
 
-  const init = {
-    method: "GET",
-    // headers: {
-    //   // "Content-Type": "application/json; charset=utf-8",
-    //   "Content-Type": "application/xml; charset=utf-8",
-    // },
-  }
+app.get('/', async (req, res) => {
+  // const url = "https://qiita.com/tags/svelte/feed";
+  // const url = "https://news.yahoo.co.jp/pickup/rss.xml";
+  const url = req.query.url;
 
-  const url = "https://qiita.com/tags/svelte/feed"
-  // // const url = "https://news.yahoo.co.jp/pickup/rss.xml"
-
-  fetch(url, init)
-  .then(res => res.text())
-  .then(body => {
-    // const parser = new DOMParser();
-    // const doc = parser.parseFromString(body, "text/html")
-    // console.log(body)
-    const root = parser.parse(body)
-    // console.log(root.firstChild.structure)
-    // console.log(root.childNodes)
-    console.log(root.structure)
-
-    res.send(body)
-  });
-
-  // res.send('Hello World!')
-})
+  const feeds = await getFeeds(url);
+  res.json(feeds);
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+  console.log(`Example app listening at http://localhost:${port}`);
+});

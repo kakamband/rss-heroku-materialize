@@ -1,6 +1,13 @@
 Svelte + TypeScript + SCSS やってみる
 https://neos21.hatenablog.com/entry/2020/09/07/080000
 
+Express Node.js のための高速で、革新的な、最小限のWebフレームワーク
+https://expressjs.com/ja/
+
+Node.jsでrss-parserを使って更新情報を取得する
+https://qrunch.net/@okayu/entries/djiX8JcQ4WCosbw4
+
+
 *Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
 
 ---

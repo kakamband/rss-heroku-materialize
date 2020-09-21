@@ -24,8 +24,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "node-fetch": "^2.6.1",
-    "node-html-parser": "^1.2.20",
+    "rss-parser": "^3.9.0",
     "sirv-cli": "^1.0.0"
   }
 }
