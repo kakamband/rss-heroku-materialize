@@ -1,9 +1,13 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { getFeeds } from "../api/rssFeedProxy.ts";
 
 	export let name: string;
 
-  getFeeds();
+  onMount(async () => {
+    await getFeeds("https://qiita.com/tags/svelte/feed");
+    await getFeeds("https://news.yahoo.co.jp/pickup/rss.xml");
+  });
 </script>
 
 <main>
