@@ -4,12 +4,19 @@ export const getFeeds = async (rssUrl: string) => {
   const query = `url=${rssUrl}`;
   const inputRow = `${url}?${query}`;
   console.log(inputRow);
-
   const input = encodeURI(inputRow);
 
-  const response = await fetch(input);
-  const feeds = await response.json();
-  console.log(feeds);
+  let response = null;
+  let error = null;
+  let feeds = null;
 
-  return feeds;
+  try {
+    response = await fetch(input);
+    if (response.ok) feeds = await response.json();    
+  } catch (e) {
+    error = e;
+  }
+  // console.log(feeds);
+
+  return { response, error, feeds };
 };

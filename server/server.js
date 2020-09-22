@@ -4,6 +4,17 @@ const RssParser = require("rss-parser");
 const app = express();
 app.use(express.static('public'));
 
+app.use(function (err, req, res, next) {
+
+  console.log("サーバ処理でエラー発生");
+  console.log(e.name);
+  console.log(e.message);
+  // console.log(e);
+  // console.error(err.stack)
+
+  res.status(600).send('Something broke!')
+});
+
 const port = 8080;
 
 const rssParser = new RssParser();
@@ -14,7 +25,7 @@ const getFeeds = async (url) => {
   return feeds;
 };
 
-app.get('/rss-feed', async (req, res) => {
+app.get('/rss-feed', async (req, res, next) => {
 
   const url = req.query.url;
 
@@ -22,9 +33,16 @@ app.get('/rss-feed', async (req, res) => {
   try {
     feeds = await getFeeds(url);
   } catch (e) {
-    console.log(e);
+    console.log("エラーをキャッチ");
+    console.log(e.name);
+    console.log(e.message);
+    // console.log(e);
+
+    // return next(new Error(e));
+    res.status(600).send('Something broke!');
+    return;
   }
-  console.log(feeds);
+  // console.log(feeds);
 
   res.json(feeds);
 });

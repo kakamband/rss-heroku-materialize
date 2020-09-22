@@ -5,8 +5,19 @@
 	export let name: string;
 
   onMount(async () => {
-    await getFeeds("https://qiita.com/tags/svelte/feed");
-    await getFeeds("https://news.yahoo.co.jp/pickup/rss.xml");
+    const rssUrls = [
+      "https://qiita.com/tags/svelte/feed",
+      "https://news.yahoo.co.jp/pickup/rss.xml",
+      "https://qiita.com/tags/svelte/feed1",  // Status code 404
+      "/pickup/rss1.xml",  // socket hang up
+      "pickup/rss1.xml",  // Status code 404
+    ];
+
+    const results = await rssUrls.map(async (rssUrl) => {
+      return await getFeeds(rssUrl);
+    });
+
+    console.log(results);
   });
 </script>
 

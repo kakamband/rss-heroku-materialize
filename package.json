@@ -7,7 +7,7 @@
     "start": "sirv public --cors",
     "validate": "svelte-check",
     "server": "node server/server.js &",
-    "stop": "killall -9 node npm node"
+    "stop": "killall -9 node npm"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
