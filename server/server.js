@@ -8,25 +8,25 @@ app.use(express.static("public"));
 
 const rssParser = new RssParser();
 
-const getFeeds = async (url) => {
-  const data = await rssParser.parseURL(url);
-  const feeds = data.items.map(({ title, isoDate, link }) => ({ title, isoDate, link }));
-  return feeds;
+const getFeed = async (url) => {
+  const feed = await rssParser.parseURL(url);
+  const contents = feed.items.map(({ title, isoDate, link }) => ({ title, isoDate, link }));
+  return contents;
 };
 
 app.get("/rss-feed", async (req, res) => {
 
-  let feeds = [];
+  let contents = [];
 
   try {
-    feeds = await getFeeds(req.query.url);
+    contents = await getFeed(req.query.url);
   } catch (e) {
-    console.log(`RSS feed proxy server: エラーをキャッチ name=${e.name} message=${e.message}`);
+    // console.log(`RSS feed proxy server: エラーをキャッチ name=${e.name} message=${e.message}`);
     res.sendStatus(404);
     return;
   }
 
-  res.json(feeds);
+  res.json(contents);
 });
 
 app.listen(port, () => {
