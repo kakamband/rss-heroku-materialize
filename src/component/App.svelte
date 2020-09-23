@@ -8,15 +8,15 @@
     const rssUrls = [
       "https://qiita.com/tags/svelte/feed",
       "https://news.yahoo.co.jp/pickup/rss.xml",
-      "https://qiita.com/tags/svelte/feed1",  // Status code 404
-      "/pickup/rss1.xml",  // socket hang up
-      "pickup/rss1.xml",  // Status code 404
+      "https://qiita.com/tags/svelte/feed1",
+      "/pickup/rss1.xml",
+      "pickup/rss1.xml",
+      "/",
+      "",
     ];
 
-    const results = await rssUrls.map(async (rssUrl) => {
-      return await getFeeds(rssUrl);
-    });
-
+    const promises = rssUrls.map((rssUrl) => getFeeds(rssUrl));
+    const results = await Promise.all(promises);
     console.log(results);
   });
 </script>

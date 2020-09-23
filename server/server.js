@@ -14,21 +14,18 @@ const getFeeds = async (url) => {
   return feeds;
 };
 
-app.get('/rss-feed', async (req, res) => {
+app.get("/rss-feed", async (req, res) => {
 
-  let feeds = null;
+  let feeds = [];
 
   try {
     feeds = await getFeeds(req.query.url);
   } catch (e) {
     console.log(`RSS feed proxy server: エラーをキャッチ name=${e.name} message=${e.message}`);
-
-    // res.status(600).send('Something broke!');
-    res.sendStatus(500);
+    res.sendStatus(404);
     return;
   }
 
-  // console.log(feeds);
   res.json(feeds);
 });
 

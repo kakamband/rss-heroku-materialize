@@ -1,22 +1,20 @@
 export const getFeeds = async (rssUrl: string) => {
   const url = "https://8080-cs-994772306133-default.asia-east1.cloudshell.dev/rss-feed/";
-  
-  const query = `url=${rssUrl}`;
-  const inputRow = `${url}?${query}`;
-  console.log(inputRow);
+  const query = `?url=${rssUrl}`;
+  const inputRow = `${url}${query}`;
   const input = encodeURI(inputRow);
 
-  let response = null;
-  let error = null;
-  let feeds = null;
+  const response = await fetch(input);
+  const feeds = (response.ok)? await response.json() : [];
 
-  try {
-    response = await fetch(input);
-    if (response.ok) feeds = await response.json();    
-  } catch (e) {
-    error = e;
-  }
-  // console.log(feeds);
+  const urlParse = new URL(response.url);
+  const resRssurl = urlParse.searchParams.get("url");
 
-  return { response, error, feeds };
+  return { 
+    ok: response.ok,
+    status: response.status,
+    statusText: response.statusText,
+    url: resRssurl,
+    feeds,
+  };
 };
