@@ -13,6 +13,31 @@ https://qiita.com/att55/items/2154a8aad8bf1409db2b
 Node.jsでrss-parserを使って更新情報を取得する
 https://qrunch.net/@okayu/entries/djiX8JcQ4WCosbw4
 
+■issue管理
+参考
+【不安解消】未経験がGitHubでissue管理をしたら、モチベUPした話。
+https://qiita.com/yamken/items/a9db6b07142ca8bfd19e?utm_source=Qiita%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%B9&utm_campaign=ef853059dc-Qiita_newsletter_428_09_16_2020&utm_medium=email&utm_term=0_e44feaa081-ef853059dc-33301173
+
+①ブランチを切って作業開始
+  git checkout -b [ブランチ名]#[issue番号]
+
+②commit作成
+  git commit -m "[コミットメッセージ #issue番号]"
+  
+  ※コミットメッセージと#issue番号の間にはスペースが必要。
+    スペースを入れないとcommitとissueが紐付かない。
+
+③作業終了したらpush
+  git push origin [ブランチ名]#[issue番号]
+
+④プルリク作成（GitHubで作業）
+  ④-1 「Compare & pull request」ボタンが表示されてますので押す。
+  ④-2 コメントを記入
+  ④-3 Create pull request」ボタンを押す。
+  
+⑤masterにpull
+  git checkout -b master
+  git pull
 
 *Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
 
