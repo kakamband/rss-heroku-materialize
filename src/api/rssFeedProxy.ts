@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export const getFeed = async (rssUrl: string) => {
   const url = "https://8080-cs-994772306133-default.asia-east1.cloudshell.dev/rss-feed/";
   const query = `?url=${rssUrl}`;
@@ -5,7 +7,12 @@ export const getFeed = async (rssUrl: string) => {
   const input = encodeURI(inputRow);
 
   const response = await fetch(input);
-  const contents = (response.ok)? await response.json() : [];
+
+  let contents = (response.ok)? await response.json() : [];
+  contents = contents.map((content) => ({
+    ...content,
+    date: dayjs(content.isoDate),
+  }));
 
   const urlParse = new URL(response.url);
   const resRssurl = urlParse.searchParams.get("url");
