@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "dayjs": "^1.8.36",
     "express": "^4.17.1",
     "rss-parser": "^3.9.0",
     "sirv-cli": "^1.0.0"

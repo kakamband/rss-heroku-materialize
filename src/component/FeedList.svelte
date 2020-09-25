@@ -10,6 +10,7 @@
       <dl>
         <dt>{content.title}</dt>
         <dd>{content.isoDate}</dd>
+        <dd>{content.date.format("YYYY/MM/DD HH:mm")}
         <dd><a href={content.link}>{content.link}</a></dd>
       </dl>
       {/each}
