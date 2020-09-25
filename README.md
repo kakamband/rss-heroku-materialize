@@ -42,9 +42,9 @@ https://qiita.com/yamken/items/a9db6b07142ca8bfd19e?utm_source=Qiita%E3%83%8B%E3
   git push origin [ブランチ名]#[issue番号]
 
 ④プルリク作成（GitHubで作業）
-  ④-1 「Compare & pull request」ボタンが表示されてますので押す。
+  ④-1 Codeタブに「Compare & pull request」ボタンが表示されてるので押す。
   ④-2 コメントを記入
-  ④-3 Create pull request」ボタンを押す。
+  ④-3 「Create pull request」ボタンを押す。
   
 ⑤masterにpull
   git checkout -b master
