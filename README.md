@@ -13,6 +13,9 @@ https://qiita.com/att55/items/2154a8aad8bf1409db2b
 Node.jsでrss-parserを使って更新情報を取得する
 https://qrunch.net/@okayu/entries/djiX8JcQ4WCosbw4
 
+Day.jsでよく使う機能の覚書
+https://qiita.com/tobita0000/items/0f9d0067398efdc2931e
+
 ■issue管理
 参考
 【不安解消】未経験がGitHubでissue管理をしたら、モチベUPした話。
