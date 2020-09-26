@@ -1,21 +1,26 @@
-# Svelte  
+# Svelte
+
 [Svelte + TypeScript + SCSS やってみる](https://neos21.hatenablog.com/entry/2020/09/07/080000)
 
-# サーバサイド  
+# サーバサイド
 [Express Node.js のための高速で、革新的な、最小限のWebフレームワーク](https://expressjs.com/ja/)
+
 [express.jsのcors対応](https://qiita.com/chenglin/items/5e563e50d1c32dadf4c3)
 
 [なんとなく CORS がわかる...はもう終わりにする。](https://qiita.com/att55/items/2154a8aad8bf1409db2b)
 
 [Node.jsでrss-parserを使って更新情報を取得する](https://qrunch.net/@okayu/entries/djiX8JcQ4WCosbw4)
 
-# 日時処理  
+# 日時処理
+
 [Day.jsでよく使う機能の覚書](https://qiita.com/tobita0000/items/0f9d0067398efdc2931e)
 
-# Git  
+# Git
+
 [Gitでやりたいこと、ここで見つかる](https://qiita.com/shimotaroo/items/b73d896ace10894fd290)
 
 ## issue管理
+
 [参考 - 【不安解消】未経験がGitHubでissue管理をしたら、モチベUPした話。](https://qiita.com/yamken/items/a9db6b07142ca8bfd19e)
 
 ### ブランチを切って作業開始
@@ -31,7 +36,7 @@ git add .
 git commit -m "[コミットメッセージ #issue番号]"
 ```
   
-**コミットメッセージと#issue番号の間にはスペースが必要。スペースを入れないとcommitとissueが紐付かない。**
+*コミットメッセージと#issue番号の間にはスペースが必要。スペースを入れないとcommitとissueが紐付かない。*
 
 ### 作業終了したらリモート（GitHub）へpush
 
