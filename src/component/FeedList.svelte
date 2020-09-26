@@ -3,18 +3,13 @@
 
   const sortFeed = (feed) => {
     const contensSorted = feed.contents.sort((a, b) => {
-      const dateA = a.date;
-      const dateB = b.date;
-
-      if (dateA.isBefore(dateB)) return -1;
-      if (dateB.isBefore(dateB)) return 1;
+      if (a.date.isBefore(b.date)) return 1;
+      if (b.date.isBefore(a.date)) return -1;
       return 0;
     });
 
     return { ...feed, contents: contensSorted };
   };
-
-//  const sortFeeds = (feeds) => feeds.map((feed) => sortFeed(feed));
 
   $: feedsSorted = feeds.map((feed) => sortFeed(feed));
 </script>
