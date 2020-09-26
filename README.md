@@ -1,6 +1,5 @@
 # Svelte  
-Svelte + TypeScript + SCSS やってみる  
-https://neos21.hatenablog.com/entry/2020/09/07/080000
+[Svelte + TypeScript + SCSS やってみる](https://neos21.hatenablog.com/entry/2020/09/07/080000)
 
 # サーバサイド  
 ## Express Node.js のための高速で、革新的な、最小限のWebフレームワーク  
