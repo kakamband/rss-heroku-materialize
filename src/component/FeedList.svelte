@@ -1,8 +1,25 @@
 <script lang="ts">
   export let feeds = [];
+
+  const sortFeed = (feed) => {
+    const contensSorted = feed.contents.sort((a, b) => {
+      const dateA = a.date;
+      const dateB = b.date;
+
+      if (dateA.isBefore(dateB)) return -1;
+      if (dateB.isBefore(dateB)) return 1;
+      return 0;
+    });
+
+    return { ...feed, contents: contensSorted };
+  };
+
+//  const sortFeeds = (feeds) => feeds.map((feed) => sortFeed(feed));
+
+  $: feedsSorted = feeds.map((feed) => sortFeed(feed));
 </script>
 
-{#each feeds as feed}
+{#each feedsSorted as feed}
 <form>
   <fieldset>
     <legend><a href={feed.url}>{feed.url}</a></legend>
