@@ -26,7 +26,6 @@
 </script>
 
 <svelte:head>
-	<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css">
 <!-- 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css">
 	<link rel="stylesheet" href="https://newcss.net/new.min.css">

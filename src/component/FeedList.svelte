@@ -16,18 +16,31 @@
   $: feedsSorted = feeds.map((feed) => sortFeed(feed));
 </script>
 
+<style>
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .title {
+    overflow-wrap: break-word;
+  }
+  .date {
+    white-space: nowrap;
+  }
+</style>
+
 {#each feedsSorted as feed}
 <form>
   <fieldset>
     <legend><a href={feed.url}>{feed.url}</a></legend>
-      {#each feed.contents as content}
-      <dl>
-        <dt>{content.title}</dt>
-        <dd>{content.isoDate}</dd>
-        <dd>{content.date.format("YYYY/MM/DD HH:mm")}
-        <dd><a href={content.link}>{content.link}</a></dd>
-      </dl>
-      {/each}
+
+    {#each feed.contents as content}
+    <div class="content">
+      <p class="title"><a href={content.link}>{content.title}</a></p>
+      <p class="date">{content.date.format("YYYY/MM/DD HH:mm")}</p>
+    </div>
+    {/each}
   </fieldset>
 </form>
 {/each}
