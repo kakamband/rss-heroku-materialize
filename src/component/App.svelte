@@ -26,6 +26,7 @@
 </script>
 
 <svelte:head>
+	<link rel="stylesheet" href="https://unpkg.com/mvp.css">
 <!-- 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css">
 	<link rel="stylesheet" href="https://newcss.net/new.min.css">

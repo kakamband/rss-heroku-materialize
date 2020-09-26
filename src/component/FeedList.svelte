@@ -24,6 +24,7 @@
   }
   .title {
     overflow-wrap: break-word;
+    text-align: justify;
   }
   .date {
     white-space: nowrap;
@@ -32,8 +33,8 @@
 
 {#each feedsSorted as feed}
 <form>
-  <fieldset>
-    <legend><a href={feed.url}>{feed.url}</a></legend>
+  <details>
+    <summary><a href={feed.url}>{feed.url}</a></summary>
 
     {#each feed.contents as content}
     <div class="content">
@@ -41,6 +42,6 @@
       <p class="date">{content.date.format("YYYY/MM/DD HH:mm")}</p>
     </div>
     {/each}
-  </fieldset>
+  </details>
 </form>
 {/each}
