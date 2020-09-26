@@ -28,13 +28,13 @@ https://qiita.com/shimotaroo/items/b73d896ace10894fd290
 【不安解消】未経験がGitHubでissue管理をしたら、モチベUPした話。  
 https://qiita.com/yamken/items/a9db6b07142ca8bfd19e?utm_source=Qiita%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%B9&utm_campaign=ef853059dc-Qiita_newsletter_428_09_16_2020&utm_medium=email&utm_term=0_e44feaa081-ef853059dc-33301173
 
-①ブランチを切って作業開始
+1. ブランチを切って作業開始
 
 ```
 git checkout -b [ブランチ名]#[issue番号]
 ```
 
-②commit作成
+1. commit作成
 
   git add .
   git commit -m "[コミットメッセージ #issue番号]"
