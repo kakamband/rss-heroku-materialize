@@ -24,43 +24,49 @@ https://qiita.com/tobita0000/items/0f9d0067398efdc2931e
 https://qiita.com/shimotaroo/items/b73d896ace10894fd290
 
 ## issue管理
-### 参考
-【不安解消】未経験がGitHubでissue管理をしたら、モチベUPした話。  
+### 参考 - 【不安解消】未経験がGitHubでissue管理をしたら、モチベUPした話。  
 https://qiita.com/yamken/items/a9db6b07142ca8bfd19e?utm_source=Qiita%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%B9&utm_campaign=ef853059dc-Qiita_newsletter_428_09_16_2020&utm_medium=email&utm_term=0_e44feaa081-ef853059dc-33301173
 
-1. ブランチを切って作業開始
+### ブランチを切って作業開始
 
 ```
 git checkout -b [ブランチ名]#[issue番号]
 ```
 
-1. commit作成
+### commit作成
 
-  git add .
-  git commit -m "[コミットメッセージ #issue番号]"
+```
+git add .
+git commit -m "[コミットメッセージ #issue番号]"
+```
   
-  ※コミットメッセージと#issue番号の間にはスペースが必要。
-    スペースを入れないとcommitとissueが紐付かない。
+* コミットメッセージと#issue番号の間にはスペースが必要。スペースを入れないとcommitとissueが紐付かない。
 
-③作業終了したらpush
-  git push origin [ブランチ名]#[issue番号]
+### 作業終了したらリモート（GitHub）へpush
 
-④プルリク作成（GitHubで作業）
+```
+git push origin [ブランチ名]#[issue番号]
+```
+
+### プルリク作成（GitHubで作業）
   ④-1 Codeタブに「Compare & pull request」ボタンが表示されてるので押す。
   ④-2 コメントを記入
   ④-3 「Create pull request」ボタンを押す。
   
-⑤プルリクのマージ（GitHubで作業）
+### プルリクのマージ（GitHubで作業）
   ⑤-1 Pull requestsタブにプルリクができているので選択する。
   ⑤-2 conflictsがあれば解消する。
   ⑤-3 conflictsが無くなれば「Merage pull request」ボタンが表示されるので押す。
   ⑤-4 「Confirm merge」ボタンを押す。
   
-⑥masterにpull
-  git checkout master
-  git pull
+### リモート（GitHub）からmasterへpull
 
+```
+git checkout master
+git pull
+```
 
+---
 
 *Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
 
