@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { getFeed } from "../api/rssFeedProxy.ts";
+  import type { Icontent, Ifeed } from "../common/Feed";
   import FeedList from "./FeedList.svelte";
 
 	export let name: string;
@@ -15,7 +16,7 @@
     "",
   ];
 
-  let feeds = [];
+  let feeds: Ifeed[] = [];
 
   onMount(async () => {
     const promises = rssUrls.map((rssUrl) => getFeed(rssUrl));
