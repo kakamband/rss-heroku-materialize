@@ -1,37 +1,41 @@
-■Svelte  
+# Svelte  
 Svelte + TypeScript + SCSS やってみる  
 https://neos21.hatenablog.com/entry/2020/09/07/080000
 
-■サーバサイド  
-Express Node.js のための高速で、革新的な、最小限のWebフレームワーク  
+# サーバサイド  
+## Express Node.js のための高速で、革新的な、最小限のWebフレームワーク  
 https://expressjs.com/ja/
 
-express.jsのcors対応  
+## express.jsのcors対応  
 https://qiita.com/chenglin/items/5e563e50d1c32dadf4c3
 
-なんとなく CORS がわかる...はもう終わりにする。  
+## なんとなく CORS がわかる...はもう終わりにする。  
 https://qiita.com/att55/items/2154a8aad8bf1409db2b
 
-Node.jsでrss-parserを使って更新情報を取得する  
+## Node.jsでrss-parserを使って更新情報を取得する  
 https://qrunch.net/@okayu/entries/djiX8JcQ4WCosbw4
 
-■日時処理  
-Day.jsでよく使う機能の覚書  
+# 日時処理  
+## Day.jsでよく使う機能の覚書  
 https://qiita.com/tobita0000/items/0f9d0067398efdc2931e
 
-■Git  
-Gitでやりたいこと、ここで見つかる  
+# Git  
+## Gitでやりたいこと、ここで見つかる  
 https://qiita.com/shimotaroo/items/b73d896ace10894fd290
 
-■issue管理
-参考
+## issue管理
+### 参考
 【不安解消】未経験がGitHubでissue管理をしたら、モチベUPした話。  
 https://qiita.com/yamken/items/a9db6b07142ca8bfd19e?utm_source=Qiita%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%B9&utm_campaign=ef853059dc-Qiita_newsletter_428_09_16_2020&utm_medium=email&utm_term=0_e44feaa081-ef853059dc-33301173
 
 ①ブランチを切って作業開始
-  git checkout -b [ブランチ名]#[issue番号]
+
+```
+git checkout -b [ブランチ名]#[issue番号]
+```
 
 ②commit作成
+
   git add .
   git commit -m "[コミットメッセージ #issue番号]"
   
@@ -46,9 +50,17 @@ https://qiita.com/yamken/items/a9db6b07142ca8bfd19e?utm_source=Qiita%E3%83%8B%E3
   ④-2 コメントを記入
   ④-3 「Create pull request」ボタンを押す。
   
-⑤masterにpull
-  git checkout -b master
+⑤プルリクのマージ（GitHubで作業）
+  ⑤-1 Pull requestsタブにプルリクができているので選択する。
+  ⑤-2 conflictsがあれば解消する。
+  ⑤-3 conflictsが無くなれば「Merage pull request」ボタンが表示されるので押す。
+  ⑤-4 「Confirm merge」ボタンを押す。
+  
+⑥masterにpull
+  git checkout master
   git pull
+
+
 
 *Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
 
