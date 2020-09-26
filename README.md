@@ -40,7 +40,7 @@ git add .
 git commit -m "[コミットメッセージ #issue番号]"
 ```
   
-* コミットメッセージと#issue番号の間にはスペースが必要。スペースを入れないとcommitとissueが紐付かない。
+*コミットメッセージと#issue番号の間にはスペースが必要。スペースを入れないとcommitとissueが紐付かない。
 
 ### 作業終了したらリモート（GitHub）へpush
 
@@ -49,9 +49,10 @@ git push origin [ブランチ名]#[issue番号]
 ```
 
 ### プルリク作成（GitHubで作業）
-  ④-1 Codeタブに「Compare & pull request」ボタンが表示されてるので押す。
-  ④-2 コメントを記入
-  ④-3 「Create pull request」ボタンを押す。
+
+1. Codeタブに「Compare & pull request」ボタンが表示されてるので押す。
+1. コメントを記入
+1. 「Create pull request」ボタンを押す。
   
 ### プルリクのマージ（GitHubで作業）
   ⑤-1 Pull requestsタブにプルリクができているので選択する。
