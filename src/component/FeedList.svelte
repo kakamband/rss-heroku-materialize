@@ -1,8 +1,10 @@
 <script lang="ts">
-  export let feeds = [];
+  import type { Icontent, Ifeed } from "../common/Feed";
+  export let feeds: Ifeed[] = [];
 
-  const sortFeed = (feed) => {
-    const contensSorted = feed.contents.sort((a, b) => {
+  const sortFeed = (feed): Ifeed => {
+
+    const contensSorted: Icontent[] = feed.contents.sort((a, b) => {
       if (a.date.isBefore(b.date)) return 1;
       if (b.date.isBefore(a.date)) return -1;
       return 0;
