@@ -21,18 +21,18 @@
 
   let feeds: Ifeed[] = [];
 
-  onMount(async () => {
+  const getFeeds = async () => {
     const promises = feedUrls.map((rssUrl) => getFeed(rssUrl));
     feeds = await Promise.all(promises);
     console.log(feeds);
+  };
+
+  onMount(() => {
+    getFeeds();
   });
 
-  const onExec = async (e) => {
-		console.log(e.detail.text);
-
-    const promises = feedUrls.map((rssUrl) => getFeed(rssUrl));
-    feeds = await Promise.all(promises);
-    console.log(feeds);
+  const onExec = (e) => {
+    getFeeds();
   };
 </script>
 
