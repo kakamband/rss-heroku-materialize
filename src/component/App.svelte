@@ -33,9 +33,6 @@
 
   const onExec = (e) => {
     switch (e.detail.payload) {
-      case "add":
-        feedUrls = [...feedUrls, ""];
-        break;
       case "confirm":
         getFeeds();
         break;
