@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, afterUpdate } from "svelte";
 
   import { getFeed } from "../api/rssFeedProxy.ts";
   import type { Icontent, Ifeed } from "../common/Feed";
@@ -26,6 +26,14 @@
     feeds = await Promise.all(promises);
     console.log(feeds);
   });
+
+  const onExec = async (e) => {
+		console.log(e.detail.text);
+
+    const promises = feedUrls.map((rssUrl) => getFeed(rssUrl));
+    feeds = await Promise.all(promises);
+    console.log(feeds);
+  };
 </script>
 
 <svelte:head>
@@ -43,8 +51,8 @@
 	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 
-  <FeedInfo bind:feedUrls={feedUrls} />
-  <FeedList bind:feeds={feeds} />
+  <FeedInfo bind:feedUrls={feedUrls} on:exec={onExec} />
+  <FeedList feeds={feeds} />
 </main>
 
 <style>
