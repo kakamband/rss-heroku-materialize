@@ -32,7 +32,16 @@
   });
 
   const onExec = (e) => {
-    getFeeds();
+    switch (e.detail.payload) {
+      case "add":
+        feedUrls = [...feedUrls, ""];
+        break;
+      case "confirm":
+        getFeeds();
+        break;
+      default:
+        break;
+    }
   };
 </script>
 
