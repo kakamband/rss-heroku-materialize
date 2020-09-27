@@ -23,6 +23,10 @@
     align-items: center;
   }
 
+  .content-item {
+    margin-right: 1em;
+  }
+
   .title {
     overflow-wrap: break-word;
     text-align: justify;
@@ -35,15 +39,20 @@
 
 {#each feedsSorted as feed}
 <form>
+  {#if feed.ok}
   <details>
     <summary><a href={feed.url}>{feed.url}</a></summary>
 
     {#each feed.contents as content}
     <div class="content">
-      <p class="title"><a href={content.link}>{content.title}</a></p>
+      <p class="content-item title"><a href={content.link}>{content.title}</a></p>
       <p class="date">{content.date.format("YYYY/MM/DD HH:mm")}</p>
     </div>
     {/each}
   </details>
+
+  {:else}
+  <p><a href={feed.url}>{feed.url}</a>&nbsp;[{feed.status}]{feed.statusText}</p>
+  {/if}
 </form>
 {/each}
