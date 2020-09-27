@@ -22,10 +22,12 @@
     justify-content: space-between;
     align-items: center;
   }
+
   .title {
     overflow-wrap: break-word;
     text-align: justify;
   }
+  
   .date {
     white-space: nowrap;
   }
