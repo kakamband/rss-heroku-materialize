@@ -23,7 +23,9 @@
 
   const getFeeds = async () => {
     const promises = feedUrls.map((rssUrl) => getFeed(rssUrl));
-    feeds = await Promise.all(promises);
+    feeds = await Promise.all(promises).catch((e) => {
+      console.log("エラー", e);
+    });
     console.log(feeds);
   };
 

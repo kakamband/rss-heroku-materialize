@@ -41,7 +41,14 @@
 <form>
   {#if feed.ok}
   <details>
-    <summary><a href={feed.url}>{feed.url}</a></summary>
+    <summary>{feed.title}</summary>
+
+    <a href={feed.link}>ホームページ</a>
+    <a href={feed.url}>フィードのリンク</a>
+
+    {#if feed.description}
+    <p>{feed.description}</p>
+    {/if}
 
     {#each feed.contents as content}
     <div class="content">
