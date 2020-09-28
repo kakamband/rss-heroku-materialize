@@ -10,20 +10,33 @@ export const getFeed = async (rssUrl: string): Promise<Ifeed> => {
 
   const response = await fetch(input);
 
-  let contents: Icontent[] = (response.ok)? await response.json() : [];
-  contents = contents.map((content) => ({
-    ...content,
-    date: dayjs(content.isoDate),
-  }));
-
-  const urlParse = new URL(response.url);
-  const resRssurl = urlParse.searchParams.get("url");
-
-  return { 
+  const feed: Ifeed =  { 
     ok: response.ok,
     status: response.status,
     statusText: response.statusText,
-    url: resRssurl,
-    contents,
+    url: "",
+
+    title: "",
+    description: "",
+    link: "",
+    contents: [],
   };
+
+  const urlParse = new URL(response.url);
+  feed.url = urlParse.searchParams.get("url");
+
+  if (!response.ok) return feed;
+  const result = await response.json();
+
+  feed.title = result.title;
+  feed.description = result.description;
+  feed.link = result.link;
+
+  const contents: Icontent[] = result.contents.map((content: Icontent) => ({
+    ...content,
+    date: dayjs(content.isoDate),
+  }));
+  feed.contents = contents;
+
+  return feed;
 };

@@ -12,5 +12,9 @@ export interface Ifeed {
   status: number
   statusText: string;
   url: string;
+
+  title: string,
+  description: string,
+  link: string,
   contents: Icontent[];
 }
