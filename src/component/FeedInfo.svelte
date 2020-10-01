@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import { getFeed } from "../api/rssFeedProxy.ts";
 
   const dispatch = createEventDispatcher();
   export let feedUrls: string[] = [];
