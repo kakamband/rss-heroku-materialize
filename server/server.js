@@ -22,6 +22,8 @@ const getFeed = async (url) => {
   };
 };
 
+app.get("/", (req, res) => res.render("index.html"));
+
 app.get("/rss-feed", async (req, res) => {
 
   let feed = {};
