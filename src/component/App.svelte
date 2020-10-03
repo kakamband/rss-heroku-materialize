@@ -1,9 +1,7 @@
 <script lang="ts">
-  import { onMount, afterUpdate } from "svelte";
-
-  import { getFeed } from "../api/rssFeedProxy.ts";
+  import { onMount } from "svelte";
+  import { getFeeds } from "../api/rssFeedProxy.ts";
   import type { Icontent, Ifeed } from "../common/Feed";
-
   import FeedInfo from "./FeedInfo.svelte";
   import FeedList from "./FeedList.svelte";
 
@@ -21,22 +19,14 @@
 
   let feeds: Ifeed[] = [];
 
-  const getFeeds = async () => {
-    const promises = feedUrls.map((rssUrl) => getFeed(rssUrl));
-    feeds = await Promise.all(promises).catch((e) => {
-      console.log("エラー", e);
-    });
-    console.log(feeds);
-  };
-
-  onMount(() => {
-    getFeeds();
+  onMount(async () => {
+    feeds = await getFeeds(feedUrls);
   });
 
-  const onExec = (e) => {
+  const onExec = async (e) => {
     switch (e.detail.payload) {
       case "confirm":
-        getFeeds();
+        feeds = await getFeeds(feedUrls);
         break;
       default:
         break;
@@ -45,7 +35,7 @@
 </script>
 
 <svelte:head>
-	<link rel="stylesheet" href="https://unpkg.com/mvp.css">
+	<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css">
 <!-- 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css">
 	<link rel="stylesheet" href="https://newcss.net/new.min.css">

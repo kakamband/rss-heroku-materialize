@@ -1,14 +1,19 @@
 import dayjs from "dayjs";
 import type { Icontent, Ifeed } from "../common/Feed";
 
-export const getFeed = async (rssUrl: string): Promise<Ifeed> => {
-  
-  const url = "https://8080-cs-994772306133-default.asia-east1.cloudshell.dev/rss-feed/";
-  const query = `?url=${rssUrl}`;
+const api = async (url: string, query: string): Promise<Response> => {
   const inputRow = `${url}${query}`;
   const input = encodeURI(inputRow);
-
   const response = await fetch(input);
+  return response;
+};
+
+const getFeed = async (rssUrl: string): Promise<Ifeed> => {
+
+  const response: Response = await api(
+    "https://8080-cs-994772306133-default.asia-east1.cloudshell.dev/rss-feed/",
+    `?url=${rssUrl}`,
+  );
 
   const feed: Ifeed =  { 
     ok: response.ok,
@@ -39,4 +44,10 @@ export const getFeed = async (rssUrl: string): Promise<Ifeed> => {
   feed.contents = contents;
 
   return feed;
+};
+
+export const getFeeds = async (feedUrls: string[]): Promise<Ifeed[]> => {
+  const promises = feedUrls.map((feedUrl) => getFeed(feedUrl));
+  const feeds = await Promise.all(promises);
+  return feeds;
 };
