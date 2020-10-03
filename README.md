@@ -2,6 +2,10 @@
 
 [Svelte + TypeScript + SCSS やってみる](https://neos21.hatenablog.com/entry/2020/09/07/080000)
 
+# Heroku
+
+[Heroku スターターガイド (Node.js)](https://devcenter.heroku.com/ja/articles/getting-started-with-nodejs)
+
 # サーバサイド
 
 [Express Node.js のための高速で、革新的な、最小限のWebフレームワーク](https://expressjs.com/ja/)

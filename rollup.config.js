@@ -22,7 +22,7 @@ function serve() {
 			// 	stdio: ['ignore', 'inherit', 'inherit'],
 			// 	shell: true
 			// });
-			server = require('child_process').spawn('yarn', ['server'], {
+			server = require('child_process').spawn('yarn', ['local-server'], {
 				stdio: ['ignore', 'inherit', 'inherit'],
 				shell: true
 			});

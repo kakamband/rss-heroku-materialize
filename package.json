@@ -1,13 +1,17 @@
 {
   "name": "svelte-app",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
+    "start": "node server/server.js",
     "build": "rollup -c",
-    "dev": "rollup -c -w &",
-    "start": "sirv public --cors",
     "validate": "svelte-check",
-    "server": "node server/server.js &",
-    "stop": "killall -9 node npm"
+    "dev": "rollup -c -w &",
+    "local-server": "../node_modules/.bin/heroku local web &",
+    "stop-dev": "killall -9 npm node",
+    "heroku": "../node_modules/.bin/heroku"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
@@ -25,10 +29,8 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
-    "cors": "^2.8.5",
     "dayjs": "^1.8.36",
     "express": "^4.17.1",
-    "rss-parser": "^3.9.0",
-    "sirv-cli": "^1.0.0"
+    "rss-parser": "^3.9.0"
   }
 }
