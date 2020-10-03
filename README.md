@@ -2,6 +2,10 @@
 
 [Svelte + TypeScript + SCSS やってみる](https://neos21.hatenablog.com/entry/2020/09/07/080000)
 
+# TypeScript
+
+[Intro to the TSConfig Reference](https://www.typescriptlang.org/ja/tsconfig)
+
 # Heroku
 
 [Heroku スターターガイド (Node.js)](https://devcenter.heroku.com/ja/articles/getting-started-with-nodejs)
@@ -15,6 +19,8 @@
 [なんとなく CORS がわかる...はもう終わりにする。](https://qiita.com/att55/items/2154a8aad8bf1409db2b)
 
 [Node.jsでrss-parserを使って更新情報を取得する](https://qrunch.net/@okayu/entries/djiX8JcQ4WCosbw4)
+
+[WindowOrWorkerGlobalScope.fetch()](https://developer.mozilla.org/ja/docs/Web/API/WindowOrWorkerGlobalScope/fetch)
 
 # 日時処理
 
