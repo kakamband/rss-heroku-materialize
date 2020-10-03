@@ -1460,15 +1460,15 @@ var app = (function () {
     			t9 = space();
     			create_component(feedlist.$$.fragment);
     			attr_dev(link, "rel", "stylesheet");
-    			attr_dev(link, "href", "https://unpkg.com/mvp.css");
+    			attr_dev(link, "href", "https://unpkg.com/sakura.css/css/sakura.css");
     			add_location(link, file$2, 40, 1, 1489);
     			attr_dev(h1, "class", "svelte-1tky8bj");
-    			add_location(h1, file$2, 51, 1, 1951);
+    			add_location(h1, file$2, 51, 1, 1969);
     			attr_dev(a, "href", "https://svelte.dev/tutorial");
-    			add_location(a, file$2, 52, 14, 1988);
-    			add_location(p, file$2, 52, 1, 1975);
+    			add_location(a, file$2, 52, 14, 2006);
+    			add_location(p, file$2, 52, 1, 1993);
     			attr_dev(main, "class", "svelte-1tky8bj");
-    			add_location(main, file$2, 50, 0, 1943);
+    			add_location(main, file$2, 50, 0, 1961);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
