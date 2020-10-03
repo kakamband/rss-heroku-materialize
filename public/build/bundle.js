@@ -89,9 +89,6 @@ var app = (function () {
     function onMount(fn) {
         get_current_component().$$.on_mount.push(fn);
     }
-    function afterUpdate(fn) {
-        get_current_component().$$.after_update.push(fn);
-    }
     function createEventDispatcher() {
         const component = get_current_component();
         return (type, detail) => {
@@ -428,12 +425,14 @@ var app = (function () {
     !function(t,e){module.exports=e();}(commonjsGlobal,function(){var t="millisecond",e="second",n="minute",r="hour",i="day",s="week",u="month",a="quarter",o="year",f="date",h=/^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d+)?$/,c=/\[([^\]]+)]|Y{2,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,d=function(t,e,n){var r=String(t);return !r||r.length>=e?t:""+Array(e+1-r.length).join(n)+t},$={s:d,z:function(t){var e=-t.utcOffset(),n=Math.abs(e),r=Math.floor(n/60),i=n%60;return (e<=0?"+":"-")+d(r,2,"0")+":"+d(i,2,"0")},m:function t(e,n){if(e.date()<n.date())return -t(n,e);var r=12*(n.year()-e.year())+(n.month()-e.month()),i=e.clone().add(r,u),s=n-i<0,a=e.clone().add(r+(s?-1:1),u);return +(-(r+(n-i)/(s?i-a:a-i))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(h){return {M:u,y:o,w:s,d:i,D:f,h:r,m:n,s:e,ms:t,Q:a}[h]||String(h||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},l={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},y="en",M={};M[y]=l;var m=function(t){return t instanceof S},D=function(t,e,n){var r;if(!t)return y;if("string"==typeof t)M[t]&&(r=t),e&&(M[t]=e,r=t);else {var i=t.name;M[i]=t,r=i;}return !n&&r&&(y=r),r||!n&&y},v=function(t,e){if(m(t))return t.clone();var n="object"==typeof e?e:{};return n.date=t,n.args=arguments,new S(n)},g=$;g.l=D,g.i=m,g.w=function(t,e){return v(t,{locale:e.$L,utc:e.$u,$offset:e.$offset})};var S=function(){function d(t){this.$L=this.$L||D(t.locale,null,!0),this.parse(t);}var $=d.prototype;return $.parse=function(t){this.$d=function(t){var e=t.date,n=t.utc;if(null===e)return new Date(NaN);if(g.u(e))return new Date;if(e instanceof Date)return new Date(e);if("string"==typeof e&&!/Z$/i.test(e)){var r=e.match(h);if(r){var i=r[2]-1||0,s=(r[7]||"0").substring(0,3);return n?new Date(Date.UTC(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)):new Date(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)}}return new Date(e)}(t),this.init();},$.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds();},$.$utils=function(){return g},$.isValid=function(){return !("Invalid Date"===this.$d.toString())},$.isSame=function(t,e){var n=v(t);return this.startOf(e)<=n&&n<=this.endOf(e)},$.isAfter=function(t,e){return v(t)<this.startOf(e)},$.isBefore=function(t,e){return this.endOf(e)<v(t)},$.$g=function(t,e,n){return g.u(t)?this[e]:this.set(n,t)},$.unix=function(){return Math.floor(this.valueOf()/1e3)},$.valueOf=function(){return this.$d.getTime()},$.startOf=function(t,a){var h=this,c=!!g.u(a)||a,d=g.p(t),$=function(t,e){var n=g.w(h.$u?Date.UTC(h.$y,e,t):new Date(h.$y,e,t),h);return c?n:n.endOf(i)},l=function(t,e){return g.w(h.toDate()[t].apply(h.toDate("s"),(c?[0,0,0,0]:[23,59,59,999]).slice(e)),h)},y=this.$W,M=this.$M,m=this.$D,D="set"+(this.$u?"UTC":"");switch(d){case o:return c?$(1,0):$(31,11);case u:return c?$(1,M):$(0,M+1);case s:var v=this.$locale().weekStart||0,S=(y<v?y+7:y)-v;return $(c?m-S:m+(6-S),M);case i:case f:return l(D+"Hours",0);case r:return l(D+"Minutes",1);case n:return l(D+"Seconds",2);case e:return l(D+"Milliseconds",3);default:return this.clone()}},$.endOf=function(t){return this.startOf(t,!1)},$.$set=function(s,a){var h,c=g.p(s),d="set"+(this.$u?"UTC":""),$=(h={},h[i]=d+"Date",h[f]=d+"Date",h[u]=d+"Month",h[o]=d+"FullYear",h[r]=d+"Hours",h[n]=d+"Minutes",h[e]=d+"Seconds",h[t]=d+"Milliseconds",h)[c],l=c===i?this.$D+(a-this.$W):a;if(c===u||c===o){var y=this.clone().set(f,1);y.$d[$](l),y.init(),this.$d=y.set(f,Math.min(this.$D,y.daysInMonth())).$d;}else $&&this.$d[$](l);return this.init(),this},$.set=function(t,e){return this.clone().$set(t,e)},$.get=function(t){return this[g.p(t)]()},$.add=function(t,a){var f,h=this;t=Number(t);var c=g.p(a),d=function(e){var n=v(h);return g.w(n.date(n.date()+Math.round(e*t)),h)};if(c===u)return this.set(u,this.$M+t);if(c===o)return this.set(o,this.$y+t);if(c===i)return d(1);if(c===s)return d(7);var $=(f={},f[n]=6e4,f[r]=36e5,f[e]=1e3,f)[c]||1,l=this.$d.getTime()+t*$;return g.w(l,this)},$.subtract=function(t,e){return this.add(-1*t,e)},$.format=function(t){var e=this;if(!this.isValid())return "Invalid Date";var n=t||"YYYY-MM-DDTHH:mm:ssZ",r=g.z(this),i=this.$locale(),s=this.$H,u=this.$m,a=this.$M,o=i.weekdays,f=i.months,h=function(t,r,i,s){return t&&(t[r]||t(e,n))||i[r].substr(0,s)},d=function(t){return g.s(s%12||12,t,"0")},$=i.meridiem||function(t,e,n){var r=t<12?"AM":"PM";return n?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:a+1,MM:g.s(a+1,2,"0"),MMM:h(i.monthsShort,a,f,3),MMMM:h(f,a),D:this.$D,DD:g.s(this.$D,2,"0"),d:String(this.$W),dd:h(i.weekdaysMin,this.$W,o,2),ddd:h(i.weekdaysShort,this.$W,o,3),dddd:o[this.$W],H:String(s),HH:g.s(s,2,"0"),h:d(1),hh:d(2),a:$(s,u,!0),A:$(s,u,!1),m:String(u),mm:g.s(u,2,"0"),s:String(this.$s),ss:g.s(this.$s,2,"0"),SSS:g.s(this.$ms,3,"0"),Z:r};return n.replace(c,function(t,e){return e||l[t]||r.replace(":","")})},$.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},$.diff=function(t,f,h){var c,d=g.p(f),$=v(t),l=6e4*($.utcOffset()-this.utcOffset()),y=this-$,M=g.m(this,$);return M=(c={},c[o]=M/12,c[u]=M,c[a]=M/3,c[s]=(y-l)/6048e5,c[i]=(y-l)/864e5,c[r]=y/36e5,c[n]=y/6e4,c[e]=y/1e3,c)[d]||y,h?M:g.a(M)},$.daysInMonth=function(){return this.endOf(u).$D},$.$locale=function(){return M[this.$L]},$.locale=function(t,e){if(!t)return this.$L;var n=this.clone(),r=D(t,e,!0);return r&&(n.$L=r),n},$.clone=function(){return g.w(this.$d,this)},$.toDate=function(){return new Date(this.valueOf())},$.toJSON=function(){return this.isValid()?this.toISOString():null},$.toISOString=function(){return this.$d.toISOString()},$.toString=function(){return this.$d.toUTCString()},d}(),p=S.prototype;return v.prototype=p,[["$ms",t],["$s",e],["$m",n],["$H",r],["$W",i],["$M",u],["$y",o],["$D",f]].forEach(function(t){p[t[1]]=function(e){return this.$g(e,t[0],t[1])};}),v.extend=function(t,e){return t(e,S,v),v},v.locale=D,v.isDayjs=m,v.unix=function(t){return v(1e3*t)},v.en=M[y],v.Ls=M,v});
     });
 
-    const getFeed = async (rssUrl) => {
-        const url = "https://8080-cs-994772306133-default.asia-east1.cloudshell.dev/rss-feed/";
-        const query = `?url=${rssUrl}`;
+    const api = async (url, query) => {
         const inputRow = `${url}${query}`;
         const input = encodeURI(inputRow);
         const response = await fetch(input);
+        return response;
+    };
+    const getFeed = async (rssUrl) => {
+        const response = await api("https://8080-cs-994772306133-default.asia-east1.cloudshell.dev/rss-feed/", `?url=${rssUrl}`);
         const feed = {
             ok: response.ok,
             status: response.status,
@@ -456,61 +455,137 @@ var app = (function () {
         feed.contents = contents;
         return feed;
     };
+    const getFeeds = async (feedUrls) => {
+        const promises = feedUrls.map((feedUrl) => getFeed(feedUrl));
+        const feeds = await Promise.all(promises);
+        return feeds;
+    };
 
     /* src/component/FeedInfo.svelte generated by Svelte v3.25.1 */
     const file = "src/component/FeedInfo.svelte";
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[6] = list[i];
-    	child_ctx[7] = list;
-    	child_ctx[8] = i;
+    	child_ctx[10] = list[i];
+    	child_ctx[11] = list;
+    	child_ctx[12] = i;
     	return child_ctx;
     }
 
-    // (36:2) {#each feedUrls as feedUrl, i}
+    // (69:4) {:else}
+    function create_else_block(ctx) {
+    	let span;
+
+    	const block = {
+    		c: function create() {
+    			span = element("span");
+    			span.textContent = "×";
+    			add_location(span, file, 69, 4, 2155);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, span, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(span);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block.name,
+    		type: "else",
+    		source: "(69:4) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (67:4) {#if valids[i]}
+    function create_if_block(ctx) {
+    	let span;
+
+    	const block = {
+    		c: function create() {
+    			span = element("span");
+    			span.textContent = "○";
+    			add_location(span, file, 67, 4, 2124);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, span, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(span);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(67:4) {#if valids[i]}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (63:2) {#each feedUrls as feedUrl, i}
     function create_each_block(ctx) {
     	let div;
     	let input0;
     	let input0_name_value;
-    	let t;
+    	let t0;
+    	let t1;
     	let input1;
     	let input1_name_value;
     	let mounted;
     	let dispose;
 
     	function input0_input_handler() {
-    		/*input0_input_handler*/ ctx[4].call(input0, /*each_value*/ ctx[7], /*i*/ ctx[8]);
+    		/*input0_input_handler*/ ctx[5].call(input0, /*each_value*/ ctx[11], /*i*/ ctx[12]);
     	}
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*valids*/ ctx[1][/*i*/ ctx[12]]) return create_if_block;
+    		return create_else_block;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
 
     	const block = {
     		c: function create() {
     			div = element("div");
     			input0 = element("input");
-    			t = space();
+    			t0 = space();
+    			if_block.c();
+    			t1 = space();
     			input1 = element("input");
     			attr_dev(input0, "type", "url");
-    			attr_dev(input0, "name", input0_name_value = /*i*/ ctx[8]);
+    			attr_dev(input0, "name", input0_name_value = /*i*/ ctx[12]);
     			input0.required = true;
-    			add_location(input0, file, 37, 4, 790);
+    			add_location(input0, file, 64, 4, 2041);
     			attr_dev(input1, "type", "button");
-    			attr_dev(input1, "name", input1_name_value = /*i*/ ctx[8]);
+    			attr_dev(input1, "name", input1_name_value = /*i*/ ctx[12]);
     			input1.value = "削除";
-    			add_location(input1, file, 38, 4, 852);
+    			add_location(input1, file, 72, 4, 2189);
     			attr_dev(div, "class", "feed-url svelte-sqtt3s");
-    			add_location(div, file, 36, 2, 763);
+    			add_location(div, file, 63, 2, 2014);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			append_dev(div, input0);
-    			set_input_value(input0, /*feedUrl*/ ctx[6]);
-    			append_dev(div, t);
+    			set_input_value(input0, /*feedUrl*/ ctx[10]);
+    			append_dev(div, t0);
+    			if_block.m(div, null);
+    			append_dev(div, t1);
     			append_dev(div, input1);
 
     			if (!mounted) {
     				dispose = [
     					listen_dev(input0, "input", input0_input_handler),
-    					listen_dev(input1, "click", /*remove*/ ctx[2], false, false, false)
+    					listen_dev(input1, "click", /*remove*/ ctx[3], false, false, false)
     				];
 
     				mounted = true;
@@ -520,11 +595,22 @@ var app = (function () {
     			ctx = new_ctx;
 
     			if (dirty & /*feedUrls*/ 1) {
-    				set_input_value(input0, /*feedUrl*/ ctx[6]);
+    				set_input_value(input0, /*feedUrl*/ ctx[10]);
+    			}
+
+    			if (current_block_type !== (current_block_type = select_block_type(ctx))) {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div, t1);
+    				}
     			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
+    			if_block.d();
     			mounted = false;
     			run_all(dispose);
     		}
@@ -534,7 +620,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(36:2) {#each feedUrls as feedUrl, i}",
+    		source: "(63:2) {#each feedUrls as feedUrl, i}",
     		ctx
     	});
 
@@ -574,14 +660,14 @@ var app = (function () {
     			attr_dev(input0, "type", "button");
     			attr_dev(input0, "class", "nav-item svelte-sqtt3s");
     			input0.value = "追加";
-    			add_location(input0, file, 43, 4, 956);
+    			add_location(input0, file, 77, 4, 2293);
     			attr_dev(input1, "type", "button");
     			attr_dev(input1, "class", "nav-item svelte-sqtt3s");
     			input1.value = "確定";
-    			add_location(input1, file, 44, 4, 1025);
+    			add_location(input1, file, 78, 4, 2362);
     			attr_dev(div, "class", "nav svelte-sqtt3s");
-    			add_location(div, file, 42, 2, 934);
-    			add_location(form, file, 34, 0, 721);
+    			add_location(div, file, 76, 2, 2271);
+    			add_location(form, file, 61, 0, 1972);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -601,15 +687,15 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input0, "click", /*add*/ ctx[1], false, false, false),
-    					listen_dev(input1, "click", /*confirm*/ ctx[3], false, false, false)
+    					listen_dev(input0, "click", /*add*/ ctx[2], false, false, false),
+    					listen_dev(input1, "click", /*confirm*/ ctx[4], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*remove, feedUrls*/ 5) {
+    			if (dirty & /*remove, valids, feedUrls*/ 11) {
     				each_value = /*feedUrls*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
@@ -657,8 +743,47 @@ var app = (function () {
     function instance($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("FeedInfo", slots, []);
-    	const dispatch = createEventDispatcher();
+
+    	var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+    		function adopt(value) {
+    			return value instanceof P
+    			? value
+    			: new P(function (resolve) {
+    						resolve(value);
+    					});
+    		}
+
+    		return new (P || (P = Promise))(function (resolve, reject) {
+    				function fulfilled(value) {
+    					try {
+    						step(generator.next(value));
+    					} catch(e) {
+    						reject(e);
+    					}
+    				}
+
+    				function rejected(value) {
+    					try {
+    						step(generator["throw"](value));
+    					} catch(e) {
+    						reject(e);
+    					}
+    				}
+
+    				function step(result) {
+    					result.done
+    					? resolve(result.value)
+    					: adopt(result.value).then(fulfilled, rejected);
+    				}
+
+    				step((generator = generator.apply(thisArg, _arguments || [])).next());
+    			});
+    	};
+
+    	
     	let { feedUrls = [] } = $$props;
+    	let valids = feedUrls.map(() => true);
+    	const dispatch = createEventDispatcher();
 
     	const add = () => {
     		$$invalidate(0, feedUrls = [...feedUrls, ""]);
@@ -669,9 +794,28 @@ var app = (function () {
     		$$invalidate(0, feedUrls = feedUrls.filter((_, index) => index !== removeIndex));
     	};
 
-    	const confirm = () => {
-    		dispatch("exec", { payload: "confirm" });
+    	const checkValidation = feedUrls => __awaiter(void 0, void 0, void 0, function* () {
+    		const feeds = yield getFeeds(feedUrls);
+    		$$invalidate(1, valids = feeds.map(feed => feed.ok));
+    	});
+
+    	const isAllValid = () => {
+    		return !valids.includes(false);
     	};
+
+    	const confirm = () => __awaiter(void 0, void 0, void 0, function* () {
+    		yield checkValidation(feedUrls);
+
+    		if (isAllValid()) {
+    			dispatch("exec", { payload: "confirm" });
+    		} else {
+    			alert("不適切なURLがあります。");
+    		}
+    	});
+
+    	onMount(() => __awaiter(void 0, void 0, void 0, function* () {
+    		yield checkValidation(feedUrls);
+    	}));
 
     	const writable_props = ["feedUrls"];
 
@@ -689,24 +833,31 @@ var app = (function () {
     	};
 
     	$$self.$capture_state = () => ({
+    		__awaiter,
+    		onMount,
     		createEventDispatcher,
-    		getFeed,
-    		dispatch,
+    		getFeeds,
     		feedUrls,
+    		valids,
+    		dispatch,
     		add,
     		remove,
+    		checkValidation,
+    		isAllValid,
     		confirm
     	});
 
     	$$self.$inject_state = $$props => {
+    		if ("__awaiter" in $$props) __awaiter = $$props.__awaiter;
     		if ("feedUrls" in $$props) $$invalidate(0, feedUrls = $$props.feedUrls);
+    		if ("valids" in $$props) $$invalidate(1, valids = $$props.valids);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [feedUrls, add, remove, confirm, input0_input_handler];
+    	return [feedUrls, valids, add, remove, confirm, input0_input_handler];
     }
 
     class FeedInfo extends SvelteComponentDev {
@@ -749,7 +900,7 @@ var app = (function () {
     }
 
     // (58:2) {:else}
-    function create_else_block(ctx) {
+    function create_else_block$1(ctx) {
     	let p;
     	let a;
     	let t0_value = /*feed*/ ctx[3].url + "";
@@ -801,7 +952,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block.name,
+    		id: create_else_block$1.name,
     		type: "else",
     		source: "(58:2) {:else}",
     		ctx
@@ -811,7 +962,7 @@ var app = (function () {
     }
 
     // (39:2) {#if feed.ok}
-    function create_if_block(ctx) {
+    function create_if_block$1(ctx) {
     	let details;
     	let summary;
     	let t0_value = /*feed*/ ctx[3].title + "";
@@ -936,7 +1087,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block.name,
+    		id: create_if_block$1.name,
     		type: "if",
     		source: "(39:2) {#if feed.ok}",
     		ctx
@@ -1054,8 +1205,8 @@ var app = (function () {
     	let t;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*feed*/ ctx[3].ok) return create_if_block;
-    		return create_else_block;
+    		if (/*feed*/ ctx[3].ok) return create_if_block$1;
+    		return create_else_block$1;
     	}
 
     	let current_block_type = select_block_type(ctx);
@@ -1246,8 +1397,6 @@ var app = (function () {
     }
 
     /* src/component/App.svelte generated by Svelte v3.25.1 */
-
-    const { console: console_1 } = globals;
     const file$2 = "src/component/App.svelte";
 
     function create_fragment$2(ctx) {
@@ -1310,14 +1459,14 @@ var app = (function () {
     			create_component(feedlist.$$.fragment);
     			attr_dev(link, "rel", "stylesheet");
     			attr_dev(link, "href", "https://unpkg.com/mvp.css");
-    			add_location(link, file$2, 47, 1, 1619);
+    			add_location(link, file$2, 40, 1, 1489);
     			attr_dev(h1, "class", "svelte-1tky8bj");
-    			add_location(h1, file$2, 58, 1, 2081);
+    			add_location(h1, file$2, 51, 1, 1951);
     			attr_dev(a, "href", "https://svelte.dev/tutorial");
-    			add_location(a, file$2, 59, 14, 2118);
-    			add_location(p, file$2, 59, 1, 2105);
+    			add_location(a, file$2, 52, 14, 1988);
+    			add_location(p, file$2, 52, 1, 1975);
     			attr_dev(main, "class", "svelte-1tky8bj");
-    			add_location(main, file$2, 57, 0, 2073);
+    			add_location(main, file$2, 50, 0, 1943);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1442,32 +1591,22 @@ var app = (function () {
 
     	let feeds = [];
 
-    	const getFeeds = () => __awaiter(void 0, void 0, void 0, function* () {
-    		const promises = feedUrls.map(rssUrl => getFeed(rssUrl));
+    	onMount(() => __awaiter(void 0, void 0, void 0, function* () {
+    		$$invalidate(2, feeds = yield getFeeds(feedUrls));
+    	}));
 
-    		$$invalidate(2, feeds = yield Promise.all(promises).catch(e => {
-    			console.log("エラー", e);
-    		}));
-
-    		console.log(feeds);
-    	});
-
-    	onMount(() => {
-    		getFeeds();
-    	});
-
-    	const onExec = e => {
+    	const onExec = e => __awaiter(void 0, void 0, void 0, function* () {
     		switch (e.detail.payload) {
     			case "confirm":
-    				getFeeds();
+    				$$invalidate(2, feeds = yield getFeeds(feedUrls));
     				break;
     		}
-    	};
+    	});
 
     	const writable_props = ["name"];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<App> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
     	function feedinfo_feedUrls_binding(value) {
@@ -1482,14 +1621,12 @@ var app = (function () {
     	$$self.$capture_state = () => ({
     		__awaiter,
     		onMount,
-    		afterUpdate,
-    		getFeed,
+    		getFeeds,
     		FeedInfo,
     		FeedList,
     		name,
     		feedUrls,
     		feeds,
-    		getFeeds,
     		onExec
     	});
 
@@ -1523,7 +1660,7 @@ var app = (function () {
     		const props = options.props || {};
 
     		if (/*name*/ ctx[0] === undefined && !("name" in props)) {
-    			console_1.warn("<App> was created without expected prop 'name'");
+    			console.warn("<App> was created without expected prop 'name'");
     		}
     	}
 
