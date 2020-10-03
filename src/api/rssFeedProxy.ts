@@ -1,7 +1,8 @@
 import dayjs from "dayjs";
 import type { Icontent, Ifeed } from "../common/Feed";
 
-const api = async (url: string, query: string): Promise<Response> => {
+const api = async (query: string): Promise<Response> => {
+  const url = `${location.origin}/rss-feed/`;
   const inputRow = `${url}${query}`;
   const input = encodeURI(inputRow);
   const response = await fetch(input);
@@ -10,10 +11,7 @@ const api = async (url: string, query: string): Promise<Response> => {
 
 const getFeed = async (rssUrl: string): Promise<Ifeed> => {
 
-  const response: Response = await api(
-    "https://8080-cs-994772306133-default.asia-east1.cloudshell.dev/rss-feed/",
-    `?url=${rssUrl}`,
-  );
+  const response: Response = await api(`?url=${rssUrl}`);
 
   const feed: Ifeed =  { 
     ok: response.ok,
