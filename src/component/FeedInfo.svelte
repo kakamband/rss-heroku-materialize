@@ -9,11 +9,13 @@
 
   const add = () => {
     feedUrls = [...feedUrls, ""];
+    valids = [...valids, true];
   };
 
   const remove = (e) => {
     const removeIndex = parseInt(e.target.name, 10);
     feedUrls = feedUrls.filter((_, index) => index !== removeIndex);
+    valids = valids.filter((_, index) => index !== removeIndex);
   };
 
   const checkValidation = async (feedUrls: string[]) => {
@@ -68,7 +70,7 @@
     {:else}
     <span>×</span>
     {/if}
-    
+
     <input type="button" name={i} value="削除" on:click={remove}>
   </div>
   {/each}

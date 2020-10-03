@@ -472,7 +472,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (69:4) {:else}
+    // (71:4) {:else}
     function create_else_block(ctx) {
     	let span;
 
@@ -480,7 +480,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "×";
-    			add_location(span, file, 69, 4, 2155);
+    			add_location(span, file, 71, 4, 2252);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -494,14 +494,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(69:4) {:else}",
+    		source: "(71:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (67:4) {#if valids[i]}
+    // (69:4) {#if valids[i]}
     function create_if_block(ctx) {
     	let span;
 
@@ -509,7 +509,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "○";
-    			add_location(span, file, 67, 4, 2124);
+    			add_location(span, file, 69, 4, 2221);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -523,14 +523,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(67:4) {#if valids[i]}",
+    		source: "(69:4) {#if valids[i]}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (63:2) {#each feedUrls as feedUrl, i}
+    // (65:2) {#each feedUrls as feedUrl, i}
     function create_each_block(ctx) {
     	let div;
     	let input0;
@@ -565,13 +565,13 @@ var app = (function () {
     			attr_dev(input0, "type", "url");
     			attr_dev(input0, "name", input0_name_value = /*i*/ ctx[12]);
     			input0.required = true;
-    			add_location(input0, file, 64, 4, 2041);
+    			add_location(input0, file, 66, 4, 2138);
     			attr_dev(input1, "type", "button");
     			attr_dev(input1, "name", input1_name_value = /*i*/ ctx[12]);
     			input1.value = "削除";
-    			add_location(input1, file, 72, 4, 2189);
+    			add_location(input1, file, 74, 4, 2282);
     			attr_dev(div, "class", "feed-url svelte-sqtt3s");
-    			add_location(div, file, 63, 2, 2014);
+    			add_location(div, file, 65, 2, 2111);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -620,7 +620,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(63:2) {#each feedUrls as feedUrl, i}",
+    		source: "(65:2) {#each feedUrls as feedUrl, i}",
     		ctx
     	});
 
@@ -660,14 +660,14 @@ var app = (function () {
     			attr_dev(input0, "type", "button");
     			attr_dev(input0, "class", "nav-item svelte-sqtt3s");
     			input0.value = "追加";
-    			add_location(input0, file, 77, 4, 2293);
+    			add_location(input0, file, 79, 4, 2386);
     			attr_dev(input1, "type", "button");
     			attr_dev(input1, "class", "nav-item svelte-sqtt3s");
     			input1.value = "確定";
-    			add_location(input1, file, 78, 4, 2362);
+    			add_location(input1, file, 80, 4, 2455);
     			attr_dev(div, "class", "nav svelte-sqtt3s");
-    			add_location(div, file, 76, 2, 2271);
-    			add_location(form, file, 61, 0, 1972);
+    			add_location(div, file, 78, 2, 2364);
+    			add_location(form, file, 63, 0, 2069);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -787,11 +787,13 @@ var app = (function () {
 
     	const add = () => {
     		$$invalidate(0, feedUrls = [...feedUrls, ""]);
+    		$$invalidate(1, valids = [...valids, true]);
     	};
 
     	const remove = e => {
     		const removeIndex = parseInt(e.target.name, 10);
     		$$invalidate(0, feedUrls = feedUrls.filter((_, index) => index !== removeIndex));
+    		$$invalidate(1, valids = valids.filter((_, index) => index !== removeIndex));
     	};
 
     	const checkValidation = feedUrls => __awaiter(void 0, void 0, void 0, function* () {
