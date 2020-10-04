@@ -2,15 +2,25 @@ const express = require("express");
 const RssParser = require("rss-parser");
 const fs = require("fs").promises;
 const path = require("path");
+const database = require("./database");
 
 const port = process.env.PORT || 8080;
 
 const app = express();
+
 app.use(express.static("public"));
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use(express.json());  // requestのbodyを解析できるようにする。
+app.use(express.urlencoded({ extended: true }));
 
 const rssParser = new RssParser();
-
+const db = new database;
 const feedInfosFileName = path.resolve("/tmp/feed-infos.json");
 
 app.put("/feed-infos", async (req, res) => {
