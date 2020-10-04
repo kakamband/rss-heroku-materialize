@@ -3,18 +3,18 @@ import { Icontent, Ifeed } from "../common/Feed";
 
 type Tmethod = "GET" | "PUT" | "DELTE" | "POST";
 
-interface Iinit {
-  method: Tmethod;
-  body?: string;
-  headers?: object;
-}
+// interface Iinit {
+//   method: Tmethod;
+//   body?: string;
+//   headers?: HeadersInit;
+// }
 
 const api = async (path: string, query: string = null, method: Tmethod = "GET", data: object = null) => {
 
   const resourceRow = (query)? `${location.origin}/${path}?${query}` : `${location.origin}/${path}`;
   const resource = encodeURI(resourceRow);
 
-  const init: Iinit = {
+  const init: RequestInit = {
     method,
     headers: {
       "Content-Type": "application/json",
