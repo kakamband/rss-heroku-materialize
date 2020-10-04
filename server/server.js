@@ -1,6 +1,6 @@
 const express = require("express");
 const RssParser = require("rss-parser");
-const fs = require("fs");
+const fs = require("fs").promises;
 const path = require("path");
 
 const port = process.env.PORT || 8080;
@@ -13,15 +13,17 @@ const rssParser = new RssParser();
 
 const feedInfosFileName = path.resolve("/tmp/feed-infos.json");
 
-app.put("/feed-infos", (req, res) => {
+app.put("/feed-infos", async (req, res) => {
   console.log(req.body.feedInfos);
 
-  fs.writeFile(feedInfosFileName, JSON.stringify(req.body.feedInfos), (err) => {
-    if (err) console.log('書き込みに失敗しました', feedInfosFileName, err);
-    else console.log('正常に書き込みが完了しました', feedInfosFileName);
-
+  try {
+    await fs.writeFile(feedInfosFileName, JSON.stringify(req.body.feedInfos));
+    console.log('正常に書き込みが完了しました', feedInfosFileName);
     res.sendStatus(200);
-  });
+  } catch (e) {
+    console.log('書き込みに失敗しました', feedInfosFileName, e);
+    res.sendStatus(500);
+  }
 });
 
 const getFeed = async (url) => {
