@@ -3,12 +3,6 @@ import { Icontent, Ifeed } from "../common/Feed";
 
 type Tmethod = "GET" | "PUT" | "DELTE" | "POST";
 
-// interface Iinit {
-//   method: Tmethod;
-//   body?: string;
-//   headers?: HeadersInit;
-// }
-
 const api = async (path: string, query: string = null, method: Tmethod = "GET", data: object = null) => {
 
   const resourceRow = (query)? `${location.origin}/${path}?${query}` : `${location.origin}/${path}`;
@@ -26,8 +20,8 @@ const api = async (path: string, query: string = null, method: Tmethod = "GET", 
   return response;
 };
 
-export const putFeedInfos = async (urls: string[]) => {
-  const response: Response = await api("feed-infos", null, "PUT", { urls });
+export const putFeedInfos = async (feedInfos: string[]) => {
+  const response: Response = await api("feed-infos", null, "PUT", { feedInfos });
   console.log(response.ok, response.status, response.statusText);
 };
 

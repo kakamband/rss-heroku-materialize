@@ -1,14 +1,28 @@
 const express = require("express");
 const RssParser = require("rss-parser");
+const fs = require("fs");
+const path = require("path");
 
 const port = process.env.PORT || 8080;
 
 const app = express();
 app.use(express.static("public"));
-app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.json());  // requestのbodyを解析できるようにする。
 
 const rssParser = new RssParser();
+
+const feedInfosFileName = path.resolve("/tmp/feed-infos.json");
+
+app.put("/feed-infos", (req, res) => {
+  console.log(req.body.feedInfos);
+
+  fs.writeFile(feedInfosFileName, JSON.stringify(req.body.feedInfos), (err) => {
+    if (err) console.log('書き込みに失敗しました', feedInfosFileName, err);
+    else console.log('正常に書き込みが完了しました', feedInfosFileName);
+
+    res.sendStatus(200);
+  });
+});
 
 const getFeed = async (url) => {
   const feed = await rssParser.parseURL(url);
@@ -42,11 +56,6 @@ app.get("/rss-feed", async (req, res) => {
   // console.log(feed.link);
 
   res.json(feed);
-});
-
-app.put("/feed-infos", (req, res) => {
-  console.log(req.body.urls);
-  res.sendStatus(200);
 });
 
 app.listen(port, () => {
