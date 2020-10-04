@@ -1,11 +1,12 @@
 const express = require("express");
 const RssParser = require("rss-parser");
 
-// const port = 8080;
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
 const app = express();
 app.use(express.static("public"));
+app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 const rssParser = new RssParser();
 
@@ -41,6 +42,11 @@ app.get("/rss-feed", async (req, res) => {
   // console.log(feed.link);
 
   res.json(feed);
+});
+
+app.put("/feed-infos", (req, res) => {
+  console.log(req.body.urls);
+  res.sendStatus(200);
 });
 
 app.listen(port, () => {

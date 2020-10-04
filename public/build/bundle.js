@@ -430,11 +430,18 @@ var app = (function () {
         const resource = encodeURI(resourceRow);
         const init = {
             method,
+            headers: {
+                "Content-Type": "application/json",
+            },
         };
         if (data)
             init.body = JSON.stringify(data);
         const response = await fetch(resource, init);
         return response;
+    };
+    const putFeedInfos = async (urls) => {
+        const response = await api("feed-infos", null, "PUT", { urls });
+        console.log(response.ok, response.status, response.statusText);
     };
     const getFeed = async (rssUrl) => {
         const response = await api("rss-feed", `url=${rssUrl}`);
@@ -1466,14 +1473,14 @@ var app = (function () {
     			create_component(feedlist.$$.fragment);
     			attr_dev(link, "rel", "stylesheet");
     			attr_dev(link, "href", "https://unpkg.com/sakura.css/css/sakura.css");
-    			add_location(link, file$2, 40, 1, 1489);
+    			add_location(link, file$2, 41, 1, 1545);
     			attr_dev(h1, "class", "svelte-1tky8bj");
-    			add_location(h1, file$2, 51, 1, 1969);
+    			add_location(h1, file$2, 52, 1, 2025);
     			attr_dev(a, "href", "https://svelte.dev/tutorial");
-    			add_location(a, file$2, 52, 14, 2006);
-    			add_location(p, file$2, 52, 1, 1993);
+    			add_location(a, file$2, 53, 14, 2062);
+    			add_location(p, file$2, 53, 1, 2049);
     			attr_dev(main, "class", "svelte-1tky8bj");
-    			add_location(main, file$2, 50, 0, 1961);
+    			add_location(main, file$2, 51, 0, 2017);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1606,6 +1613,7 @@ var app = (function () {
     		switch (e.detail.payload) {
     			case "confirm":
     				$$invalidate(2, feeds = yield getFeeds(feedUrls));
+    				yield putFeedInfos(feedUrls);
     				break;
     		}
     	});
@@ -1629,6 +1637,7 @@ var app = (function () {
     		__awaiter,
     		onMount,
     		getFeeds,
+    		putFeedInfos,
     		FeedInfo,
     		FeedList,
     		name,

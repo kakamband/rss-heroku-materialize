@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { getFeeds } from "../api/rssFeedProxy.ts";
+  import { getFeeds, putFeedInfos } from "../api/rssFeedProxy.ts";
   import type { Icontent, Ifeed } from "../common/Feed";
   import FeedInfo from "./FeedInfo.svelte";
   import FeedList from "./FeedList.svelte";
@@ -27,6 +27,7 @@
     switch (e.detail.payload) {
       case "confirm":
         feeds = await getFeeds(feedUrls);
+        await putFeedInfos(feedUrls);
         break;
       default:
         break;

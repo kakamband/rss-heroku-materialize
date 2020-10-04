@@ -6,6 +6,7 @@ type Tmethod = "GET" | "PUT" | "DELTE" | "POST";
 interface Iinit {
   method: Tmethod;
   body?: string;
+  headers?: object;
 }
 
 const api = async (path: string, query: string = null, method: Tmethod = "GET", data: object = null) => {
@@ -15,11 +16,19 @@ const api = async (path: string, query: string = null, method: Tmethod = "GET", 
 
   const init: Iinit = {
     method,
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
   if (data) init.body = JSON.stringify(data);
 
   const response = await fetch(resource, init);
   return response;
+};
+
+export const putFeedInfos = async (urls: string[]) => {
+  const response: Response = await api("feed-infos", null, "PUT", { urls });
+  console.log(response.ok, response.status, response.statusText);
 };
 
 const getFeed = async (rssUrl: string): Promise<Ifeed> => {

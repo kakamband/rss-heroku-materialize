@@ -22,6 +22,8 @@
 
 [WindowOrWorkerGlobalScope.fetch()](https://developer.mozilla.org/ja/docs/Web/API/WindowOrWorkerGlobalScope/fetch)
 
+[HTTP レスポンスステータスコード](https://developer.mozilla.org/ja/docs/Web/HTTP/Status)
+
 # 日時処理
 
 [Day.jsでよく使う機能の覚書](https://qiita.com/tobita0000/items/0f9d0067398efdc2931e)
