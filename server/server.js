@@ -44,48 +44,29 @@ const getFeed = async (url) => {
 app.get("/", (req, res) => res.render("index.html"));
 
 app.get("/rss-feed", async (req, res) => {
-
-  let feed = {};
-
   try {
-    feed = await getFeed(req.query.url);
+    const feed = await getFeed(req.query.url);
+    res.json(feed);
   } catch (e) {
-    // console.log(`RSS feed proxy server: エラーをキャッチ name=${e.name} message=${e.message}`);
+    console.log(`RSS feed proxy server: エラーをキャッチ name=${e.name} message=${e.message}`);
     res.sendStatus(404);
-    return;
   }
-
-  // console.log(feed.title);
-  // console.log(feed.description);
-  // console.log(feed.link);
-
-  res.json(feed);
 });
 
 app.put("/feed-infos", async (req, res) => {
-  console.log(req.body.feedInfos);
-
   try {
     await fs.writeFile(feedInfosFileName, JSON.stringify(req.body.feedInfos));
-    console.log('正常に書き込みが完了しました', feedInfosFileName);
-
-    const jsonData = await fs.readFile(feedInfosFileName);
-    console.log("正常に読み込みが終了しました", JSON.parse(jsonData));
-
     res.sendStatus(200);
   } catch (e) {
-    console.log('書き込み/読み込みに失敗しました', feedInfosFileName, e);
+    console.log('書き込みに失敗しました', feedInfosFileName, e);
     res.sendStatus(500);
   }
 });
 
 app.get("/feed-infos", async (req, res) => {
   try {
-    const jsonData = await fs.readFile(feedInfosFileName);
-    const feedInfos = JSON.parse(jsonData);
-    console.log("正常に読み込みが終了しました", feedInfos);
-
-    res.json(feedInfos);
+    const feedInfosJson = await fs.readFile(feedInfosFileName);
+    res.send(feedInfosJson);
   } catch (e) {
     console.log('読み込みに失敗しました', feedInfosFileName, e);
     res.sendStatus(500);
