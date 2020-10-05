@@ -84,7 +84,7 @@ git push origin [ブランチ名]#[issue番号]
 
 ```
 git checkout master
-git pull
+git pull origin master
 ```
 
 ---
