@@ -20,11 +20,6 @@ const api = async (path: string, query: string = null, method: Tmethod = "GET", 
   return response;
 };
 
-export const putFeedInfos = async (feedInfos: string[]) => {
-  const response: Response = await api("feed-infos", null, "PUT", { feedInfos });
-  console.log(response.ok, response.status, response.statusText);
-};
-
 const getFeed = async (rssUrl: string): Promise<Ifeed> => {
 
   const response: Response = await api("rss-feed", `url=${rssUrl}`);
@@ -64,4 +59,16 @@ export const getFeeds = async (feedUrls: string[]): Promise<Ifeed[]> => {
   const promises = feedUrls.map((feedUrl) => getFeed(feedUrl));
   const feeds = await Promise.all(promises);
   return feeds;
+};
+
+export const putFeedInfos = async (feedInfos: string[]) => {
+  const response: Response = await api("feed-infos", null, "PUT", { feedInfos });
+  console.log(response.ok, response.status, response.statusText);
+};
+
+export const getFeedInfos = async () => {
+  const response: Response = await api("feed-infos", null, "GET");
+  if (!response.ok) return null;
+  const result = await response.json();
+  return result;
 };

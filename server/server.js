@@ -2,7 +2,7 @@ const express = require("express");
 const RssParser = require("rss-parser");
 const fs = require("fs").promises;
 const path = require("path");
-const database = require("./database");
+// const database = require("./database");
 
 const port = process.env.PORT || 8080;
 
@@ -10,31 +10,23 @@ const app = express();
 
 app.use(express.static("public"));
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// DB導入の準備
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 
 app.use(express.json());  // requestのbodyを解析できるようにする。
-app.use(express.urlencoded({ extended: true }));
+
+// DB導入の準備
+// app.use(express.urlencoded({ extended: true }));
+
+// DB導入の準備
+// const db = new database;
 
 const rssParser = new RssParser();
-const db = new database;
 const feedInfosFileName = path.resolve("/tmp/feed-infos.json");
-
-app.put("/feed-infos", async (req, res) => {
-  console.log(req.body.feedInfos);
-
-  try {
-    await fs.writeFile(feedInfosFileName, JSON.stringify(req.body.feedInfos));
-    console.log('正常に書き込みが完了しました', feedInfosFileName);
-    res.sendStatus(200);
-  } catch (e) {
-    console.log('書き込みに失敗しました', feedInfosFileName, e);
-    res.sendStatus(500);
-  }
-});
 
 const getFeed = async (url) => {
   const feed = await rssParser.parseURL(url);
@@ -68,6 +60,36 @@ app.get("/rss-feed", async (req, res) => {
   // console.log(feed.link);
 
   res.json(feed);
+});
+
+app.put("/feed-infos", async (req, res) => {
+  console.log(req.body.feedInfos);
+
+  try {
+    await fs.writeFile(feedInfosFileName, JSON.stringify(req.body.feedInfos));
+    console.log('正常に書き込みが完了しました', feedInfosFileName);
+
+    const jsonData = await fs.readFile(feedInfosFileName);
+    console.log("正常に読み込みが終了しました", JSON.parse(jsonData));
+
+    res.sendStatus(200);
+  } catch (e) {
+    console.log('書き込み/読み込みに失敗しました', feedInfosFileName, e);
+    res.sendStatus(500);
+  }
+});
+
+app.get("/feed-infos", async (req, res) => {
+  try {
+    const jsonData = await fs.readFile(feedInfosFileName);
+    const feedInfos = JSON.parse(jsonData);
+    console.log("正常に読み込みが終了しました", feedInfos);
+
+    res.json(feedInfos);
+  } catch (e) {
+    console.log('読み込みに失敗しました', feedInfosFileName, e);
+    res.sendStatus(500);
+  }
 });
 
 app.listen(port, () => {

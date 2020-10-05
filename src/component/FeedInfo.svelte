@@ -37,6 +37,10 @@
     }
   };
 
+  const getFeedInfos = () => {
+    dispatch("exec", { payload: "getFeedInfos" });
+  };
+
   onMount(async () => {
     await checkValidation(feedUrls);
   });
@@ -78,5 +82,6 @@
   <div class="nav">
     <input type="button" class="nav-item" value="追加" on:click={add}>
     <input type="button" class="nav-item" value="確定" on:click={confirm}>
+    <input type="button" class="nav-item" value="サーバーから読込" on:click={getFeedInfos}>
   </div>
 </form>
