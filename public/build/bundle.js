@@ -425,15 +425,22 @@ var app = (function () {
     !function(t,e){module.exports=e();}(commonjsGlobal,function(){var t="millisecond",e="second",n="minute",r="hour",i="day",s="week",u="month",a="quarter",o="year",f="date",h=/^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d+)?$/,c=/\[([^\]]+)]|Y{2,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,d={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},$=function(t,e,n){var r=String(t);return !r||r.length>=e?t:""+Array(e+1-r.length).join(n)+t},l={s:$,z:function(t){var e=-t.utcOffset(),n=Math.abs(e),r=Math.floor(n/60),i=n%60;return (e<=0?"+":"-")+$(r,2,"0")+":"+$(i,2,"0")},m:function t(e,n){if(e.date()<n.date())return -t(n,e);var r=12*(n.year()-e.year())+(n.month()-e.month()),i=e.clone().add(r,u),s=n-i<0,a=e.clone().add(r+(s?-1:1),u);return +(-(r+(n-i)/(s?i-a:a-i))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(h){return {M:u,y:o,w:s,d:i,D:f,h:r,m:n,s:e,ms:t,Q:a}[h]||String(h||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},y="en",M={};M[y]=d;var m=function(t){return t instanceof S},D=function(t,e,n){var r;if(!t)return y;if("string"==typeof t)M[t]&&(r=t),e&&(M[t]=e,r=t);else {var i=t.name;M[i]=t,r=i;}return !n&&r&&(y=r),r||!n&&y},v=function(t,e){if(m(t))return t.clone();var n="object"==typeof e?e:{};return n.date=t,n.args=arguments,new S(n)},g=l;g.l=D,g.i=m,g.w=function(t,e){return v(t,{locale:e.$L,utc:e.$u,x:e.$x,$offset:e.$offset})};var S=function(){function d(t){this.$L=this.$L||D(t.locale,null,!0),this.parse(t);}var $=d.prototype;return $.parse=function(t){this.$d=function(t){var e=t.date,n=t.utc;if(null===e)return new Date(NaN);if(g.u(e))return new Date;if(e instanceof Date)return new Date(e);if("string"==typeof e&&!/Z$/i.test(e)){var r=e.match(h);if(r){var i=r[2]-1||0,s=(r[7]||"0").substring(0,3);return n?new Date(Date.UTC(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)):new Date(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)}}return new Date(e)}(t),this.$x=t.x||{},this.init();},$.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds();},$.$utils=function(){return g},$.isValid=function(){return !("Invalid Date"===this.$d.toString())},$.isSame=function(t,e){var n=v(t);return this.startOf(e)<=n&&n<=this.endOf(e)},$.isAfter=function(t,e){return v(t)<this.startOf(e)},$.isBefore=function(t,e){return this.endOf(e)<v(t)},$.$g=function(t,e,n){return g.u(t)?this[e]:this.set(n,t)},$.unix=function(){return Math.floor(this.valueOf()/1e3)},$.valueOf=function(){return this.$d.getTime()},$.startOf=function(t,a){var h=this,c=!!g.u(a)||a,d=g.p(t),$=function(t,e){var n=g.w(h.$u?Date.UTC(h.$y,e,t):new Date(h.$y,e,t),h);return c?n:n.endOf(i)},l=function(t,e){return g.w(h.toDate()[t].apply(h.toDate("s"),(c?[0,0,0,0]:[23,59,59,999]).slice(e)),h)},y=this.$W,M=this.$M,m=this.$D,D="set"+(this.$u?"UTC":"");switch(d){case o:return c?$(1,0):$(31,11);case u:return c?$(1,M):$(0,M+1);case s:var v=this.$locale().weekStart||0,S=(y<v?y+7:y)-v;return $(c?m-S:m+(6-S),M);case i:case f:return l(D+"Hours",0);case r:return l(D+"Minutes",1);case n:return l(D+"Seconds",2);case e:return l(D+"Milliseconds",3);default:return this.clone()}},$.endOf=function(t){return this.startOf(t,!1)},$.$set=function(s,a){var h,c=g.p(s),d="set"+(this.$u?"UTC":""),$=(h={},h[i]=d+"Date",h[f]=d+"Date",h[u]=d+"Month",h[o]=d+"FullYear",h[r]=d+"Hours",h[n]=d+"Minutes",h[e]=d+"Seconds",h[t]=d+"Milliseconds",h)[c],l=c===i?this.$D+(a-this.$W):a;if(c===u||c===o){var y=this.clone().set(f,1);y.$d[$](l),y.init(),this.$d=y.set(f,Math.min(this.$D,y.daysInMonth())).$d;}else $&&this.$d[$](l);return this.init(),this},$.set=function(t,e){return this.clone().$set(t,e)},$.get=function(t){return this[g.p(t)]()},$.add=function(t,a){var f,h=this;t=Number(t);var c=g.p(a),d=function(e){var n=v(h);return g.w(n.date(n.date()+Math.round(e*t)),h)};if(c===u)return this.set(u,this.$M+t);if(c===o)return this.set(o,this.$y+t);if(c===i)return d(1);if(c===s)return d(7);var $=(f={},f[n]=6e4,f[r]=36e5,f[e]=1e3,f)[c]||1,l=this.$d.getTime()+t*$;return g.w(l,this)},$.subtract=function(t,e){return this.add(-1*t,e)},$.format=function(t){var e=this;if(!this.isValid())return "Invalid Date";var n=t||"YYYY-MM-DDTHH:mm:ssZ",r=g.z(this),i=this.$locale(),s=this.$H,u=this.$m,a=this.$M,o=i.weekdays,f=i.months,h=function(t,r,i,s){return t&&(t[r]||t(e,n))||i[r].substr(0,s)},d=function(t){return g.s(s%12||12,t,"0")},$=i.meridiem||function(t,e,n){var r=t<12?"AM":"PM";return n?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:a+1,MM:g.s(a+1,2,"0"),MMM:h(i.monthsShort,a,f,3),MMMM:h(f,a),D:this.$D,DD:g.s(this.$D,2,"0"),d:String(this.$W),dd:h(i.weekdaysMin,this.$W,o,2),ddd:h(i.weekdaysShort,this.$W,o,3),dddd:o[this.$W],H:String(s),HH:g.s(s,2,"0"),h:d(1),hh:d(2),a:$(s,u,!0),A:$(s,u,!1),m:String(u),mm:g.s(u,2,"0"),s:String(this.$s),ss:g.s(this.$s,2,"0"),SSS:g.s(this.$ms,3,"0"),Z:r};return n.replace(c,function(t,e){return e||l[t]||r.replace(":","")})},$.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},$.diff=function(t,f,h){var c,d=g.p(f),$=v(t),l=6e4*($.utcOffset()-this.utcOffset()),y=this-$,M=g.m(this,$);return M=(c={},c[o]=M/12,c[u]=M,c[a]=M/3,c[s]=(y-l)/6048e5,c[i]=(y-l)/864e5,c[r]=y/36e5,c[n]=y/6e4,c[e]=y/1e3,c)[d]||y,h?M:g.a(M)},$.daysInMonth=function(){return this.endOf(u).$D},$.$locale=function(){return M[this.$L]},$.locale=function(t,e){if(!t)return this.$L;var n=this.clone(),r=D(t,e,!0);return r&&(n.$L=r),n},$.clone=function(){return g.w(this.$d,this)},$.toDate=function(){return new Date(this.valueOf())},$.toJSON=function(){return this.isValid()?this.toISOString():null},$.toISOString=function(){return this.$d.toISOString()},$.toString=function(){return this.$d.toUTCString()},d}(),p=S.prototype;return v.prototype=p,[["$ms",t],["$s",e],["$m",n],["$H",r],["$W",i],["$M",u],["$y",o],["$D",f]].forEach(function(t){p[t[1]]=function(e){return this.$g(e,t[0],t[1])};}),v.extend=function(t,e){return t(e,S,v),v},v.locale=D,v.isDayjs=m,v.unix=function(t){return v(1e3*t)},v.en=M[y],v.Ls=M,v});
     });
 
-    const api = async (query) => {
-        const url = `${location.origin}/rss-feed/`;
-        const inputRow = `${url}${query}`;
-        const input = encodeURI(inputRow);
-        const response = await fetch(input);
+    const api = async (path, query = null, method = "GET", data = null) => {
+        const resourceRow = (query) ? `${location.origin}/${path}?${query}` : `${location.origin}/${path}`;
+        const resource = encodeURI(resourceRow);
+        const init = {
+            method,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        if (data)
+            init.body = JSON.stringify(data);
+        const response = await fetch(resource, init);
         return response;
     };
     const getFeed = async (rssUrl) => {
-        const response = await api(`?url=${rssUrl}`);
+        const response = await api("rss-feed", `url=${rssUrl}`);
         const feed = {
             ok: response.ok,
             status: response.status,
@@ -461,19 +468,30 @@ var app = (function () {
         const feeds = await Promise.all(promises);
         return feeds;
     };
+    const putFeedInfos = async (feedInfos) => {
+        const response = await api("feed-infos", null, "PUT", { feedInfos });
+        console.log(response.ok, response.status, response.statusText);
+    };
+    const getFeedInfos = async () => {
+        const response = await api("feed-infos", null, "GET");
+        if (!response.ok)
+            return null;
+        const result = await response.json();
+        return result;
+    };
 
     /* src/component/FeedInfo.svelte generated by Svelte v3.29.0 */
     const file = "src/component/FeedInfo.svelte";
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[10] = list[i];
-    	child_ctx[11] = list;
-    	child_ctx[12] = i;
+    	child_ctx[11] = list[i];
+    	child_ctx[12] = list;
+    	child_ctx[13] = i;
     	return child_ctx;
     }
 
-    // (71:4) {:else}
+    // (74:4) {:else}
     function create_else_block(ctx) {
     	let span;
 
@@ -481,7 +499,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "×";
-    			add_location(span, file, 71, 4, 2252);
+    			add_location(span, file, 74, 4, 2335);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -495,14 +513,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(71:4) {:else}",
+    		source: "(74:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (69:4) {#if valids[i]}
+    // (72:4) {#if valids[i]}
     function create_if_block(ctx) {
     	let span;
 
@@ -510,7 +528,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "○";
-    			add_location(span, file, 69, 4, 2221);
+    			add_location(span, file, 72, 4, 2304);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -524,14 +542,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(69:4) {#if valids[i]}",
+    		source: "(72:4) {#if valids[i]}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (65:2) {#each feedUrls as feedUrl, i}
+    // (68:2) {#each feedUrls as feedUrl, i}
     function create_each_block(ctx) {
     	let div;
     	let input0;
@@ -544,11 +562,11 @@ var app = (function () {
     	let dispose;
 
     	function input0_input_handler() {
-    		/*input0_input_handler*/ ctx[5].call(input0, /*each_value*/ ctx[11], /*i*/ ctx[12]);
+    		/*input0_input_handler*/ ctx[6].call(input0, /*each_value*/ ctx[12], /*i*/ ctx[13]);
     	}
 
     	function select_block_type(ctx, dirty) {
-    		if (/*valids*/ ctx[1][/*i*/ ctx[12]]) return create_if_block;
+    		if (/*valids*/ ctx[1][/*i*/ ctx[13]]) return create_if_block;
     		return create_else_block;
     	}
 
@@ -564,20 +582,20 @@ var app = (function () {
     			t1 = space();
     			input1 = element("input");
     			attr_dev(input0, "type", "url");
-    			attr_dev(input0, "name", input0_name_value = /*i*/ ctx[12]);
+    			attr_dev(input0, "name", input0_name_value = /*i*/ ctx[13]);
     			input0.required = true;
-    			add_location(input0, file, 66, 4, 2138);
+    			add_location(input0, file, 69, 4, 2221);
     			attr_dev(input1, "type", "button");
-    			attr_dev(input1, "name", input1_name_value = /*i*/ ctx[12]);
+    			attr_dev(input1, "name", input1_name_value = /*i*/ ctx[13]);
     			input1.value = "削除";
-    			add_location(input1, file, 74, 4, 2282);
+    			add_location(input1, file, 77, 4, 2365);
     			attr_dev(div, "class", "feed-url svelte-sqtt3s");
-    			add_location(div, file, 65, 2, 2111);
+    			add_location(div, file, 68, 2, 2194);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			append_dev(div, input0);
-    			set_input_value(input0, /*feedUrl*/ ctx[10]);
+    			set_input_value(input0, /*feedUrl*/ ctx[11]);
     			append_dev(div, t0);
     			if_block.m(div, null);
     			append_dev(div, t1);
@@ -596,7 +614,7 @@ var app = (function () {
     			ctx = new_ctx;
 
     			if (dirty & /*feedUrls*/ 1) {
-    				set_input_value(input0, /*feedUrl*/ ctx[10]);
+    				set_input_value(input0, /*feedUrl*/ ctx[11]);
     			}
 
     			if (current_block_type !== (current_block_type = select_block_type(ctx))) {
@@ -621,7 +639,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(65:2) {#each feedUrls as feedUrl, i}",
+    		source: "(68:2) {#each feedUrls as feedUrl, i}",
     		ctx
     	});
 
@@ -635,6 +653,8 @@ var app = (function () {
     	let input0;
     	let t1;
     	let input1;
+    	let t2;
+    	let input2;
     	let mounted;
     	let dispose;
     	let each_value = /*feedUrls*/ ctx[0];
@@ -658,17 +678,23 @@ var app = (function () {
     			input0 = element("input");
     			t1 = space();
     			input1 = element("input");
+    			t2 = space();
+    			input2 = element("input");
     			attr_dev(input0, "type", "button");
     			attr_dev(input0, "class", "nav-item svelte-sqtt3s");
     			input0.value = "追加";
-    			add_location(input0, file, 79, 4, 2386);
+    			add_location(input0, file, 82, 4, 2469);
     			attr_dev(input1, "type", "button");
     			attr_dev(input1, "class", "nav-item svelte-sqtt3s");
     			input1.value = "確定";
-    			add_location(input1, file, 80, 4, 2455);
+    			add_location(input1, file, 83, 4, 2538);
+    			attr_dev(input2, "type", "button");
+    			attr_dev(input2, "class", "nav-item svelte-sqtt3s");
+    			input2.value = "サーバーから読込";
+    			add_location(input2, file, 84, 4, 2611);
     			attr_dev(div, "class", "nav svelte-sqtt3s");
-    			add_location(div, file, 78, 2, 2364);
-    			add_location(form, file, 63, 0, 2069);
+    			add_location(div, file, 81, 2, 2447);
+    			add_location(form, file, 66, 0, 2152);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -685,11 +711,14 @@ var app = (function () {
     			append_dev(div, input0);
     			append_dev(div, t1);
     			append_dev(div, input1);
+    			append_dev(div, t2);
+    			append_dev(div, input2);
 
     			if (!mounted) {
     				dispose = [
     					listen_dev(input0, "click", /*add*/ ctx[2], false, false, false),
-    					listen_dev(input1, "click", /*confirm*/ ctx[4], false, false, false)
+    					listen_dev(input1, "click", /*confirm*/ ctx[4], false, false, false),
+    					listen_dev(input2, "click", /*getFeedInfos*/ ctx[5], false, false, false)
     				];
 
     				mounted = true;
@@ -816,6 +845,10 @@ var app = (function () {
     		}
     	});
 
+    	const getFeedInfos = () => {
+    		dispatch("exec", { payload: "getFeedInfos" });
+    	};
+
     	onMount(() => __awaiter(void 0, void 0, void 0, function* () {
     		yield checkValidation(feedUrls);
     	}));
@@ -847,7 +880,8 @@ var app = (function () {
     		remove,
     		checkValidation,
     		isAllValid,
-    		confirm
+    		confirm,
+    		getFeedInfos
     	});
 
     	$$self.$inject_state = $$props => {
@@ -860,7 +894,7 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [feedUrls, valids, add, remove, confirm, input0_input_handler];
+    	return [feedUrls, valids, add, remove, confirm, getFeedInfos, input0_input_handler];
     }
 
     class FeedInfo extends SvelteComponentDev {
@@ -1400,6 +1434,8 @@ var app = (function () {
     }
 
     /* src/component/App.svelte generated by Svelte v3.29.0 */
+
+    const { console: console_1 } = globals;
     const file$2 = "src/component/App.svelte";
 
     function create_fragment$2(ctx) {
@@ -1462,14 +1498,14 @@ var app = (function () {
     			create_component(feedlist.$$.fragment);
     			attr_dev(link, "rel", "stylesheet");
     			attr_dev(link, "href", "https://unpkg.com/sakura.css/css/sakura.css");
-    			add_location(link, file$2, 40, 1, 1489);
+    			add_location(link, file$2, 51, 1, 1846);
     			attr_dev(h1, "class", "svelte-1tky8bj");
-    			add_location(h1, file$2, 51, 1, 1969);
+    			add_location(h1, file$2, 62, 1, 2326);
     			attr_dev(a, "href", "https://svelte.dev/tutorial");
-    			add_location(a, file$2, 52, 14, 2006);
-    			add_location(p, file$2, 52, 1, 1993);
+    			add_location(a, file$2, 63, 14, 2363);
+    			add_location(p, file$2, 63, 1, 2350);
     			attr_dev(main, "class", "svelte-1tky8bj");
-    			add_location(main, file$2, 50, 0, 1961);
+    			add_location(main, file$2, 61, 0, 2318);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1602,6 +1638,16 @@ var app = (function () {
     		switch (e.detail.payload) {
     			case "confirm":
     				$$invalidate(2, feeds = yield getFeeds(feedUrls));
+    				yield putFeedInfos(feedUrls);
+    				break;
+    			case "getFeedInfos":
+    				const result = yield getFeedInfos();
+    				console.log(result);
+    				if (result) {
+    					$$invalidate(1, feedUrls = result);
+    				} else {
+    					alert("サーバからfeed情報を取得に失敗しました。");
+    				}
     				break;
     		}
     	});
@@ -1609,7 +1655,7 @@ var app = (function () {
     	const writable_props = ["name"];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<App> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
     	function feedinfo_feedUrls_binding(value) {
@@ -1625,6 +1671,8 @@ var app = (function () {
     		__awaiter,
     		onMount,
     		getFeeds,
+    		putFeedInfos,
+    		getFeedInfos,
     		FeedInfo,
     		FeedList,
     		name,
@@ -1663,7 +1711,7 @@ var app = (function () {
     		const props = options.props || {};
 
     		if (/*name*/ ctx[0] === undefined && !("name" in props)) {
-    			console.warn("<App> was created without expected prop 'name'");
+    			console_1.warn("<App> was created without expected prop 'name'");
     		}
     	}
 

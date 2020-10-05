@@ -1,17 +1,28 @@
 import dayjs from "dayjs";
-import type { Icontent, Ifeed } from "../common/Feed";
+import { Icontent, Ifeed } from "../common/Feed";
 
-const api = async (query: string): Promise<Response> => {
-  const url = `${location.origin}/rss-feed/`;
-  const inputRow = `${url}${query}`;
-  const input = encodeURI(inputRow);
-  const response = await fetch(input);
+type Tmethod = "GET" | "PUT" | "DELTE" | "POST";
+
+const api = async (path: string, query: string = null, method: Tmethod = "GET", data: object = null) => {
+
+  const resourceRow = (query)? `${location.origin}/${path}?${query}` : `${location.origin}/${path}`;
+  const resource = encodeURI(resourceRow);
+
+  const init: RequestInit = {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  if (data) init.body = JSON.stringify(data);
+
+  const response = await fetch(resource, init);
   return response;
 };
 
 const getFeed = async (rssUrl: string): Promise<Ifeed> => {
 
-  const response: Response = await api(`?url=${rssUrl}`);
+  const response: Response = await api("rss-feed", `url=${rssUrl}`);
 
   const feed: Ifeed =  { 
     ok: response.ok,
@@ -48,4 +59,16 @@ export const getFeeds = async (feedUrls: string[]): Promise<Ifeed[]> => {
   const promises = feedUrls.map((feedUrl) => getFeed(feedUrl));
   const feeds = await Promise.all(promises);
   return feeds;
+};
+
+export const putFeedInfos = async (feedInfos: string[]) => {
+  const response: Response = await api("feed-infos", null, "PUT", { feedInfos });
+  console.log(response.ok, response.status, response.statusText);
+};
+
+export const getFeedInfos = async () => {
+  const response: Response = await api("feed-infos", null, "GET");
+  if (!response.ok) return null;
+  const result = await response.json();
+  return result;
 };
