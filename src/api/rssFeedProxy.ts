@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { Icontent, Ifeed } from "../common/Feed";
+import { Icontent, Ifeed, IfeedInfo } from "../common/Feed";
 
 type Tmethod = "GET" | "PUT" | "DELTE" | "POST";
 
@@ -55,13 +55,13 @@ const getFeed = async (rssUrl: string): Promise<Ifeed> => {
   return feed;
 };
 
-export const getFeeds = async (feedUrls: string[]): Promise<Ifeed[]> => {
-  const promises = feedUrls.map((feedUrl) => getFeed(feedUrl));
+export const getFeeds = async (feedInfos: IfeedInfo[]): Promise<Ifeed[]> => {
+  const promises = feedInfos.map((feedInfo) => getFeed(feedInfo.url));
   const feeds = await Promise.all(promises);
   return feeds;
 };
 
-export const putFeedInfos = async (feedInfos: string[]) => {
+export const putFeedInfos = async (feedInfos: IfeedInfo[]) => {
   const response: Response = await api("feed-infos", null, "PUT", { feedInfos });
   console.log(response.ok, response.status, response.statusText);
 };
@@ -69,6 +69,6 @@ export const putFeedInfos = async (feedInfos: string[]) => {
 export const getFeedInfos = async () => {
   const response: Response = await api("feed-infos", null, "GET");
   if (!response.ok) return null;
-  const result = await response.json();
-  return result;
+  const feedInfos = await response.json();
+  return feedInfos;
 };

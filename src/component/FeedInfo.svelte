@@ -1,25 +1,31 @@
 <script lang="ts">
   import { onMount, createEventDispatcher } from "svelte";
   import { getFeeds } from "../api/rssFeedProxy.ts";
-  import type { Icontent, Ifeed } from "../common/Feed";
+  import type { Ifeed, IfeedInfo } from "../common/Feed";
 
-  export let feedUrls: string[] = [];
-  let valids = feedUrls.map(() => true);
+  export let feedInfos: IfeedInfo[] = [];
+  let valids = feedInfos.map(() => true);
   const dispatch = createEventDispatcher();
 
   const add = () => {
-    feedUrls = [...feedUrls, ""];
+    const id = feedInfos[feedInfos.length - 1].id + 1;
+    feedInfos = [...feedInfos, {
+      id,
+      name: "",
+      passwd: "9999",
+      url: "",
+    }];
     valids = [...valids, true];
   };
 
   const remove = (e) => {
     const removeIndex = parseInt(e.target.name, 10);
-    feedUrls = feedUrls.filter((_, index) => index !== removeIndex);
+    feedInfos = feedInfos.filter((_, index) => index !== removeIndex);
     valids = valids.filter((_, index) => index !== removeIndex);
   };
 
-  const checkValidation = async (feedUrls: string[]) => {
-    const feeds = await getFeeds(feedUrls);
+  const checkValidation = async (feedInfos: IfeedInfo[]) => {
+    const feeds = await getFeeds(feedInfos);
     valids = feeds.map((feed: Ifeed) => feed.ok);
   };
 
@@ -28,12 +34,12 @@
   };
 
   const confirm = async () => {
-    await checkValidation(feedUrls);
+    await checkValidation(feedInfos);
 
     if (isAllValid()) {
       dispatch("exec", { payload: "confirm" });
     } else {
-      alert("不適切なURLがあります。");
+      alert("不適切なFeed情報があります。");
     }
   };
 
@@ -42,12 +48,12 @@
   };
 
   onMount(async () => {
-    await checkValidation(feedUrls);
+    await checkValidation(feedInfos);
   });
 </script>
 
 <style>
-  .feed-url {
+  .feed-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -65,9 +71,9 @@
 </style>
 
 <form>
-  {#each feedUrls as feedUrl, i}
-  <div class="feed-url">
-    <input type="url" name={i} required bind:value={feedUrl}>
+  {#each feedInfos as feedInfo, i}
+  <div class="feed-info">
+    <input type="url" name={i} required bind:value={feedInfo.url}>
 
     {#if valids[i]}
     <span>○</span>

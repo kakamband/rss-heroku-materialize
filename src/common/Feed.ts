@@ -1,4 +1,4 @@
-import type { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 
 export interface Icontent {
   title: string;
@@ -9,12 +9,19 @@ export interface Icontent {
 
 export interface Ifeed {
   ok: boolean;
-  status: number
+  status: number;
   statusText: string;
   url: string;
 
-  title: string,
-  description: string,
-  link: string,
+  title: string;
+  description: string;
+  link: string;
   contents: Icontent[];
+}
+
+export interface IfeedInfo {
+  id: number;
+  name: string;
+  passwd: string;
+  url: string;
 }
