@@ -2,16 +2,14 @@ const express = require("express");
 const RssParser = require("rss-parser");
 const fs = require("fs").promises;
 const path = require("path");
-const { Client } = require("pg");
-
-// DB導入の準備
-// const database = require("./database");
+const DB = require("./database");
 
 const port = process.env.PORT || 8080;
 
 const app = express();
 
 app.use(express.static("public"));
+app.use(express.json());  // requestのbodyを解析できるようにする。
 
 // DB導入の準備
 // app.use((req, res, next) => {
@@ -19,34 +17,23 @@ app.use(express.static("public"));
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //   next();
 // });
-
-app.use(express.json());  // requestのbodyを解析できるようにする。
-
-// DB導入の準備
+// 
 // app.use(express.urlencoded({ extended: true }));
 
-// DB導入の準備
-// const db = new database;
-
 const dbUri = "postgres://mpscwekfnxqtes:a01a652f1ca3830b3887a698492bb6e9a5e16fb58d38162f323963b42ad69478@ec2-35-169-92-231.compute-1.amazonaws.com:5432/d2u978t58np3dl";
+const db = new DB(dbUri);
 
-const client = new Client({
-  connectionString: dbUri,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
+(async () => {
+  let rows = [];
 
-client.connect();
+  rows = await db.query("SELECT * FROM feed_infos;");
+  for (let row of rows) console.log(row);
 
-client.query("SELECT * FROM feed_infos;", (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    // console.log(JSON.stringify(row));
-    console.log(row);
-  }
-  client.end();
-});
+  rows = await db.query("SELECT * FROM feed_infos;");
+  for (let row of rows) console.log(row);
+
+  db.exit();
+})();
 
 const rssParser = new RssParser();
 const feedInfosFileName = path.resolve("/tmp/feed-infos.json");

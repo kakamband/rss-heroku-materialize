@@ -1,17 +1,41 @@
-const Pool = require("pg");
+const { Client } = require("pg");
 
 module.exports = class DB {
-  constructor() {
-    this.pool = new Pool({
-      connectionString: DATABASE_URI,
-      ssl: true,
-    )};
+  constructor(uri) {
+    this.client = new Client({
+      connectionString: uri,
+      ssl: {
+        rejectUnauthorized: false
+      }
+    });
+
+    this.client.connect();
   }
 
   async query(param) {
-    const client = await this.pool.connect();
-    const { row } = await client.query(param);
-    client.release();
-    return row;
+    const { rows } = await this.client.query(param);
+    return rows;
+  }
+
+  exit() {
+    this.client.end();
   }
 }
+
+// const { Pool } = require("pg");
+
+// module.exports = class DB {
+//   constructor(uri) {
+//     this.pool = new Pool({
+//       connectionString: uri,
+//       ssl: true,
+//     });
+//   }
+
+//   async query(param) {
+//     const client = await this.pool.connect();
+//     const res = await client.query(param);
+//     client.release();
+//     return res;
+//   }
+// }
