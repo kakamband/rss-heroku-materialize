@@ -13,8 +13,8 @@ module.exports = class DB {
   }
 
   async query(param) {
-    const { rows } = await this.client.query(param);
-    return rows;
+    const result = await this.client.query(param);
+    return result;
   }
 
   exit() {

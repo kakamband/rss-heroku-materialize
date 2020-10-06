@@ -23,17 +23,13 @@ app.use(express.json());  // requestのbodyを解析できるようにする。
 const dbUri = "postgres://mpscwekfnxqtes:a01a652f1ca3830b3887a698492bb6e9a5e16fb58d38162f323963b42ad69478@ec2-35-169-92-231.compute-1.amazonaws.com:5432/d2u978t58np3dl";
 const db = new DB(dbUri);
 
-(async () => {
-  let rows = [];
-
-  rows = await db.query("SELECT * FROM feed_infos;");
-  for (let row of rows) console.log(row);
-
-  rows = await db.query("SELECT * FROM feed_infos;");
-  for (let row of rows) console.log(row);
-
+process.on("exit", () => {
   db.exit();
-})();
+});
+
+process.on("SIGINT", () => {
+  db.exit();
+});
 
 const rssParser = new RssParser();
 const feedInfosFileName = path.resolve("/tmp/feed-infos.json");
@@ -65,20 +61,33 @@ app.get("/rss-feed", async (req, res) => {
 
 app.put("/feed-infos", async (req, res) => {
   try {
-    await fs.writeFile(feedInfosFileName, JSON.stringify(req.body.feedInfos));
+    await db.query("delete from feed_infos;");
+
+    for (let feedInfo of req.body.feedInfos) {
+      const query = `insert into feed_infos values (${feedInfo.id}, \'${feedInfo.name}\', \'${feedInfo.passwd}\', \'${feedInfo.url}\');`;
+      console.log("QUERY: ", query);
+      await db.query(query);
+    }
+
+    // await fs.writeFile(feedInfosFileName, JSON.stringify(req.body.feedInfos));
     res.sendStatus(200);
   } catch (e) {
-    console.log('書き込みに失敗しました', feedInfosFileName, e);
+    // console.log("書き込みに失敗しました", feedInfosFileName, e);
+    console.log("書き込みに失敗しました", e);
     res.sendStatus(500);
   }
 });
 
 app.get("/feed-infos", async (req, res) => {
   try {
-    const feedInfosJson = await fs.readFile(feedInfosFileName);
-    res.send(feedInfosJson);
+    const result = await db.query("SELECT * FROM feed_infos;");
+    for (let row of result.rows) console.log(row);
+    res.json(result.rows);
+
+    // const feedInfosJson = await fs.readFile(feedInfosFileName);
+    // res.send(feedInfosJson);
   } catch (e) {
-    console.log('読み込みに失敗しました', feedInfosFileName, e);
+    console.log("読み込みに失敗しました", feedInfosFileName, e);
     res.sendStatus(500);
   }
 });

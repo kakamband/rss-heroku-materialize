@@ -499,7 +499,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "×";
-    			add_location(span, file, 80, 4, 2508);
+    			add_location(span, file, 80, 4, 2511);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -528,7 +528,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "○";
-    			add_location(span, file, 78, 4, 2477);
+    			add_location(span, file, 78, 4, 2480);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -584,13 +584,13 @@ var app = (function () {
     			attr_dev(input0, "type", "url");
     			attr_dev(input0, "name", input0_name_value = /*i*/ ctx[13]);
     			input0.required = true;
-    			add_location(input0, file, 75, 4, 2389);
+    			add_location(input0, file, 75, 4, 2392);
     			attr_dev(input1, "type", "button");
     			attr_dev(input1, "name", input1_name_value = /*i*/ ctx[13]);
     			input1.value = "削除";
-    			add_location(input1, file, 83, 4, 2538);
+    			add_location(input1, file, 83, 4, 2541);
     			attr_dev(div, "class", "feed-info svelte-1210cu9");
-    			add_location(div, file, 74, 2, 2361);
+    			add_location(div, file, 74, 2, 2364);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -683,18 +683,18 @@ var app = (function () {
     			attr_dev(input0, "type", "button");
     			attr_dev(input0, "class", "nav-item svelte-1210cu9");
     			input0.value = "追加";
-    			add_location(input0, file, 88, 4, 2642);
+    			add_location(input0, file, 88, 4, 2645);
     			attr_dev(input1, "type", "button");
     			attr_dev(input1, "class", "nav-item svelte-1210cu9");
     			input1.value = "確定";
-    			add_location(input1, file, 89, 4, 2711);
+    			add_location(input1, file, 89, 4, 2714);
     			attr_dev(input2, "type", "button");
     			attr_dev(input2, "class", "nav-item svelte-1210cu9");
     			input2.value = "サーバーから読込";
-    			add_location(input2, file, 90, 4, 2784);
+    			add_location(input2, file, 90, 4, 2787);
     			attr_dev(div, "class", "nav svelte-1210cu9");
-    			add_location(div, file, 87, 2, 2620);
-    			add_location(form, file, 72, 0, 2317);
+    			add_location(div, file, 87, 2, 2623);
+    			add_location(form, file, 72, 0, 2320);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -817,7 +817,7 @@ var app = (function () {
 
     	const add = () => {
     		const id = feedInfos[feedInfos.length - 1].id + 1;
-    		$$invalidate(0, feedInfos = [...feedInfos, { id, name: "", passwd: "9999", url: "" }]);
+    		$$invalidate(0, feedInfos = [...feedInfos, { id, name: "A.M", passwd: "9999", url: "" }]);
     		$$invalidate(1, valids = [...valids, true]);
     	};
 
