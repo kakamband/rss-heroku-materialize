@@ -1,41 +1,75 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { getFeeds, putFeedInfos, getFeedInfos } from "../api/rssFeedProxy.ts";
-  import type { Icontent, Ifeed } from "../common/Feed";
+  import type { Icontent, Ifeed, IfeedInfo } from "../common/Feed";
   import FeedInfo from "./FeedInfo.svelte";
   import FeedList from "./FeedList.svelte";
 
 	export let name: string;
   
-  let feedUrls = [
-    "https://qiita.com/tags/svelte/feed",
-    "https://news.yahoo.co.jp/pickup/rss.xml",
-    "https://qiita.com/tags/svelte/feed1",
-    "/pickup/rss1.xml",
-    "pickup/rss1.xml",
-    "/",
-    "",
+  let feedInfos: IfeedInfo[] = [
+    {
+      id: 1,
+      name: "A.M",
+      passwd: "9999",
+      url: "https://qiita.com/tags/svelte/feed",
+    },
+    {
+      id: 2,
+      name: "A.M",
+      passwd: "9999",
+      url: "https://news.yahoo.co.jp/pickup/rss.xml",
+    },
+    {
+      id: 3,
+      name: "A.M",
+      passwd: "9999",
+      url: "https://qiita.com/tags/svelte/feed1",
+    },
+    {
+      id: 4,
+      name: "A.M",
+      passwd: "9999",
+      url: "/pickup/rss1.xml",
+    },
+    {
+      id: 5,
+      name: "A.M",
+      passwd: "9999",
+      url: "pickup/rss1.xml",
+    },
+    {
+      id: 6,
+      name: "A.M",
+      passwd: "9999",
+      url: "/",
+    },
+    {
+      id: 7,
+      name: "A.M",
+      passwd: "9999",
+      url: "",
+    },
   ];
 
   let feeds: Ifeed[] = [];
 
   onMount(async () => {
-    feeds = await getFeeds(feedUrls);
+    feeds = await getFeeds(feedInfos);
   });
 
   const onExec = async (e) => {
     switch (e.detail.payload) {
       case "confirm":
-        feeds = await getFeeds(feedUrls);
-        await putFeedInfos(feedUrls);
+        feeds = await getFeeds(feedInfos);
+        await putFeedInfos(feedInfos);
         break;
 
       case "getFeedInfos":
         const result = await getFeedInfos();
 
-        console.log(result);
         if (result) {
-          feedUrls = result;
+          feedInfos = result;
         } else {
           alert("サーバからfeed情報を取得に失敗しました。");
         }
@@ -63,7 +97,7 @@
 	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 
-  <FeedInfo bind:feedUrls={feedUrls} on:exec={onExec} />
+  <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
   <FeedList feeds={feeds} />
 </main>
 

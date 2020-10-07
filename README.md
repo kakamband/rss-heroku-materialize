@@ -14,6 +14,8 @@
 
 [[Heroku Postgres] Herokuを使って無料でデータベースを利用する](https://qiita.com/fukke0906/items/07f3883742a8b6cd3c88)
 
+[Heroku Postgres](https://devcenter.heroku.com/articles/heroku-postgresql)
+
 # サーバサイド
 
 [Express Node.js のための高速で、革新的な、最小限のWebフレームワーク](https://expressjs.com/ja/)
@@ -84,7 +86,7 @@ git push origin [ブランチ名]#[issue番号]
 
 ```
 git checkout master
-git pull
+git pull origin master
 ```
 
 ---

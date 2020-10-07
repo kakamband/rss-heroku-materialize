@@ -11,7 +11,8 @@
     "dev": "rollup -c -w &",
     "local-server": "../node_modules/.bin/heroku local web &",
     "stop-dev": "killall -9 npm node",
-    "heroku": "../node_modules/.bin/heroku"
+    "heroku": "../node_modules/.bin/heroku",
+    "heroku:pg": "../node_modules/.bin/heroku pg:psql postgresql-horizontal-48352 --app frozen-badlands-00663"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
