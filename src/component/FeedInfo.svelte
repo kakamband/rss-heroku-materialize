@@ -9,12 +9,14 @@
 
   const add = () => {
     const id = feedInfos[feedInfos.length - 1].id + 1;
+
     feedInfos = [...feedInfos, {
       id,
       name: "A.M",
       passwd: "9999",
       url: "",
     }];
+    
     valids = [...valids, true];
   };
 
