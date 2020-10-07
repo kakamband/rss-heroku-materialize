@@ -5,6 +5,8 @@
   import FeedInfo from "./FeedInfo.svelte";
   import FeedList from "./FeedList.svelte";
 
+  import { Authpack } from '@authpack/sdk'
+
 	export let name: string;
   
   let feedInfos: IfeedInfo[] = [
@@ -59,9 +61,9 @@
   onMount(async () => {
     feeds = await getFeeds(feedInfos);
 
-		authpack = new window.Authpack({
+    authpack = new Authpack({
 		  key: 'wga-client-key-687e9f9d7e762835aad651f8f'
-		})
+    })
 		
 		const unlisten = authpack.listen(state => {
 			if (!state.ready) {
@@ -120,7 +122,7 @@
 	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 
-	<button on:click={onOpen}>ログイン</button>
+	<input type="button" value="ログイン" on:click={onOpen}>
 
   <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
   <FeedList feeds={feeds} />
