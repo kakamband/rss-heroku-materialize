@@ -9,6 +9,8 @@
 
 	export let name: string;
   
+  let feedInfos: IfeedInfo[] = [];
+/*
   let feedInfos: IfeedInfo[] = [
     {
       id: 1,
@@ -53,10 +55,12 @@
       url: "",
     },
   ];
+*/
 
   let feeds: Ifeed[] = [];
 
   let authpack = null;
+  let authLabel = "ログイン";
 
   onMount(async () => {
     feeds = await getFeeds(feedInfos);
@@ -67,12 +71,14 @@
 		
 		const unlisten = authpack.listen(state => {
 			if (!state.ready) {
-				console.log('Loading...')
+				console.log("Loading...");
 			} else {
 				if (state.user) {
+          authLabel = "ログアウト";
 					console.log("Hello ")
 					console.log(state.user)
 				} else {
+          authLabel = "ログイン";
 					console.log("User not logged in.")
 				}
 			}
@@ -122,7 +128,7 @@
 	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 
-	<input type="button" value="ログイン" on:click={onOpen}>
+	<input type="button" value={authLabel} on:click={onOpen}>
 
   <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
   <FeedList feeds={feeds} />

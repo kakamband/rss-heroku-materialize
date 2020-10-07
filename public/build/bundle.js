@@ -365,6 +365,10 @@ var app = (function () {
         else
             dispatch_dev("SvelteDOMSetAttribute", { node, attribute, value });
     }
+    function prop_dev(node, property, value) {
+        node[property] = value;
+        dispatch_dev("SvelteDOMSetProperty", { node, property, value });
+    }
     function set_data_dev(text, data) {
         data = '' + data;
         if (text.wholeText === data)
@@ -3598,7 +3602,7 @@ var app = (function () {
     	let dispose;
 
     	function feedinfo_feedInfos_binding(value) {
-    		/*feedinfo_feedInfos_binding*/ ctx[5].call(null, value);
+    		/*feedinfo_feedInfos_binding*/ ctx[6].call(null, value);
     	}
 
     	let feedinfo_props = {};
@@ -3609,7 +3613,7 @@ var app = (function () {
 
     	feedinfo = new FeedInfo({ props: feedinfo_props, $$inline: true });
     	binding_callbacks.push(() => bind(feedinfo, "feedInfos", feedinfo_feedInfos_binding));
-    	feedinfo.$on("exec", /*onExec*/ ctx[4]);
+    	feedinfo.$on("exec", /*onExec*/ ctx[5]);
 
     	feedlist = new FeedList({
     			props: { feeds: /*feeds*/ ctx[2] },
@@ -3639,17 +3643,17 @@ var app = (function () {
     			create_component(feedlist.$$.fragment);
     			attr_dev(link, "rel", "stylesheet");
     			attr_dev(link, "href", "https://unpkg.com/sakura.css/css/sakura.css");
-    			add_location(link, file$2, 107, 1, 2959);
+    			add_location(link, file$2, 113, 1, 3043);
     			attr_dev(h1, "class", "svelte-1tky8bj");
-    			add_location(h1, file$2, 118, 1, 3439);
+    			add_location(h1, file$2, 124, 1, 3523);
     			attr_dev(a, "href", "https://svelte.dev/tutorial");
-    			add_location(a, file$2, 119, 14, 3476);
-    			add_location(p, file$2, 119, 1, 3463);
+    			add_location(a, file$2, 125, 14, 3560);
+    			add_location(p, file$2, 125, 1, 3547);
     			attr_dev(input, "type", "button");
-    			input.value = "ログイン";
-    			add_location(input, file$2, 121, 1, 3575);
+    			input.value = /*authLabel*/ ctx[3];
+    			add_location(input, file$2, 127, 1, 3659);
     			attr_dev(main, "class", "svelte-1tky8bj");
-    			add_location(main, file$2, 117, 0, 3431);
+    			add_location(main, file$2, 123, 0, 3515);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3676,12 +3680,17 @@ var app = (function () {
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(input, "click", /*onOpen*/ ctx[3], false, false, false);
+    				dispose = listen_dev(input, "click", /*onOpen*/ ctx[4], false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
     			if (!current || dirty & /*name*/ 1) set_data_dev(t2, /*name*/ ctx[0]);
+
+    			if (!current || dirty & /*authLabel*/ 8) {
+    				prop_dev(input, "value", /*authLabel*/ ctx[3]);
+    			}
+
     			const feedinfo_changes = {};
 
     			if (!updating_feedInfos && dirty & /*feedInfos*/ 2) {
@@ -3770,54 +3779,58 @@ var app = (function () {
 
     	
     	let { name } = $$props;
+    	let feedInfos = [];
 
-    	let feedInfos = [
-    		{
-    			id: 1,
-    			name: "A.M",
-    			passwd: "9999",
-    			url: "https://qiita.com/tags/svelte/feed"
-    		},
-    		{
-    			id: 2,
-    			name: "A.M",
-    			passwd: "9999",
-    			url: "https://news.yahoo.co.jp/pickup/rss.xml"
-    		},
-    		{
-    			id: 3,
-    			name: "A.M",
-    			passwd: "9999",
-    			url: "https://qiita.com/tags/svelte/feed1"
-    		},
-    		{
-    			id: 4,
-    			name: "A.M",
-    			passwd: "9999",
-    			url: "/pickup/rss1.xml"
-    		},
-    		{
-    			id: 5,
-    			name: "A.M",
-    			passwd: "9999",
-    			url: "pickup/rss1.xml"
-    		},
-    		{
-    			id: 6,
-    			name: "A.M",
-    			passwd: "9999",
-    			url: "/"
-    		},
-    		{
-    			id: 7,
-    			name: "A.M",
-    			passwd: "9999",
-    			url: ""
-    		}
-    	];
-
+    	/*
+      let feedInfos: IfeedInfo[] = [
+        {
+          id: 1,
+          name: "A.M",
+          passwd: "9999",
+          url: "https://qiita.com/tags/svelte/feed",
+        },
+        {
+          id: 2,
+          name: "A.M",
+          passwd: "9999",
+          url: "https://news.yahoo.co.jp/pickup/rss.xml",
+        },
+        {
+          id: 3,
+          name: "A.M",
+          passwd: "9999",
+          url: "https://qiita.com/tags/svelte/feed1",
+        },
+        {
+          id: 4,
+          name: "A.M",
+          passwd: "9999",
+          url: "/pickup/rss1.xml",
+        },
+        {
+          id: 5,
+          name: "A.M",
+          passwd: "9999",
+          url: "pickup/rss1.xml",
+        },
+        {
+          id: 6,
+          name: "A.M",
+          passwd: "9999",
+          url: "/",
+        },
+        {
+          id: 7,
+          name: "A.M",
+          passwd: "9999",
+          url: "",
+        },
+      ];
+    */
     	let feeds = [];
+
     	let authpack = null;
+    	let authLabel = "ログイン";
 
     	onMount(() => __awaiter(void 0, void 0, void 0, function* () {
     		$$invalidate(2, feeds = yield getFeeds(feedInfos));
@@ -3831,9 +3844,11 @@ var app = (function () {
     				console.log("Loading...");
     			} else {
     				if (state.user) {
+    					$$invalidate(3, authLabel = "ログアウト");
     					console.log("Hello ");
     					console.log(state.user);
     				} else {
+    					$$invalidate(3, authLabel = "ログイン");
     					console.log("User not logged in.");
     				}
     			}
@@ -3889,6 +3904,7 @@ var app = (function () {
     		feedInfos,
     		feeds,
     		authpack,
+    		authLabel,
     		onOpen,
     		onExec
     	});
@@ -3899,13 +3915,14 @@ var app = (function () {
     		if ("feedInfos" in $$props) $$invalidate(1, feedInfos = $$props.feedInfos);
     		if ("feeds" in $$props) $$invalidate(2, feeds = $$props.feeds);
     		if ("authpack" in $$props) authpack = $$props.authpack;
+    		if ("authLabel" in $$props) $$invalidate(3, authLabel = $$props.authLabel);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [name, feedInfos, feeds, onOpen, onExec, feedinfo_feedInfos_binding];
+    	return [name, feedInfos, feeds, authLabel, onOpen, onExec, feedinfo_feedInfos_binding];
     }
 
     class App extends SvelteComponentDev {
