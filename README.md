@@ -10,7 +10,14 @@
 
 [HEROKU Dashboard](https://dashboard.heroku.com/apps)
 
+[[5分でできる] Node.jsでつくったWebアプリを無料でサーバー公開する方法(後編)
+](https://note.com/w0o0ps/n/n2eca493ced5d)
+
 [Heroku スターターガイド (Node.js)](https://devcenter.heroku.com/ja/articles/getting-started-with-nodejs)
+
+[The Heroku CLI#npm](https://devcenter.heroku.com/articles/heroku-cli#npm)
+
+## Heroku Postgres
 
 [[Heroku Postgres] Herokuを使って無料でデータベースを利用する](https://qiita.com/fukke0906/items/07f3883742a8b6cd3c88)
 
