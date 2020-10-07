@@ -43,8 +43,8 @@
   <details>
     <summary>{feed.title}</summary>
 
-    <a href={feed.link}>ホームページ</a>
-    <a href={feed.url}>フィードのリンク</a>
+    <a href={feed.link} target="_blank" rel="noopener noreferrer">ホームページ</a>
+    <a href={feed.url} target="_blank" rel="noopener noreferrer">フィードのリンク</a>
 
     {#if feed.description}
     <p>{feed.description}</p>
@@ -52,7 +52,7 @@
 
     {#each feed.contents as content}
     <div class="content">
-      <p class="content-item title"><a href={content.link}>{content.title}</a></p>
+      <p class="content-item title"><a href={content.link} target="_blank" rel="noopener noreferrer">{content.title}</a></p>
       <p class="date">{content.date.format("YYYY/MM/DD HH:mm")}</p>
     </div>
     {/each}

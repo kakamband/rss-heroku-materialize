@@ -961,8 +961,8 @@ var app = (function () {
     			t3 = text("]");
     			t4 = text(t4_value);
     			attr_dev(a, "href", a_href_value = /*feed*/ ctx[3].url);
-    			add_location(a, file$1, 58, 5, 1203);
-    			add_location(p, file$1, 58, 2, 1200);
+    			add_location(a, file$1, 58, 5, 1329);
+    			add_location(p, file$1, 58, 2, 1326);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -1045,9 +1045,13 @@ var app = (function () {
 
     			add_location(summary, file$1, 40, 4, 764);
     			attr_dev(a0, "href", a0_href_value = /*feed*/ ctx[3].link);
+    			attr_dev(a0, "target", "_blank");
+    			attr_dev(a0, "rel", "noopener noreferrer");
     			add_location(a0, file$1, 42, 4, 801);
     			attr_dev(a1, "href", a1_href_value = /*feed*/ ctx[3].url);
-    			add_location(a1, file$1, 43, 4, 836);
+    			attr_dev(a1, "target", "_blank");
+    			attr_dev(a1, "rel", "noopener noreferrer");
+    			add_location(a1, file$1, 43, 4, 878);
     			add_location(details, file$1, 39, 2, 750);
     		},
     		m: function mount(target, anchor) {
@@ -1144,7 +1148,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			t = text(t_value);
-    			add_location(p, file$1, 46, 4, 900);
+    			add_location(p, file$1, 46, 4, 984);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -1194,13 +1198,15 @@ var app = (function () {
     			t2 = text(t2_value);
     			t3 = space();
     			attr_dev(a, "href", a_href_value = /*content*/ ctx[6].link);
-    			add_location(a, file$1, 51, 36, 1036);
+    			attr_dev(a, "target", "_blank");
+    			attr_dev(a, "rel", "noopener noreferrer");
+    			add_location(a, file$1, 51, 36, 1120);
     			attr_dev(p0, "class", "content-item title svelte-fhl34u");
-    			add_location(p0, file$1, 51, 6, 1006);
+    			add_location(p0, file$1, 51, 6, 1090);
     			attr_dev(p1, "class", "date svelte-fhl34u");
-    			add_location(p1, file$1, 52, 6, 1089);
+    			add_location(p1, file$1, 52, 6, 1215);
     			attr_dev(div, "class", "content svelte-fhl34u");
-    			add_location(div, file$1, 50, 4, 978);
+    			add_location(div, file$1, 50, 4, 1062);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
