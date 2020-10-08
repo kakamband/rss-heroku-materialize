@@ -37,6 +37,15 @@
 
 [HTTP レスポンスステータスコード](https://developer.mozilla.org/ja/docs/Web/HTTP/Status)
 
+# Authpack
+
+[Authpack](https://authpack.io/)
+
+[面倒な手順は不要！HTMLの記述だけで多機能なユーザー認証を実現する「Authpack」を使ってみた！](https://paiza.hatenablog.com/entry/2020/03/18/%EF%BB%BF%E9%9D%A2%E5%80%92%E3%81%AA%E6%89%8B%E9%A0%86%E3%81%AF%E4%B8%8D%E8%A6%81%EF%BC%81HTML%E3%81%AE%E8%A8%98%E8%BF%B0%E3%81%A0%E3%81%91%E3%81%A7%E5%A4%9A%E6%A9%9F%E8%83%BD%E3%81%AA%E3%83%A6%E3%83%BC)
+
+## 参考
+[面倒なログイン機能の実装はFirebase Authenticationに丸投げしよう](https://apps-gcp.com/firebase-authentication/)
+
 # 日時処理
 
 [Day.jsでよく使う機能の覚書](https://qiita.com/tobita0000/items/0f9d0067398efdc2931e)

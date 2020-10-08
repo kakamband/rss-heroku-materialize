@@ -30,6 +30,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "@authpack/sdk": "^0.8.18",
     "dayjs": "^1.8.36",
     "express": "^4.17.1",
     "pg": "^8.3.3",

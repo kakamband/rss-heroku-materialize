@@ -4,54 +4,11 @@
   import type { Icontent, Ifeed, IfeedInfo } from "../common/Feed";
   import FeedInfo from "./FeedInfo.svelte";
   import FeedList from "./FeedList.svelte";
+  import Auth from "./Auth.svelte";
 
 	export let name: string;
   
-  let feedInfos: IfeedInfo[] = [
-    {
-      id: 1,
-      name: "A.M",
-      passwd: "9999",
-      url: "https://qiita.com/tags/svelte/feed",
-    },
-    {
-      id: 2,
-      name: "A.M",
-      passwd: "9999",
-      url: "https://news.yahoo.co.jp/pickup/rss.xml",
-    },
-    {
-      id: 3,
-      name: "A.M",
-      passwd: "9999",
-      url: "https://qiita.com/tags/svelte/feed1",
-    },
-    {
-      id: 4,
-      name: "A.M",
-      passwd: "9999",
-      url: "/pickup/rss1.xml",
-    },
-    {
-      id: 5,
-      name: "A.M",
-      passwd: "9999",
-      url: "pickup/rss1.xml",
-    },
-    {
-      id: 6,
-      name: "A.M",
-      passwd: "9999",
-      url: "/",
-    },
-    {
-      id: 7,
-      name: "A.M",
-      passwd: "9999",
-      url: "",
-    },
-  ];
-
+  let feedInfos: IfeedInfo[] = [];
   let feeds: Ifeed[] = [];
 
   onMount(async () => {
@@ -59,6 +16,7 @@
   });
 
   const onExec = async (e) => {
+
     switch (e.detail.payload) {
       case "confirm":
         feeds = await getFeeds(feedInfos);
@@ -82,6 +40,15 @@
   };
 </script>
 
+<main>
+	<h1>Hello {name}!</h1>
+	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+
+  <Auth />
+  <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
+  <FeedList feeds={feeds} />
+</main>
+
 <svelte:head>
 	<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css">
 <!-- 
@@ -92,14 +59,6 @@
 	<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css">
 -->
 </svelte:head>
-
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-
-  <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
-  <FeedList feeds={feeds} />
-</main>
 
 <style>
 	main {

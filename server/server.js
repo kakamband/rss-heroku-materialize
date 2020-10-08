@@ -63,7 +63,7 @@ app.put("/feed-infos", async (req, res) => {
 app.get("/feed-infos", async (_, res) => {
   try {
     const result = await db.query("SELECT * FROM feed_infos;");
-    for (let row of result.rows) console.log(row);
+    // for (let row of result.rows) console.log(row);
     res.json(result.rows);
   } catch (e) {
     console.log("RSS feed proxy server: DB読込に失敗しました", e);
