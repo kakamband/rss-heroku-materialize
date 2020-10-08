@@ -4,92 +4,19 @@
   import type { Icontent, Ifeed, IfeedInfo } from "../common/Feed";
   import FeedInfo from "./FeedInfo.svelte";
   import FeedList from "./FeedList.svelte";
-
-  import { Authpack } from '@authpack/sdk'
+  import Auth from "./Auth.svelte";
 
 	export let name: string;
   
   let feedInfos: IfeedInfo[] = [];
-/*
-  let feedInfos: IfeedInfo[] = [
-    {
-      id: 1,
-      name: "A.M",
-      passwd: "9999",
-      url: "https://qiita.com/tags/svelte/feed",
-    },
-    {
-      id: 2,
-      name: "A.M",
-      passwd: "9999",
-      url: "https://news.yahoo.co.jp/pickup/rss.xml",
-    },
-    {
-      id: 3,
-      name: "A.M",
-      passwd: "9999",
-      url: "https://qiita.com/tags/svelte/feed1",
-    },
-    {
-      id: 4,
-      name: "A.M",
-      passwd: "9999",
-      url: "/pickup/rss1.xml",
-    },
-    {
-      id: 5,
-      name: "A.M",
-      passwd: "9999",
-      url: "pickup/rss1.xml",
-    },
-    {
-      id: 6,
-      name: "A.M",
-      passwd: "9999",
-      url: "/",
-    },
-    {
-      id: 7,
-      name: "A.M",
-      passwd: "9999",
-      url: "",
-    },
-  ];
-*/
-
   let feeds: Ifeed[] = [];
-
-  let authpack = null;
-  let authLabel = "ログイン";
 
   onMount(async () => {
     feeds = await getFeeds(feedInfos);
-
-    authpack = new Authpack({
-		  key: 'wga-client-key-687e9f9d7e762835aad651f8f'
-    })
-		
-		const unlisten = authpack.listen(state => {
-			if (!state.ready) {
-				console.log("Loading...");
-			} else {
-				if (state.user) {
-          authLabel = "ログアウト";
-					console.log("Hello ")
-					console.log(state.user)
-				} else {
-          authLabel = "ログイン";
-					console.log("User not logged in.")
-				}
-			}
-		})
   });
 
-  function onOpen() {
-    authpack.open()
-  }
-
   const onExec = async (e) => {
+
     switch (e.detail.payload) {
       case "confirm":
         feeds = await getFeeds(feedInfos);
@@ -113,6 +40,15 @@
   };
 </script>
 
+<main>
+	<h1>Hello {name}!</h1>
+	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+
+  <Auth />
+  <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
+  <FeedList feeds={feeds} />
+</main>
+
 <svelte:head>
 	<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css">
 <!-- 
@@ -123,16 +59,6 @@
 	<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css">
 -->
 </svelte:head>
-
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-
-	<input type="button" value={authLabel} on:click={onOpen}>
-
-  <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
-  <FeedList feeds={feeds} />
-</main>
 
 <style>
 	main {
