@@ -20,6 +20,6 @@ export interface Ifeed {
 }
 
 export interface IfeedInfo {
-  id: number;
+  id: string;
   url: string;
 }

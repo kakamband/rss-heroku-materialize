@@ -7,12 +7,7 @@
   import FeedList from "./FeedList.svelte";
   import Auth from "./Auth.svelte";
 
-	let user: Iuser = {
-    id: null,
-    name: null,
-    email: null,
-  };
-  
+  let user: Iuser = null;
   let feedInfos: IfeedInfo[] = [];
   let feeds: Ifeed[] = [];
 
@@ -46,7 +41,9 @@
 </script>
 
 <main>
+  {#if user}
 	<h1>Hello {user.name}!</h1>
+  {/if}
 
   <Auth bind:user={user} />
   <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
