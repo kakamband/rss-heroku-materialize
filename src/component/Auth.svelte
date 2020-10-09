@@ -1,6 +1,13 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { Authpack } from "@authpack/sdk";
+  import type { Iuser } from "../common/Auth.ts";
+
+  export let user: Iuser = {
+    id: null,
+    name: null,
+    email: null,
+  };
 
   let authpack = null;
   let authLabel = "ログイン";
@@ -16,9 +23,11 @@
 			} else {
 				if (state.user) {
           authLabel = "ログアウト";
+          user = { id: state.user.id, name: state.user.name, email: state.user.email, };
 					console.log(state.user);
 				} else {
           authLabel = "ログイン";
+          user = { id: null, name: null, email: null, };
 					console.log("User not logged in.");
 				}
 			}

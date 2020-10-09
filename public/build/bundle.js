@@ -3587,7 +3587,7 @@ var app = (function () {
     			input = element("input");
     			attr_dev(input, "type", "button");
     			input.value = /*authLabel*/ ctx[0];
-    			add_location(input, file$2, 38, 0, 1444);
+    			add_location(input, file$2, 46, 0, 1674);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3665,6 +3665,8 @@ var app = (function () {
     			});
     	};
 
+    	
+    	let { user = { id: null, name: null, email: null } } = $$props;
     	let authpack = null;
     	let authLabel = "ログイン";
 
@@ -3679,9 +3681,17 @@ var app = (function () {
     			} else {
     				if (state.user) {
     					$$invalidate(0, authLabel = "ログアウト");
+
+    					$$invalidate(2, user = {
+    						id: state.user.id,
+    						name: state.user.name,
+    						email: state.user.email
+    					});
+
     					console.log(state.user);
     				} else {
     					$$invalidate(0, authLabel = "ログイン");
+    					$$invalidate(2, user = { id: null, name: null, email: null });
     					console.log("User not logged in.");
     				}
     			}
@@ -3692,16 +3702,21 @@ var app = (function () {
     		authpack.open();
     	};
 
-    	const writable_props = [];
+    	const writable_props = ["user"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<Auth> was created with unknown prop '${key}'`);
     	});
 
+    	$$self.$$set = $$props => {
+    		if ("user" in $$props) $$invalidate(2, user = $$props.user);
+    	};
+
     	$$self.$capture_state = () => ({
     		__awaiter,
     		onMount,
     		Authpack: lib$1.Authpack,
+    		user,
     		authpack,
     		authLabel,
     		onOpen
@@ -3709,6 +3724,7 @@ var app = (function () {
 
     	$$self.$inject_state = $$props => {
     		if ("__awaiter" in $$props) __awaiter = $$props.__awaiter;
+    		if ("user" in $$props) $$invalidate(2, user = $$props.user);
     		if ("authpack" in $$props) authpack = $$props.authpack;
     		if ("authLabel" in $$props) $$invalidate(0, authLabel = $$props.authLabel);
     	};
@@ -3717,13 +3733,13 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [authLabel, onOpen];
+    	return [authLabel, onOpen, user];
     }
 
     class Auth extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$2, create_fragment$2, safe_not_equal, {});
+    		init(this, options, instance$2, create_fragment$2, safe_not_equal, { user: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -3731,6 +3747,14 @@ var app = (function () {
     			options,
     			id: create_fragment$2.name
     		});
+    	}
+
+    	get user() {
+    		throw new Error("<Auth>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set user(value) {
+    		throw new Error("<Auth>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -3741,27 +3765,36 @@ var app = (function () {
     	let main;
     	let h1;
     	let t0;
+    	let t1_value = /*user*/ ctx[0].name + "";
     	let t1;
     	let t2;
     	let t3;
-    	let p;
-    	let t4;
-    	let a;
-    	let t6;
-    	let t7;
     	let auth;
-    	let t8;
+    	let updating_user;
+    	let t4;
     	let feedinfo;
     	let updating_feedInfos;
-    	let t9;
+    	let t5;
     	let feedlist;
-    	let t10;
+    	let t6;
     	let link;
     	let current;
-    	auth = new Auth({ $$inline: true });
+
+    	function auth_user_binding(value) {
+    		/*auth_user_binding*/ ctx[4].call(null, value);
+    	}
+
+    	let auth_props = {};
+
+    	if (/*user*/ ctx[0] !== void 0) {
+    		auth_props.user = /*user*/ ctx[0];
+    	}
+
+    	auth = new Auth({ props: auth_props, $$inline: true });
+    	binding_callbacks.push(() => bind(auth, "user", auth_user_binding));
 
     	function feedinfo_feedInfos_binding(value) {
-    		/*feedinfo_feedInfos_binding*/ ctx[4].call(null, value);
+    		/*feedinfo_feedInfos_binding*/ ctx[5].call(null, value);
     	}
 
     	let feedinfo_props = {};
@@ -3784,32 +3817,23 @@ var app = (function () {
     			main = element("main");
     			h1 = element("h1");
     			t0 = text("Hello ");
-    			t1 = text(/*name*/ ctx[0]);
+    			t1 = text(t1_value);
     			t2 = text("!");
     			t3 = space();
-    			p = element("p");
-    			t4 = text("Visit the ");
-    			a = element("a");
-    			a.textContent = "Svelte tutorial";
-    			t6 = text(" to learn how to build Svelte apps.");
-    			t7 = space();
     			create_component(auth.$$.fragment);
-    			t8 = space();
+    			t4 = space();
     			create_component(feedinfo.$$.fragment);
-    			t9 = space();
+    			t5 = space();
     			create_component(feedlist.$$.fragment);
-    			t10 = space();
+    			t6 = space();
     			link = element("link");
     			attr_dev(h1, "class", "svelte-1tky8bj");
-    			add_location(h1, file$3, 43, 1, 1648);
-    			attr_dev(a, "href", "https://svelte.dev/tutorial");
-    			add_location(a, file$3, 44, 14, 1685);
-    			add_location(p, file$3, 44, 1, 1672);
+    			add_location(h1, file$3, 48, 1, 1696);
     			attr_dev(main, "class", "svelte-1tky8bj");
-    			add_location(main, file$3, 42, 0, 1640);
+    			add_location(main, file$3, 47, 0, 1688);
     			attr_dev(link, "rel", "stylesheet");
     			attr_dev(link, "href", "https://unpkg.com/sakura.css/css/sakura.css");
-    			add_location(link, file$3, 52, 1, 1906);
+    			add_location(link, file$3, 56, 1, 1865);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3821,22 +3845,26 @@ var app = (function () {
     			append_dev(h1, t1);
     			append_dev(h1, t2);
     			append_dev(main, t3);
-    			append_dev(main, p);
-    			append_dev(p, t4);
-    			append_dev(p, a);
-    			append_dev(p, t6);
-    			append_dev(main, t7);
     			mount_component(auth, main, null);
-    			append_dev(main, t8);
+    			append_dev(main, t4);
     			mount_component(feedinfo, main, null);
-    			append_dev(main, t9);
+    			append_dev(main, t5);
     			mount_component(feedlist, main, null);
-    			insert_dev(target, t10, anchor);
+    			insert_dev(target, t6, anchor);
     			append_dev(document.head, link);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
-    			if (!current || dirty & /*name*/ 1) set_data_dev(t1, /*name*/ ctx[0]);
+    			if ((!current || dirty & /*user*/ 1) && t1_value !== (t1_value = /*user*/ ctx[0].name + "")) set_data_dev(t1, t1_value);
+    			const auth_changes = {};
+
+    			if (!updating_user && dirty & /*user*/ 1) {
+    				updating_user = true;
+    				auth_changes.user = /*user*/ ctx[0];
+    				add_flush_callback(() => updating_user = false);
+    			}
+
+    			auth.$set(auth_changes);
     			const feedinfo_changes = {};
 
     			if (!updating_feedInfos && dirty & /*feedInfos*/ 2) {
@@ -3868,7 +3896,7 @@ var app = (function () {
     			destroy_component(auth);
     			destroy_component(feedinfo);
     			destroy_component(feedlist);
-    			if (detaching) detach_dev(t10);
+    			if (detaching) detach_dev(t6);
     			detach_dev(link);
     		}
     	};
@@ -3925,7 +3953,8 @@ var app = (function () {
     	};
 
     	
-    	let { name } = $$props;
+    	
+    	let user = { id: null, name: null, email: null };
     	let feedInfos = [];
     	let feeds = [];
 
@@ -3950,20 +3979,21 @@ var app = (function () {
     		}
     	});
 
-    	const writable_props = ["name"];
+    	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
+    	function auth_user_binding(value) {
+    		user = value;
+    		$$invalidate(0, user);
+    	}
+
     	function feedinfo_feedInfos_binding(value) {
     		feedInfos = value;
     		$$invalidate(1, feedInfos);
     	}
-
-    	$$self.$$set = $$props => {
-    		if ("name" in $$props) $$invalidate(0, name = $$props.name);
-    	};
 
     	$$self.$capture_state = () => ({
     		__awaiter,
@@ -3974,7 +4004,7 @@ var app = (function () {
     		FeedInfo,
     		FeedList,
     		Auth,
-    		name,
+    		user,
     		feedInfos,
     		feeds,
     		onExec
@@ -3982,7 +4012,7 @@ var app = (function () {
 
     	$$self.$inject_state = $$props => {
     		if ("__awaiter" in $$props) __awaiter = $$props.__awaiter;
-    		if ("name" in $$props) $$invalidate(0, name = $$props.name);
+    		if ("user" in $$props) $$invalidate(0, user = $$props.user);
     		if ("feedInfos" in $$props) $$invalidate(1, feedInfos = $$props.feedInfos);
     		if ("feeds" in $$props) $$invalidate(2, feeds = $$props.feeds);
     	};
@@ -3991,13 +4021,13 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [name, feedInfos, feeds, onExec, feedinfo_feedInfos_binding];
+    	return [user, feedInfos, feeds, onExec, auth_user_binding, feedinfo_feedInfos_binding];
     }
 
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$3, create_fragment$3, safe_not_equal, { name: 0 });
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -4005,29 +4035,11 @@ var app = (function () {
     			options,
     			id: create_fragment$3.name
     		});
-
-    		const { ctx } = this.$$;
-    		const props = options.props || {};
-
-    		if (/*name*/ ctx[0] === undefined && !("name" in props)) {
-    			console.warn("<App> was created without expected prop 'name'");
-    		}
-    	}
-
-    	get name() {
-    		throw new Error("<App>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set name(value) {
-    		throw new Error("<App>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
     const app = new App({
         target: document.body,
-        props: {
-            name: "world",
-        },
     });
 
     return app;
