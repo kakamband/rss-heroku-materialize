@@ -46,10 +46,10 @@ app.get("/rss-feed", async (req, res) => {
 
 app.put("/feed-infos", async (req, res) => {
   try {
-    await db.query("delete from feed_infos;");
+    await db.query(`delete from feed_infos where id = \'${req.query.id}\';`);
 
     for (let feedInfo of req.body.feedInfos) {
-      const query = `insert into feed_infos values (\'${feedInfo.id}\', \'${feedInfo.url}\');`;
+      const query = `insert into feed_infos values (\'${req.query.id}\', \'${feedInfo.url}\');`;
       await db.query(query);
     }
 
@@ -60,9 +60,9 @@ app.put("/feed-infos", async (req, res) => {
   }
 });
 
-app.get("/feed-infos", async (_, res) => {
+app.get("/feed-infos", async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM feed_infos;");
+    const result = await db.query(`SELECT * FROM feed_infos where id = \'${req.query.id}\';`);
     // for (let row of result.rows) console.log(row);
     res.json(result.rows);
   } catch (e) {

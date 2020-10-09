@@ -175,6 +175,19 @@ var app = (function () {
     }
     const outroing = new Set();
     let outros;
+    function group_outros() {
+        outros = {
+            r: 0,
+            c: [],
+            p: outros // parent group
+        };
+    }
+    function check_outros() {
+        if (!outros.r) {
+            run_all(outros.c);
+        }
+        outros = outros.p;
+    }
     function transition_in(block, local) {
         if (block && block.i) {
             outroing.delete(block);
@@ -447,7 +460,7 @@ var app = (function () {
         return response;
     };
     const getFeed = async (rssUrl) => {
-        const response = await api("rss-feed", `url=${rssUrl}`);
+        const response = await api("rss-feed", `url=${rssUrl}`, "GET");
         const feed = {
             ok: response.ok,
             status: response.status,
@@ -475,12 +488,12 @@ var app = (function () {
         const feeds = await Promise.all(promises);
         return feeds;
     };
-    const putFeedInfos = async (feedInfos) => {
-        const response = await api("feed-infos", null, "PUT", { feedInfos });
+    const putFeedInfos = async (id, feedInfos) => {
+        const response = await api("feed-infos", `id=${id}`, "PUT", { feedInfos });
         console.log(response.ok, response.status, response.statusText);
     };
-    const getFeedInfos = async () => {
-        const response = await api("feed-infos", null, "GET");
+    const getFeedInfos = async (id) => {
+        const response = await api("feed-infos", `id=${id}`, "GET");
         if (!response.ok)
             return null;
         const feedInfos = await response.json();
@@ -498,7 +511,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (78:4) {:else}
+    // (77:4) {:else}
     function create_else_block(ctx) {
     	let span;
 
@@ -506,7 +519,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "×";
-    			add_location(span, file, 78, 4, 2458);
+    			add_location(span, file, 77, 4, 2407);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -520,14 +533,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(78:4) {:else}",
+    		source: "(77:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (76:4) {#if valids[i]}
+    // (75:4) {#if valids[i]}
     function create_if_block(ctx) {
     	let span;
 
@@ -535,7 +548,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "○";
-    			add_location(span, file, 76, 4, 2427);
+    			add_location(span, file, 75, 4, 2376);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -549,14 +562,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(76:4) {#if valids[i]}",
+    		source: "(75:4) {#if valids[i]}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (72:2) {#each feedInfos as feedInfo, i}
+    // (71:2) {#each feedInfos as feedInfo, i}
     function create_each_block(ctx) {
     	let div;
     	let input0;
@@ -591,13 +604,13 @@ var app = (function () {
     			attr_dev(input0, "type", "url");
     			attr_dev(input0, "name", input0_name_value = /*i*/ ctx[13]);
     			input0.required = true;
-    			add_location(input0, file, 73, 4, 2339);
+    			add_location(input0, file, 72, 4, 2288);
     			attr_dev(input1, "type", "button");
     			attr_dev(input1, "name", input1_name_value = /*i*/ ctx[13]);
     			input1.value = "削除";
-    			add_location(input1, file, 81, 4, 2488);
+    			add_location(input1, file, 80, 4, 2437);
     			attr_dev(div, "class", "feed-info svelte-1210cu9");
-    			add_location(div, file, 72, 2, 2311);
+    			add_location(div, file, 71, 2, 2260);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -646,7 +659,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(72:2) {#each feedInfos as feedInfo, i}",
+    		source: "(71:2) {#each feedInfos as feedInfo, i}",
     		ctx
     	});
 
@@ -690,18 +703,18 @@ var app = (function () {
     			attr_dev(input0, "type", "button");
     			attr_dev(input0, "class", "nav-item svelte-1210cu9");
     			input0.value = "追加";
-    			add_location(input0, file, 86, 4, 2592);
+    			add_location(input0, file, 85, 4, 2541);
     			attr_dev(input1, "type", "button");
     			attr_dev(input1, "class", "nav-item svelte-1210cu9");
     			input1.value = "確定";
-    			add_location(input1, file, 87, 4, 2661);
+    			add_location(input1, file, 86, 4, 2610);
     			attr_dev(input2, "type", "button");
     			attr_dev(input2, "class", "nav-item svelte-1210cu9");
     			input2.value = "サーバーから読込";
-    			add_location(input2, file, 88, 4, 2734);
+    			add_location(input2, file, 87, 4, 2683);
     			attr_dev(div, "class", "nav svelte-1210cu9");
-    			add_location(div, file, 85, 2, 2570);
-    			add_location(form, file, 70, 0, 2267);
+    			add_location(div, file, 84, 2, 2519);
+    			add_location(form, file, 69, 0, 2216);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -823,8 +836,7 @@ var app = (function () {
     	const dispatch = createEventDispatcher();
 
     	const add = () => {
-    		const id = feedInfos[feedInfos.length - 1].id + 1;
-    		$$invalidate(0, feedInfos = [...feedInfos, { id, url: "" }]);
+    		$$invalidate(0, feedInfos = [...feedInfos, { id: "", url: "" }]);
     		$$invalidate(1, valids = [...valids, true]);
     	};
 
@@ -3772,75 +3784,19 @@ var app = (function () {
     /* src/component/App.svelte generated by Svelte v3.29.0 */
     const file$3 = "src/component/App.svelte";
 
-    // (45:2) {#if user}
+    // (47:2) {#if user}
     function create_if_block$2(ctx) {
     	let h1;
     	let t0;
     	let t1_value = /*user*/ ctx[0].name + "";
     	let t1;
     	let t2;
-
-    	const block = {
-    		c: function create() {
-    			h1 = element("h1");
-    			t0 = text("Hello ");
-    			t1 = text(t1_value);
-    			t2 = text("!");
-    			attr_dev(h1, "class", "svelte-1tky8bj");
-    			add_location(h1, file$3, 45, 1, 1663);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, h1, anchor);
-    			append_dev(h1, t0);
-    			append_dev(h1, t1);
-    			append_dev(h1, t2);
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*user*/ 1 && t1_value !== (t1_value = /*user*/ ctx[0].name + "")) set_data_dev(t1, t1_value);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(h1);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block$2.name,
-    		type: "if",
-    		source: "(45:2) {#if user}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    function create_fragment$3(ctx) {
-    	let main;
-    	let t0;
-    	let auth;
-    	let updating_user;
-    	let t1;
+    	let t3;
     	let feedinfo;
     	let updating_feedInfos;
-    	let t2;
+    	let t4;
     	let feedlist;
-    	let t3;
-    	let link;
     	let current;
-    	let if_block = /*user*/ ctx[0] && create_if_block$2(ctx);
-
-    	function auth_user_binding(value) {
-    		/*auth_user_binding*/ ctx[4].call(null, value);
-    	}
-
-    	let auth_props = {};
-
-    	if (/*user*/ ctx[0] !== void 0) {
-    		auth_props.user = /*user*/ ctx[0];
-    	}
-
-    	auth = new Auth({ props: auth_props, $$inline: true });
-    	binding_callbacks.push(() => bind(auth, "user", auth_user_binding));
 
     	function feedinfo_feedInfos_binding(value) {
     		/*feedinfo_feedInfos_binding*/ ctx[5].call(null, value);
@@ -3863,61 +3819,30 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			main = element("main");
-    			if (if_block) if_block.c();
-    			t0 = space();
-    			create_component(auth.$$.fragment);
-    			t1 = space();
-    			create_component(feedinfo.$$.fragment);
-    			t2 = space();
-    			create_component(feedlist.$$.fragment);
+    			h1 = element("h1");
+    			t0 = text("Hello ");
+    			t1 = text(t1_value);
+    			t2 = text("!");
     			t3 = space();
-    			link = element("link");
-    			attr_dev(main, "class", "svelte-1tky8bj");
-    			add_location(main, file$3, 43, 0, 1642);
-    			attr_dev(link, "rel", "stylesheet");
-    			attr_dev(link, "href", "https://unpkg.com/sakura.css/css/sakura.css");
-    			add_location(link, file$3, 54, 1, 1840);
-    		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    			create_component(feedinfo.$$.fragment);
+    			t4 = space();
+    			create_component(feedlist.$$.fragment);
+    			attr_dev(h1, "class", "svelte-1tky8bj");
+    			add_location(h1, file$3, 47, 1, 1710);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, main, anchor);
-    			if (if_block) if_block.m(main, null);
-    			append_dev(main, t0);
-    			mount_component(auth, main, null);
-    			append_dev(main, t1);
-    			mount_component(feedinfo, main, null);
-    			append_dev(main, t2);
-    			mount_component(feedlist, main, null);
+    			insert_dev(target, h1, anchor);
+    			append_dev(h1, t0);
+    			append_dev(h1, t1);
+    			append_dev(h1, t2);
     			insert_dev(target, t3, anchor);
-    			append_dev(document.head, link);
+    			mount_component(feedinfo, target, anchor);
+    			insert_dev(target, t4, anchor);
+    			mount_component(feedlist, target, anchor);
     			current = true;
     		},
-    		p: function update(ctx, [dirty]) {
-    			if (/*user*/ ctx[0]) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
-    				} else {
-    					if_block = create_if_block$2(ctx);
-    					if_block.c();
-    					if_block.m(main, t0);
-    				}
-    			} else if (if_block) {
-    				if_block.d(1);
-    				if_block = null;
-    			}
-
-    			const auth_changes = {};
-
-    			if (!updating_user && dirty & /*user*/ 1) {
-    				updating_user = true;
-    				auth_changes.user = /*user*/ ctx[0];
-    				add_flush_callback(() => updating_user = false);
-    			}
-
-    			auth.$set(auth_changes);
+    		p: function update(ctx, dirty) {
+    			if ((!current || dirty & /*user*/ 1) && t1_value !== (t1_value = /*user*/ ctx[0].name + "")) set_data_dev(t1, t1_value);
     			const feedinfo_changes = {};
 
     			if (!updating_feedInfos && dirty & /*feedInfos*/ 2) {
@@ -3933,24 +3858,134 @@ var app = (function () {
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(auth.$$.fragment, local);
     			transition_in(feedinfo.$$.fragment, local);
     			transition_in(feedlist.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(auth.$$.fragment, local);
     			transition_out(feedinfo.$$.fragment, local);
     			transition_out(feedlist.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(main);
-    			if (if_block) if_block.d();
-    			destroy_component(auth);
-    			destroy_component(feedinfo);
-    			destroy_component(feedlist);
+    			if (detaching) detach_dev(h1);
     			if (detaching) detach_dev(t3);
+    			destroy_component(feedinfo, detaching);
+    			if (detaching) detach_dev(t4);
+    			destroy_component(feedlist, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$2.name,
+    		type: "if",
+    		source: "(47:2) {#if user}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$3(ctx) {
+    	let main;
+    	let auth;
+    	let updating_user;
+    	let t0;
+    	let t1;
+    	let link;
+    	let current;
+
+    	function auth_user_binding(value) {
+    		/*auth_user_binding*/ ctx[4].call(null, value);
+    	}
+
+    	let auth_props = {};
+
+    	if (/*user*/ ctx[0] !== void 0) {
+    		auth_props.user = /*user*/ ctx[0];
+    	}
+
+    	auth = new Auth({ props: auth_props, $$inline: true });
+    	binding_callbacks.push(() => bind(auth, "user", auth_user_binding));
+    	let if_block = /*user*/ ctx[0] && create_if_block$2(ctx);
+
+    	const block = {
+    		c: function create() {
+    			main = element("main");
+    			create_component(auth.$$.fragment);
+    			t0 = space();
+    			if (if_block) if_block.c();
+    			t1 = space();
+    			link = element("link");
+    			attr_dev(main, "class", "svelte-1tky8bj");
+    			add_location(main, file$3, 43, 0, 1658);
+    			attr_dev(link, "rel", "stylesheet");
+    			attr_dev(link, "href", "https://unpkg.com/sakura.css/css/sakura.css");
+    			add_location(link, file$3, 54, 1, 1858);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, main, anchor);
+    			mount_component(auth, main, null);
+    			append_dev(main, t0);
+    			if (if_block) if_block.m(main, null);
+    			insert_dev(target, t1, anchor);
+    			append_dev(document.head, link);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			const auth_changes = {};
+
+    			if (!updating_user && dirty & /*user*/ 1) {
+    				updating_user = true;
+    				auth_changes.user = /*user*/ ctx[0];
+    				add_flush_callback(() => updating_user = false);
+    			}
+
+    			auth.$set(auth_changes);
+
+    			if (/*user*/ ctx[0]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+
+    					if (dirty & /*user*/ 1) {
+    						transition_in(if_block, 1);
+    					}
+    				} else {
+    					if_block = create_if_block$2(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(main, null);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(auth.$$.fragment, local);
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(auth.$$.fragment, local);
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(main);
+    			destroy_component(auth);
+    			if (if_block) if_block.d();
+    			if (detaching) detach_dev(t1);
     			detach_dev(link);
     		}
     	};
@@ -4020,10 +4055,10 @@ var app = (function () {
     		switch (e.detail.payload) {
     			case "confirm":
     				$$invalidate(2, feeds = yield getFeeds(feedInfos));
-    				yield putFeedInfos(feedInfos);
+    				yield putFeedInfos(user.id, feedInfos);
     				break;
     			case "getFeedInfos":
-    				const result = yield getFeedInfos();
+    				const result = yield getFeedInfos(user.id);
     				if (result) {
     					$$invalidate(1, feedInfos = result);
     				} else {

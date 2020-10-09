@@ -20,11 +20,11 @@
     switch (e.detail.payload) {
       case "confirm":
         feeds = await getFeeds(feedInfos);
-        await putFeedInfos(feedInfos);
+        await putFeedInfos(user.id, feedInfos);
         break;
 
       case "getFeedInfos":
-        const result = await getFeedInfos();
+        const result = await getFeedInfos(user.id);
 
         if (result) {
           feedInfos = result;
@@ -41,13 +41,13 @@
 </script>
 
 <main>
+  <Auth bind:user={user} />
+  
   {#if user}
 	<h1>Hello {user.name}!</h1>
-  {/if}
-
-  <Auth bind:user={user} />
   <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
   <FeedList feeds={feeds} />
+  {/if}
 </main>
 
 <svelte:head>
