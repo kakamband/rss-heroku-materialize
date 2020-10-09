@@ -49,7 +49,7 @@ app.put("/feed-infos", async (req, res) => {
     await db.query("delete from feed_infos;");
 
     for (let feedInfo of req.body.feedInfos) {
-      const query = `insert into feed_infos values (${feedInfo.id}, \'${feedInfo.name}\', \'${feedInfo.passwd}\', \'${feedInfo.url}\');`;
+      const query = `insert into feed_infos values (\'${feedInfo.id}\', \'${feedInfo.url}\');`;
       await db.query(query);
     }
 

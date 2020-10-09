@@ -495,7 +495,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (80:4) {:else}
+    // (78:4) {:else}
     function create_else_block(ctx) {
     	let span;
 
@@ -503,7 +503,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "×";
-    			add_location(span, file, 80, 4, 2511);
+    			add_location(span, file, 78, 4, 2458);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -517,14 +517,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(80:4) {:else}",
+    		source: "(78:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (78:4) {#if valids[i]}
+    // (76:4) {#if valids[i]}
     function create_if_block(ctx) {
     	let span;
 
@@ -532,7 +532,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "○";
-    			add_location(span, file, 78, 4, 2480);
+    			add_location(span, file, 76, 4, 2427);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -546,14 +546,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(78:4) {#if valids[i]}",
+    		source: "(76:4) {#if valids[i]}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (74:2) {#each feedInfos as feedInfo, i}
+    // (72:2) {#each feedInfos as feedInfo, i}
     function create_each_block(ctx) {
     	let div;
     	let input0;
@@ -588,13 +588,13 @@ var app = (function () {
     			attr_dev(input0, "type", "url");
     			attr_dev(input0, "name", input0_name_value = /*i*/ ctx[13]);
     			input0.required = true;
-    			add_location(input0, file, 75, 4, 2392);
+    			add_location(input0, file, 73, 4, 2339);
     			attr_dev(input1, "type", "button");
     			attr_dev(input1, "name", input1_name_value = /*i*/ ctx[13]);
     			input1.value = "削除";
-    			add_location(input1, file, 83, 4, 2541);
+    			add_location(input1, file, 81, 4, 2488);
     			attr_dev(div, "class", "feed-info svelte-1210cu9");
-    			add_location(div, file, 74, 2, 2364);
+    			add_location(div, file, 72, 2, 2311);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -643,7 +643,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(74:2) {#each feedInfos as feedInfo, i}",
+    		source: "(72:2) {#each feedInfos as feedInfo, i}",
     		ctx
     	});
 
@@ -687,18 +687,18 @@ var app = (function () {
     			attr_dev(input0, "type", "button");
     			attr_dev(input0, "class", "nav-item svelte-1210cu9");
     			input0.value = "追加";
-    			add_location(input0, file, 88, 4, 2645);
+    			add_location(input0, file, 86, 4, 2592);
     			attr_dev(input1, "type", "button");
     			attr_dev(input1, "class", "nav-item svelte-1210cu9");
     			input1.value = "確定";
-    			add_location(input1, file, 89, 4, 2714);
+    			add_location(input1, file, 87, 4, 2661);
     			attr_dev(input2, "type", "button");
     			attr_dev(input2, "class", "nav-item svelte-1210cu9");
     			input2.value = "サーバーから読込";
-    			add_location(input2, file, 90, 4, 2787);
+    			add_location(input2, file, 88, 4, 2734);
     			attr_dev(div, "class", "nav svelte-1210cu9");
-    			add_location(div, file, 87, 2, 2623);
-    			add_location(form, file, 72, 0, 2320);
+    			add_location(div, file, 85, 2, 2570);
+    			add_location(form, file, 70, 0, 2267);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -821,7 +821,7 @@ var app = (function () {
 
     	const add = () => {
     		const id = feedInfos[feedInfos.length - 1].id + 1;
-    		$$invalidate(0, feedInfos = [...feedInfos, { id, name: "A.M", passwd: "9999", url: "" }]);
+    		$$invalidate(0, feedInfos = [...feedInfos, { id, url: "" }]);
     		$$invalidate(1, valids = [...valids, true]);
     	};
 

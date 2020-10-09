@@ -12,8 +12,6 @@
 
     feedInfos = [...feedInfos, {
       id,
-      name: "A.M",
-      passwd: "9999",
       url: "",
     }];
     
