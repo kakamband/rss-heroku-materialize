@@ -15,16 +15,16 @@
 		
 		unlisten = authpack.listen((state) => {
 			if (!state.ready) {
-				console.log("Loading...");
+//				console.log("Loading...");
 			} else {
 				if (state.user) {
           authLabel = "ログアウト";
           user = { id: state.user.id, name: state.user.name, email: state.user.email, };
-					console.log(state.user);
+//					console.log(state.user);
 				} else {
           authLabel = "ログイン";
           user = null;
-					console.log("User not logged in.");
+//					console.log("User not logged in.");
 				}
 			}
 		});

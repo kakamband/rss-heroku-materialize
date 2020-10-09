@@ -55,7 +55,7 @@ app.put("/feed-infos", async (req, res) => {
 
     res.sendStatus(200);
   } catch (e) {
-    console.log("RSS feed proxy server: DB書込に失敗しました", e);
+    console.log("RSS feed proxy server: DB削除/書込に失敗しました", e);
     res.sendStatus(500);
   }
 });
