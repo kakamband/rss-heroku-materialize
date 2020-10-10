@@ -66,9 +66,9 @@ export const putFeedInfos = async (id: string, feedInfos: IfeedInfo[]) => {
   console.log(response.ok, response.status, response.statusText);
 };
 
-export const getFeedInfos = async (id: string) => {
+export const getFeedInfos = async (id: string): Promise<IfeedInfo[]> => {
   const response: Response = await api("feed-infos", `id=${id}`, "GET");
-  if (!response.ok) return null;
+  if (!response.ok) throw new Error(`API error: ${response.url} ${response.status} ${response.statusText}`);
   const feedInfos = await response.json();
   return feedInfos;
 };

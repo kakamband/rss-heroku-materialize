@@ -19,21 +19,24 @@
 
     switch (e.detail.payload) {
       case "confirm":
-        feeds = await getFeeds(feedInfos);
         await putFeedInfos(user.id, feedInfos);
+        feeds = await getFeeds(feedInfos);
         break;
 
       case "getFeedInfos":
-        const result = await getFeedInfos(user.id);
-
-        if (result) {
-          feedInfos = result;
-        } else {
-          alert("サーバからfeed情報を取得に失敗しました。");
-        }
-
+        feedInfos = await getFeedInfos(user.id);
         break;
         
+      case "login":
+        feedInfos = await getFeedInfos(user.id);
+        feeds = await getFeeds(feedInfos);
+        break;
+
+      case "logout":
+        feedInfos = [];
+        feeds = [];
+        break;
+
       default:
         break;
     }
@@ -41,7 +44,7 @@
 </script>
 
 <main>
-  <Auth bind:user={user} />
+  <Auth bind:user={user} on:exec={onExec} />
   
   {#if user}
 	<h1>Hello {user.name}!</h1>
