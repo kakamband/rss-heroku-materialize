@@ -1,8 +1,11 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { Authpack } from "@authpack/sdk";
+  import type { Iuser } from "../common/Auth.ts";
 
+  export let user: Iuser = null;
   let authpack = null;
+  let unlisten = null;
   let authLabel = "ログイン";
 
   onMount(async () => {
@@ -10,19 +13,25 @@
 		  key: "wga-client-key-687e9f9d7e762835aad651f8f",
     });
 		
-		const unlisten = authpack.listen((state) => {
+		unlisten = authpack.listen((state) => {
 			if (!state.ready) {
-				console.log("Loading...");
+//				console.log("Loading...");
 			} else {
 				if (state.user) {
           authLabel = "ログアウト";
-					console.log(state.user);
+          user = { id: state.user.id, name: state.user.name, email: state.user.email, };
+//					console.log(state.user);
 				} else {
           authLabel = "ログイン";
-					console.log("User not logged in.");
+          user = null;
+//					console.log("User not logged in.");
 				}
 			}
 		});
+  });
+
+  onDestroy(() => {
+    unlisten();
   });
 
   const onOpen = () => {

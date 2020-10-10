@@ -36,9 +36,9 @@ app.get("/rss-feed", async (req, res) => {
     const feed = await getFeed(req.query.url);
     res.json(feed);
   } catch (e) {
-    console.log("RSS feed proxy server:");
-    console.log(`  RSSパーサーエラー ${e.message}`);
-    console.log(`  RSS url=${req.query.url}`);
+    console.log("RSS feed proxy server: RSSパーサーエラー");
+    console.log(req.query.url);
+    console.log(e.message);
 
     res.sendStatus(404);
   }
@@ -46,27 +46,30 @@ app.get("/rss-feed", async (req, res) => {
 
 app.put("/feed-infos", async (req, res) => {
   try {
-    await db.query("delete from feed_infos;");
+    await db.query(`delete from feed_infos where id = \'${req.query.id}\';`);
 
     for (let feedInfo of req.body.feedInfos) {
-      const query = `insert into feed_infos values (${feedInfo.id}, \'${feedInfo.name}\', \'${feedInfo.passwd}\', \'${feedInfo.url}\');`;
-      await db.query(query);
+      await db.query(`insert into feed_infos values (\'${req.query.id}\', \'${feedInfo.url}\');`);
     }
 
     res.sendStatus(200);
   } catch (e) {
-    console.log("RSS feed proxy server: DB書込に失敗しました", e);
+    console.log("RSS feed proxy server: DB削除/書込に失敗しました");
+    console.log(e.message);
+
     res.sendStatus(500);
   }
 });
 
-app.get("/feed-infos", async (_, res) => {
+app.get("/feed-infos", async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM feed_infos;");
+    const result = await db.query(`SELECT * FROM feed_infos where id = \'${req.query.id}\';`);
     // for (let row of result.rows) console.log(row);
     res.json(result.rows);
   } catch (e) {
-    console.log("RSS feed proxy server: DB読込に失敗しました", e);
+    console.log("RSS feed proxy server: DB読込に失敗しました");
+    console.log(e.message);
+
     res.sendStatus(500);
   }
 });

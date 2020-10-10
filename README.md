@@ -23,6 +23,8 @@
 
 [Heroku Postgres](https://devcenter.heroku.com/articles/heroku-postgresql)
 
+[PostgreSQL日本語ドキュメント](https://www.postgresql.jp/document/)
+
 # サーバサイド
 
 [Express Node.js のための高速で、革新的な、最小限のWebフレームワーク](https://expressjs.com/ja/)

@@ -8,12 +8,8 @@
   const dispatch = createEventDispatcher();
 
   const add = () => {
-    const id = feedInfos[feedInfos.length - 1].id + 1;
-
     feedInfos = [...feedInfos, {
-      id,
-      name: "A.M",
-      passwd: "9999",
+      id: "",
       url: "",
     }];
     

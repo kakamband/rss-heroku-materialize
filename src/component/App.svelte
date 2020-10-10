@@ -1,13 +1,13 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { getFeeds, putFeedInfos, getFeedInfos } from "../api/rssFeedProxy.ts";
-  import type { Icontent, Ifeed, IfeedInfo } from "../common/Feed";
+  import type { Icontent, Ifeed, IfeedInfo } from "../common/Feed.ts";
+  import type { Iuser } from "../common/Auth.ts";
   import FeedInfo from "./FeedInfo.svelte";
   import FeedList from "./FeedList.svelte";
   import Auth from "./Auth.svelte";
 
-	export let name: string;
-  
+  let user: Iuser = null;
   let feedInfos: IfeedInfo[] = [];
   let feeds: Ifeed[] = [];
 
@@ -20,11 +20,11 @@
     switch (e.detail.payload) {
       case "confirm":
         feeds = await getFeeds(feedInfos);
-        await putFeedInfos(feedInfos);
+        await putFeedInfos(user.id, feedInfos);
         break;
 
       case "getFeedInfos":
-        const result = await getFeedInfos();
+        const result = await getFeedInfos(user.id);
 
         if (result) {
           feedInfos = result;
@@ -41,12 +41,13 @@
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-
-  <Auth />
+  <Auth bind:user={user} />
+  
+  {#if user}
+	<h1>Hello {user.name}!</h1>
   <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
   <FeedList feeds={feeds} />
+  {/if}
 </main>
 
 <svelte:head>

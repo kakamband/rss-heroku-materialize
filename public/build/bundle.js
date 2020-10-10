@@ -89,6 +89,9 @@ var app = (function () {
     function onMount(fn) {
         get_current_component().$$.on_mount.push(fn);
     }
+    function onDestroy(fn) {
+        get_current_component().$$.on_destroy.push(fn);
+    }
     function createEventDispatcher() {
         const component = get_current_component();
         return (type, detail) => {
@@ -172,6 +175,19 @@ var app = (function () {
     }
     const outroing = new Set();
     let outros;
+    function group_outros() {
+        outros = {
+            r: 0,
+            c: [],
+            p: outros // parent group
+        };
+    }
+    function check_outros() {
+        if (!outros.r) {
+            run_all(outros.c);
+        }
+        outros = outros.p;
+    }
     function transition_in(block, local) {
         if (block && block.i) {
             outroing.delete(block);
@@ -444,7 +460,7 @@ var app = (function () {
         return response;
     };
     const getFeed = async (rssUrl) => {
-        const response = await api("rss-feed", `url=${rssUrl}`);
+        const response = await api("rss-feed", `url=${rssUrl}`, "GET");
         const feed = {
             ok: response.ok,
             status: response.status,
@@ -472,12 +488,12 @@ var app = (function () {
         const feeds = await Promise.all(promises);
         return feeds;
     };
-    const putFeedInfos = async (feedInfos) => {
-        const response = await api("feed-infos", null, "PUT", { feedInfos });
+    const putFeedInfos = async (id, feedInfos) => {
+        const response = await api("feed-infos", `id=${id}`, "PUT", { feedInfos });
         console.log(response.ok, response.status, response.statusText);
     };
-    const getFeedInfos = async () => {
-        const response = await api("feed-infos", null, "GET");
+    const getFeedInfos = async (id) => {
+        const response = await api("feed-infos", `id=${id}`, "GET");
         if (!response.ok)
             return null;
         const feedInfos = await response.json();
@@ -495,7 +511,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (80:4) {:else}
+    // (77:4) {:else}
     function create_else_block(ctx) {
     	let span;
 
@@ -503,7 +519,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "×";
-    			add_location(span, file, 80, 4, 2511);
+    			add_location(span, file, 77, 4, 2407);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -517,14 +533,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(80:4) {:else}",
+    		source: "(77:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (78:4) {#if valids[i]}
+    // (75:4) {#if valids[i]}
     function create_if_block(ctx) {
     	let span;
 
@@ -532,7 +548,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "○";
-    			add_location(span, file, 78, 4, 2480);
+    			add_location(span, file, 75, 4, 2376);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -546,14 +562,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(78:4) {#if valids[i]}",
+    		source: "(75:4) {#if valids[i]}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (74:2) {#each feedInfos as feedInfo, i}
+    // (71:2) {#each feedInfos as feedInfo, i}
     function create_each_block(ctx) {
     	let div;
     	let input0;
@@ -588,13 +604,13 @@ var app = (function () {
     			attr_dev(input0, "type", "url");
     			attr_dev(input0, "name", input0_name_value = /*i*/ ctx[13]);
     			input0.required = true;
-    			add_location(input0, file, 75, 4, 2392);
+    			add_location(input0, file, 72, 4, 2288);
     			attr_dev(input1, "type", "button");
     			attr_dev(input1, "name", input1_name_value = /*i*/ ctx[13]);
     			input1.value = "削除";
-    			add_location(input1, file, 83, 4, 2541);
+    			add_location(input1, file, 80, 4, 2437);
     			attr_dev(div, "class", "feed-info svelte-1210cu9");
-    			add_location(div, file, 74, 2, 2364);
+    			add_location(div, file, 71, 2, 2260);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -643,7 +659,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(74:2) {#each feedInfos as feedInfo, i}",
+    		source: "(71:2) {#each feedInfos as feedInfo, i}",
     		ctx
     	});
 
@@ -687,18 +703,18 @@ var app = (function () {
     			attr_dev(input0, "type", "button");
     			attr_dev(input0, "class", "nav-item svelte-1210cu9");
     			input0.value = "追加";
-    			add_location(input0, file, 88, 4, 2645);
+    			add_location(input0, file, 85, 4, 2541);
     			attr_dev(input1, "type", "button");
     			attr_dev(input1, "class", "nav-item svelte-1210cu9");
     			input1.value = "確定";
-    			add_location(input1, file, 89, 4, 2714);
+    			add_location(input1, file, 86, 4, 2610);
     			attr_dev(input2, "type", "button");
     			attr_dev(input2, "class", "nav-item svelte-1210cu9");
     			input2.value = "サーバーから読込";
-    			add_location(input2, file, 90, 4, 2787);
+    			add_location(input2, file, 87, 4, 2683);
     			attr_dev(div, "class", "nav svelte-1210cu9");
-    			add_location(div, file, 87, 2, 2623);
-    			add_location(form, file, 72, 0, 2320);
+    			add_location(div, file, 84, 2, 2519);
+    			add_location(form, file, 69, 0, 2216);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -820,8 +836,7 @@ var app = (function () {
     	const dispatch = createEventDispatcher();
 
     	const add = () => {
-    		const id = feedInfos[feedInfos.length - 1].id + 1;
-    		$$invalidate(0, feedInfos = [...feedInfos, { id, name: "A.M", passwd: "9999", url: "" }]);
+    		$$invalidate(0, feedInfos = [...feedInfos, { id: "", url: "" }]);
     		$$invalidate(1, valids = [...valids, true]);
     	};
 
@@ -3573,8 +3588,6 @@ var app = (function () {
     });
 
     /* src/component/Auth.svelte generated by Svelte v3.29.0 */
-
-    const { console: console_1 } = globals;
     const file$2 = "src/component/Auth.svelte";
 
     function create_fragment$2(ctx) {
@@ -3587,7 +3600,7 @@ var app = (function () {
     			input = element("input");
     			attr_dev(input, "type", "button");
     			input.value = /*authLabel*/ ctx[0];
-    			add_location(input, file$2, 38, 0, 1444);
+    			add_location(input, file$2, 46, 0, 1678);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3665,7 +3678,10 @@ var app = (function () {
     			});
     	};
 
+    	
+    	let { user = null } = $$props;
     	let authpack = null;
+    	let unlisten = null;
     	let authLabel = "ログイン";
 
     	onMount(() => __awaiter(void 0, void 0, void 0, function* () {
@@ -3673,43 +3689,59 @@ var app = (function () {
     				key: "wga-client-key-687e9f9d7e762835aad651f8f"
     			});
 
-    		const unlisten = authpack.listen(state => {
-    			if (!state.ready) {
-    				console.log("Loading...");
-    			} else {
+    		unlisten = authpack.listen(state => {
+    			if (!state.ready) ; else {
     				if (state.user) {
-    					$$invalidate(0, authLabel = "ログアウト");
-    					console.log(state.user);
+    					$$invalidate(0, authLabel = "ログアウト"); //				console.log("Loading...");
+
+    					$$invalidate(2, user = {
+    						id: state.user.id,
+    						name: state.user.name,
+    						email: state.user.email
+    					});
     				} else {
-    					$$invalidate(0, authLabel = "ログイン");
-    					console.log("User not logged in.");
-    				}
+    					$$invalidate(0, authLabel = "ログイン"); //					console.log(state.user);
+    					$$invalidate(2, user = null);
+    				} //					console.log("User not logged in.");
     			}
     		});
     	}));
+
+    	onDestroy(() => {
+    		unlisten();
+    	});
 
     	const onOpen = () => {
     		authpack.open();
     	};
 
-    	const writable_props = [];
+    	const writable_props = ["user"];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<Auth> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Auth> was created with unknown prop '${key}'`);
     	});
+
+    	$$self.$$set = $$props => {
+    		if ("user" in $$props) $$invalidate(2, user = $$props.user);
+    	};
 
     	$$self.$capture_state = () => ({
     		__awaiter,
     		onMount,
+    		onDestroy,
     		Authpack: lib$1.Authpack,
+    		user,
     		authpack,
+    		unlisten,
     		authLabel,
     		onOpen
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("__awaiter" in $$props) __awaiter = $$props.__awaiter;
+    		if ("user" in $$props) $$invalidate(2, user = $$props.user);
     		if ("authpack" in $$props) authpack = $$props.authpack;
+    		if ("unlisten" in $$props) unlisten = $$props.unlisten;
     		if ("authLabel" in $$props) $$invalidate(0, authLabel = $$props.authLabel);
     	};
 
@@ -3717,13 +3749,13 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [authLabel, onOpen];
+    	return [authLabel, onOpen, user];
     }
 
     class Auth extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$2, create_fragment$2, safe_not_equal, {});
+    		init(this, options, instance$2, create_fragment$2, safe_not_equal, { user: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -3732,36 +3764,35 @@ var app = (function () {
     			id: create_fragment$2.name
     		});
     	}
+
+    	get user() {
+    		throw new Error("<Auth>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set user(value) {
+    		throw new Error("<Auth>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
     }
 
     /* src/component/App.svelte generated by Svelte v3.29.0 */
     const file$3 = "src/component/App.svelte";
 
-    function create_fragment$3(ctx) {
-    	let main;
+    // (47:2) {#if user}
+    function create_if_block$2(ctx) {
     	let h1;
     	let t0;
+    	let t1_value = /*user*/ ctx[0].name + "";
     	let t1;
     	let t2;
     	let t3;
-    	let p;
-    	let t4;
-    	let a;
-    	let t6;
-    	let t7;
-    	let auth;
-    	let t8;
     	let feedinfo;
     	let updating_feedInfos;
-    	let t9;
+    	let t4;
     	let feedlist;
-    	let t10;
-    	let link;
     	let current;
-    	auth = new Auth({ $$inline: true });
 
     	function feedinfo_feedInfos_binding(value) {
-    		/*feedinfo_feedInfos_binding*/ ctx[4].call(null, value);
+    		/*feedinfo_feedInfos_binding*/ ctx[5].call(null, value);
     	}
 
     	let feedinfo_props = {};
@@ -3781,62 +3812,30 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			main = element("main");
     			h1 = element("h1");
     			t0 = text("Hello ");
-    			t1 = text(/*name*/ ctx[0]);
+    			t1 = text(t1_value);
     			t2 = text("!");
     			t3 = space();
-    			p = element("p");
-    			t4 = text("Visit the ");
-    			a = element("a");
-    			a.textContent = "Svelte tutorial";
-    			t6 = text(" to learn how to build Svelte apps.");
-    			t7 = space();
-    			create_component(auth.$$.fragment);
-    			t8 = space();
     			create_component(feedinfo.$$.fragment);
-    			t9 = space();
+    			t4 = space();
     			create_component(feedlist.$$.fragment);
-    			t10 = space();
-    			link = element("link");
     			attr_dev(h1, "class", "svelte-1tky8bj");
-    			add_location(h1, file$3, 43, 1, 1648);
-    			attr_dev(a, "href", "https://svelte.dev/tutorial");
-    			add_location(a, file$3, 44, 14, 1685);
-    			add_location(p, file$3, 44, 1, 1672);
-    			attr_dev(main, "class", "svelte-1tky8bj");
-    			add_location(main, file$3, 42, 0, 1640);
-    			attr_dev(link, "rel", "stylesheet");
-    			attr_dev(link, "href", "https://unpkg.com/sakura.css/css/sakura.css");
-    			add_location(link, file$3, 52, 1, 1906);
-    		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    			add_location(h1, file$3, 47, 1, 1710);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, main, anchor);
-    			append_dev(main, h1);
+    			insert_dev(target, h1, anchor);
     			append_dev(h1, t0);
     			append_dev(h1, t1);
     			append_dev(h1, t2);
-    			append_dev(main, t3);
-    			append_dev(main, p);
-    			append_dev(p, t4);
-    			append_dev(p, a);
-    			append_dev(p, t6);
-    			append_dev(main, t7);
-    			mount_component(auth, main, null);
-    			append_dev(main, t8);
-    			mount_component(feedinfo, main, null);
-    			append_dev(main, t9);
-    			mount_component(feedlist, main, null);
-    			insert_dev(target, t10, anchor);
-    			append_dev(document.head, link);
+    			insert_dev(target, t3, anchor);
+    			mount_component(feedinfo, target, anchor);
+    			insert_dev(target, t4, anchor);
+    			mount_component(feedlist, target, anchor);
     			current = true;
     		},
-    		p: function update(ctx, [dirty]) {
-    			if (!current || dirty & /*name*/ 1) set_data_dev(t1, /*name*/ ctx[0]);
+    		p: function update(ctx, dirty) {
+    			if ((!current || dirty & /*user*/ 1) && t1_value !== (t1_value = /*user*/ ctx[0].name + "")) set_data_dev(t1, t1_value);
     			const feedinfo_changes = {};
 
     			if (!updating_feedInfos && dirty & /*feedInfos*/ 2) {
@@ -3852,23 +3851,134 @@ var app = (function () {
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(auth.$$.fragment, local);
     			transition_in(feedinfo.$$.fragment, local);
     			transition_in(feedlist.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(auth.$$.fragment, local);
     			transition_out(feedinfo.$$.fragment, local);
     			transition_out(feedlist.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t3);
+    			destroy_component(feedinfo, detaching);
+    			if (detaching) detach_dev(t4);
+    			destroy_component(feedlist, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$2.name,
+    		type: "if",
+    		source: "(47:2) {#if user}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$3(ctx) {
+    	let main;
+    	let auth;
+    	let updating_user;
+    	let t0;
+    	let t1;
+    	let link;
+    	let current;
+
+    	function auth_user_binding(value) {
+    		/*auth_user_binding*/ ctx[4].call(null, value);
+    	}
+
+    	let auth_props = {};
+
+    	if (/*user*/ ctx[0] !== void 0) {
+    		auth_props.user = /*user*/ ctx[0];
+    	}
+
+    	auth = new Auth({ props: auth_props, $$inline: true });
+    	binding_callbacks.push(() => bind(auth, "user", auth_user_binding));
+    	let if_block = /*user*/ ctx[0] && create_if_block$2(ctx);
+
+    	const block = {
+    		c: function create() {
+    			main = element("main");
+    			create_component(auth.$$.fragment);
+    			t0 = space();
+    			if (if_block) if_block.c();
+    			t1 = space();
+    			link = element("link");
+    			attr_dev(main, "class", "svelte-1tky8bj");
+    			add_location(main, file$3, 43, 0, 1658);
+    			attr_dev(link, "rel", "stylesheet");
+    			attr_dev(link, "href", "https://unpkg.com/sakura.css/css/sakura.css");
+    			add_location(link, file$3, 54, 1, 1858);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, main, anchor);
+    			mount_component(auth, main, null);
+    			append_dev(main, t0);
+    			if (if_block) if_block.m(main, null);
+    			insert_dev(target, t1, anchor);
+    			append_dev(document.head, link);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			const auth_changes = {};
+
+    			if (!updating_user && dirty & /*user*/ 1) {
+    				updating_user = true;
+    				auth_changes.user = /*user*/ ctx[0];
+    				add_flush_callback(() => updating_user = false);
+    			}
+
+    			auth.$set(auth_changes);
+
+    			if (/*user*/ ctx[0]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+
+    					if (dirty & /*user*/ 1) {
+    						transition_in(if_block, 1);
+    					}
+    				} else {
+    					if_block = create_if_block$2(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(main, null);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(auth.$$.fragment, local);
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(auth.$$.fragment, local);
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
     			destroy_component(auth);
-    			destroy_component(feedinfo);
-    			destroy_component(feedlist);
-    			if (detaching) detach_dev(t10);
+    			if (if_block) if_block.d();
+    			if (detaching) detach_dev(t1);
     			detach_dev(link);
     		}
     	};
@@ -3925,7 +4035,8 @@ var app = (function () {
     	};
 
     	
-    	let { name } = $$props;
+    	
+    	let user = null;
     	let feedInfos = [];
     	let feeds = [];
 
@@ -3937,10 +4048,10 @@ var app = (function () {
     		switch (e.detail.payload) {
     			case "confirm":
     				$$invalidate(2, feeds = yield getFeeds(feedInfos));
-    				yield putFeedInfos(feedInfos);
+    				yield putFeedInfos(user.id, feedInfos);
     				break;
     			case "getFeedInfos":
-    				const result = yield getFeedInfos();
+    				const result = yield getFeedInfos(user.id);
     				if (result) {
     					$$invalidate(1, feedInfos = result);
     				} else {
@@ -3950,20 +4061,21 @@ var app = (function () {
     		}
     	});
 
-    	const writable_props = ["name"];
+    	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
+    	function auth_user_binding(value) {
+    		user = value;
+    		$$invalidate(0, user);
+    	}
+
     	function feedinfo_feedInfos_binding(value) {
     		feedInfos = value;
     		$$invalidate(1, feedInfos);
     	}
-
-    	$$self.$$set = $$props => {
-    		if ("name" in $$props) $$invalidate(0, name = $$props.name);
-    	};
 
     	$$self.$capture_state = () => ({
     		__awaiter,
@@ -3974,7 +4086,7 @@ var app = (function () {
     		FeedInfo,
     		FeedList,
     		Auth,
-    		name,
+    		user,
     		feedInfos,
     		feeds,
     		onExec
@@ -3982,7 +4094,7 @@ var app = (function () {
 
     	$$self.$inject_state = $$props => {
     		if ("__awaiter" in $$props) __awaiter = $$props.__awaiter;
-    		if ("name" in $$props) $$invalidate(0, name = $$props.name);
+    		if ("user" in $$props) $$invalidate(0, user = $$props.user);
     		if ("feedInfos" in $$props) $$invalidate(1, feedInfos = $$props.feedInfos);
     		if ("feeds" in $$props) $$invalidate(2, feeds = $$props.feeds);
     	};
@@ -3991,13 +4103,13 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [name, feedInfos, feeds, onExec, feedinfo_feedInfos_binding];
+    	return [user, feedInfos, feeds, onExec, auth_user_binding, feedinfo_feedInfos_binding];
     }
 
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$3, create_fragment$3, safe_not_equal, { name: 0 });
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -4005,29 +4117,11 @@ var app = (function () {
     			options,
     			id: create_fragment$3.name
     		});
-
-    		const { ctx } = this.$$;
-    		const props = options.props || {};
-
-    		if (/*name*/ ctx[0] === undefined && !("name" in props)) {
-    			console.warn("<App> was created without expected prop 'name'");
-    		}
-    	}
-
-    	get name() {
-    		throw new Error("<App>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set name(value) {
-    		throw new Error("<App>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
     const app = new App({
         target: document.body,
-        props: {
-            name: "world",
-        },
     });
 
     return app;
