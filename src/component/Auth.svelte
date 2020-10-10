@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, onDestroy } from "svelte";
+  import { onMount, onDestroy, createEventDispatcher } from "svelte";
   import { Authpack } from "@authpack/sdk";
   import type { Iuser } from "../common/Auth.ts";
 
@@ -7,6 +7,7 @@
   let authpack = null;
   let unlisten = null;
   let authLabel = "ログイン";
+  const dispatch = createEventDispatcher();
 
   onMount(async () => {
     authpack = new Authpack({
@@ -15,16 +16,22 @@
 		
 		unlisten = authpack.listen((state) => {
 			if (!state.ready) {
-//				console.log("Loading...");
+				console.log("Loading...");
 			} else {
 				if (state.user) {
-          authLabel = "ログアウト";
-          user = { id: state.user.id, name: state.user.name, email: state.user.email, };
-//					console.log(state.user);
+					console.log(state.user);
+          if (!user || state.user.id !== user.id) {
+            authLabel = "ログアウト";
+            user = { id: state.user.id, name: state.user.name, email: state.user.email, };
+            dispatch("exec", { payload: "login" });
+          }
 				} else {
-          authLabel = "ログイン";
-          user = null;
-//					console.log("User not logged in.");
+					console.log("User not logged in.");
+          if (user) {
+            authLabel = "ログイン";
+            user = null;
+            dispatch("exec", { payload: "logout" });
+          }
 				}
 			}
 		});
