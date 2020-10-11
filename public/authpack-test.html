@@ -1,0 +1,32 @@
+<html>
+<head>
+  <script src="https://scripts.v1.authpack.io/sdk.js"></script>
+</head>
+
+<body>
+  <input type="button" value="認証" onclick="onClick()">
+  
+  <script>
+    const authpack = new window.Authpack({
+      key: "wga-client-key-687e9f9d7e762835aad651f8f"
+    });
+    
+    const unlisten = authpack.listen(state => {
+    	if (!state.ready) {
+    		console.log('Loading...');
+    	} else {
+    		if (state.user) {
+    			console.log(`Hello ${state.user.name}`);
+    		} else {
+    			console.log('User not logged in.');
+    		}
+    	}
+    });
+    
+    const onClick = () => {
+      authpack.open();
+    }
+  </script>
+</body>
+</html>
+
