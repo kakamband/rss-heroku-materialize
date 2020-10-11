@@ -30,7 +30,6 @@ app.use(express.json());  // requestのbodyを解析できるようにする。
 // });
 
 app.get("/", (_, res) => res.render("index.html"));
-app.get("/authpack-test", (_, res) => res.render("authpack-test.html"));
 
 app.get("/rss-feed", async (req, res) => {
   try {
