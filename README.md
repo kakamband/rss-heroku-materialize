@@ -17,6 +17,8 @@
 
 [The Heroku CLI#npm](https://devcenter.heroku.com/articles/heroku-cli#npm)
 
+[For an existing Heroku app](https://devcenter.heroku.com/articles/git#for-an-existing-heroku-app)
+
 ## Heroku Postgres
 
 [[Heroku Postgres] Herokuを使って無料でデータベースを利用する](https://qiita.com/fukke0906/items/07f3883742a8b6cd3c88)

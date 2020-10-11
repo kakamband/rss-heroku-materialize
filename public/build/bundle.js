@@ -3602,7 +3602,7 @@ var app = (function () {
     			input = element("input");
     			attr_dev(input, "type", "button");
     			input.value = /*authLabel*/ ctx[0];
-    			add_location(input, file$2, 53, 0, 1982);
+    			add_location(input, file$2, 57, 0, 2138);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3683,8 +3683,10 @@ var app = (function () {
     	
     	let { user = null } = $$props;
     	let authpack = null;
-    	let unlisten = null;
+
+    	//  let unlisten = null;
     	let authLabel = "ログイン";
+
     	const dispatch = createEventDispatcher();
 
     	onMount(() => __awaiter(void 0, void 0, void 0, function* () {
@@ -3692,10 +3694,16 @@ var app = (function () {
     				key: "wga-client-key-687e9f9d7e762835aad651f8f"
     			});
 
-    		unlisten = authpack.listen(state => {
+    		const unlisten = authpack.listen(state => {
+    			console.log(state);
+
     			if (!state.ready) {
     				console.log("Loading...");
     			} else {
+    				if (state.bearer) {
+    					localStorage.setItem("bearer", state.bearer);
+    				}
+
     				if (state.user) {
     					console.log(state.user);
 
@@ -3723,10 +3731,9 @@ var app = (function () {
     		});
     	}));
 
-    	onDestroy(() => {
-    		unlisten();
-    	});
-
+    	//  onDestroy(() => {
+    	//    unlisten();
+    	//  });
     	const onOpen = () => {
     		authpack.open();
     	};
@@ -3749,7 +3756,6 @@ var app = (function () {
     		Authpack: lib$1.Authpack,
     		user,
     		authpack,
-    		unlisten,
     		authLabel,
     		dispatch,
     		onOpen
@@ -3759,7 +3765,6 @@ var app = (function () {
     		if ("__awaiter" in $$props) __awaiter = $$props.__awaiter;
     		if ("user" in $$props) $$invalidate(2, user = $$props.user);
     		if ("authpack" in $$props) authpack = $$props.authpack;
-    		if ("unlisten" in $$props) unlisten = $$props.unlisten;
     		if ("authLabel" in $$props) $$invalidate(0, authLabel = $$props.authLabel);
     	};
 
