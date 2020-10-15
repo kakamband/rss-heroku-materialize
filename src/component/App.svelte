@@ -44,34 +44,28 @@
   };
 </script>
 
-<main>  
-
+<nav>
+  {#if user}
   <Router>
-    <nav>
-      {#if user}
-      <Link to="/">Feedリスト</Link>
-      <Link to="/feed-info">Feed設定</Link>
-      {/if}
-      <Auth bind:user={user} on:exec={onExec} />
-    </nav>
+    <Link to="/">Feedリスト</Link>
+    <Link to="/feed-info">Feed設定</Link>
   </Router>
+  {/if}
+  
+  <Auth bind:user={user} on:exec={onExec} />
+</nav>
 
+<main>
   {#if user}
 	<h1>Hello {user.name}!</h1>
-  
+
   <Router>
-    <!-- <nav>
-      <Link to="/">Feedリスト</Link>
-      <Link to="/feed-info">Feed設定</Link>
-    </nav> -->
-    <div>
-      <Route path="/">
-        <FeedList feeds={feeds} />
-      </Route>
-      <Route path="/feed-info">
-        <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
-      </Route>
-    </div>
+    <Route path="/">
+      <FeedList feeds={feeds} />
+    </Route>
+    <Route path="/feed-info">
+      <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
+    </Route>
   </Router>
   {/if}
 </main>
