@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { Router, Link, Route } from "svelte-routing";
   import { getFeeds, putFeedInfos, getFeedInfos } from "../api/rssFeedProxy.ts";
   import type { Icontent, Ifeed, IfeedInfo } from "../common/Feed.ts";
   import type { Iuser } from "../common/Auth.ts";
@@ -43,13 +44,35 @@
   };
 </script>
 
-<main>
-  <Auth bind:user={user} on:exec={onExec} />
-  
+<main>  
+
+  <Router>
+    <nav>
+      {#if user}
+      <Link to="/">Feedリスト</Link>
+      <Link to="/feed-info">Feed設定</Link>
+      {/if}
+      <Auth bind:user={user} on:exec={onExec} />
+    </nav>
+  </Router>
+
   {#if user}
 	<h1>Hello {user.name}!</h1>
-  <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
-  <FeedList feeds={feeds} />
+  
+  <Router>
+    <!-- <nav>
+      <Link to="/">Feedリスト</Link>
+      <Link to="/feed-info">Feed設定</Link>
+    </nav> -->
+    <div>
+      <Route path="/">
+        <FeedList feeds={feeds} />
+      </Route>
+      <Route path="/feed-info">
+        <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
+      </Route>
+    </div>
+  </Router>
   {/if}
 </main>
 

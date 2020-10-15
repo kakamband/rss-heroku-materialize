@@ -38,6 +38,7 @@
     "dayjs": "^1.8.36",
     "express": "^4.17.1",
     "pg": "^8.3.3",
-    "rss-parser": "^3.9.0"
+    "rss-parser": "^3.9.0",
+    "svelte-routing": "^1.4.2"
   }
 }
