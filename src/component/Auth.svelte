@@ -5,7 +5,7 @@
 
   export let user: Iuser = null;
   let authpack = null;
-//  let unlisten = null;
+  let unlisten = null;
   let authLabel = "ログイン";
   const dispatch = createEventDispatcher();
 
@@ -14,42 +14,41 @@
 		  key: "wga-client-key-687e9f9d7e762835aad651f8f",
     });
 		
-		const unlisten = authpack.listen((state) => {
+		unlisten = authpack.listen((state) => {
       console.log(state);
       
-			if (!state.ready) {
-				console.log("Loading...");
-			} else {
+			if (state.ready) {
         if (state.bearer) {
-          localStorage.setItem('bearer', state.bearer);
+          localStorage.setItem("bearer", state.bearer);
         }
           
 				if (state.user) {
-					console.log(state.user);
           if (!user || state.user.id !== user.id) {
             authLabel = "ログアウト";
-            user = { id: state.user.id, name: state.user.name, email: state.user.email, };
+            user = state.user;
             dispatch("exec", { payload: "login" });
           }
 				} else {
-					console.log("User not logged in.");
           if (user) {
             authLabel = "ログイン";
             user = null;
             dispatch("exec", { payload: "logout" });
           }
         }
+			} else {
+				console.log("Loading...");
 			}
 		});
   });
 
-//  onDestroy(() => {
-//    unlisten();
-//  });
+  onDestroy(() => {
+    unlisten();
+  });
 
-  const onOpen = () => {
-    authpack.open()
+  const onClick = () => {
+    if (user) authpack.exit();
+    else authpack.open();
   };
 </script>
 
-<input type="button" value={authLabel} on:click={onOpen}>
+<a href="#" on:click={onClick}>{authLabel}</a>
