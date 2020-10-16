@@ -5,7 +5,7 @@
 
   export let user: Iuser = null;
   let authpack = null;
-//  let unlisten = null;
+  let unlisten = null;
   let authLabel = "ログイン";
   const dispatch = createEventDispatcher();
 
@@ -14,14 +14,14 @@
 		  key: "wga-client-key-687e9f9d7e762835aad651f8f",
     });
 		
-		const unlisten = authpack.listen((state) => {
+		unlisten = authpack.listen((state) => {
       console.log(state);
       
 			if (!state.ready) {
 				console.log("Loading...");
 			} else {
         if (state.bearer) {
-          localStorage.setItem('bearer', state.bearer);
+          localStorage.setItem("bearer", state.bearer);
         }
           
 				if (state.user) {
@@ -43,13 +43,14 @@
 		});
   });
 
-//  onDestroy(() => {
-//    unlisten();
-//  });
+  onDestroy(() => {
+    unlisten();
+  });
 
-  const onOpen = () => {
-    authpack.open()
+  const onClick = () => {
+    if (user) authpack.exit();
+    else authpack.open();
   };
 </script>
 
-<input type="button" value={authLabel} on:click={onOpen}>
+<input type="button" value={authLabel} on:click={onClick}>
