@@ -7,7 +7,7 @@
   import FeedInfo from "./FeedInfo.svelte";
   import FeedList from "./FeedList.svelte";
   import Auth from "./Auth.svelte";
-  import Nav from "./Nav.svelte";
+  import Header from "./Header.svelte";
 
   let user: Iuser = null;
   let feedInfos: IfeedInfo[] = [];
@@ -45,11 +45,11 @@
   };
 </script>
 
-<Nav user={user}>
+<Header user={user}>
   <span slot="auth"> 
     <Auth bind:user={user} on:exec={onExec} />
   </span>
-</Nav>
+</Header>
 
 <main>
   {#if user}
