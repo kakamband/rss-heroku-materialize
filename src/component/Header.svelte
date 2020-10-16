@@ -4,20 +4,19 @@
 </script>
 
 <header class="site-header">
-  <!-- <div class="wrapper site-header__wrapper"> -->
   <div class="site-header__wrapper">
-    <img src="favicon.png" width="30" height="30" alt="brand" />
+    <img class="logo" src="favicon.png" alt="brand" />
 
-    <!-- {#if user} -->
     <nav class="nav">
+      {#if user}
       <Router>
         <Link to="/">Feedリスト</Link>
         <Link to="/feed-info">Feed設定</Link>
       </Router>
+      {/if}
+
+      <slot name="auth"></slot>
     </nav>
-    <!-- {/if} -->
-      
-    <slot name="auth"></slot>
   </div>
 </header>
 
@@ -25,22 +24,27 @@
   .site-header {
     position: relative;
     background-color: #def7ff;
-    padding: 0.5rem;
   }
 
   .site-header__wrapper {
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
+    margin: 0.5rem;
+  }
+
+  .logo {
+    width: 3rem;
+    height: 3rem;
+    margin: 0;
   }
 
   .nav {
     display: flex;
-    /* justify-content: space-between; */
     align-items: center;
-    margin-left: auto;
+    flex-wrap: wrap;
     gap: 1rem;
   }
 </style>

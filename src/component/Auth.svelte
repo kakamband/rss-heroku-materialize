@@ -51,4 +51,4 @@
   };
 </script>
 
-<input type="button" value={authLabel} on:click={onClick}>
+<a href="#" on:click={onClick}>{authLabel}</a>
