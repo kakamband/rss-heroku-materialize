@@ -17,28 +17,26 @@
 		unlisten = authpack.listen((state) => {
       console.log(state);
       
-			if (!state.ready) {
-				console.log("Loading...");
-			} else {
+			if (state.ready) {
         if (state.bearer) {
           localStorage.setItem("bearer", state.bearer);
         }
           
 				if (state.user) {
-					console.log(state.user);
           if (!user || state.user.id !== user.id) {
             authLabel = "ログアウト";
-            user = { id: state.user.id, name: state.user.name, email: state.user.email, };
+            user = state.user;
             dispatch("exec", { payload: "login" });
           }
 				} else {
-					console.log("User not logged in.");
           if (user) {
             authLabel = "ログイン";
             user = null;
             dispatch("exec", { payload: "logout" });
           }
         }
+			} else {
+				console.log("Loading...");
 			}
 		});
   });

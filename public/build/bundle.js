@@ -5306,7 +5306,7 @@ var app = (function () {
     			input = element("input");
     			attr_dev(input, "type", "button");
     			input.value = /*authLabel*/ ctx[0];
-    			add_location(input, file$3, 60, 0, 2171);
+    			add_location(input, file$3, 58, 0, 2017);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -5399,36 +5399,26 @@ var app = (function () {
     		unlisten = authpack.listen(state => {
     			console.log(state);
 
-    			if (!state.ready) {
-    				console.log("Loading...");
-    			} else {
+    			if (state.ready) {
     				if (state.bearer) {
     					localStorage.setItem("bearer", state.bearer);
     				}
 
     				if (state.user) {
-    					console.log(state.user);
-
     					if (!user || state.user.id !== user.id) {
     						$$invalidate(0, authLabel = "ログアウト");
-
-    						$$invalidate(2, user = {
-    							id: state.user.id,
-    							name: state.user.name,
-    							email: state.user.email
-    						});
-
+    						$$invalidate(2, user = state.user);
     						dispatch("exec", { payload: "login" });
     					}
     				} else {
-    					console.log("User not logged in.");
-
     					if (user) {
     						$$invalidate(0, authLabel = "ログイン");
     						$$invalidate(2, user = null);
     						dispatch("exec", { payload: "logout" });
     					}
     				}
+    			} else {
+    				console.log("Loading...");
     			}
     		});
     	}));
