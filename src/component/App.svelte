@@ -9,47 +9,11 @@
   import Auth from "./Auth.svelte";
   import Header from "./Header.svelte";
 
-  import * as firebase from "firebase/app";
-  import "firebase/auth";
-  import "firebaseui";
-
   let user: Iuser = null;
   let feedInfos: IfeedInfo[] = [];
   let feeds: Ifeed[] = [];
 
-  let authUi = null;
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCKxOAhXymGjUrtiodvue3xL7WA16qd9cc",
-    authDomain: "rss-feed-proxy.firebaseapp.com",
-    projectId: "rss-feed-proxy",
-    appId: "1:1090474250814:web:6a5631b43bc8b5e13d376f"
-  };
-
-  const uiConfig = {
-    signInSuccessUrl: `${location.origin}/`,
-    signInOptions: [
-      firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    ],
-    tosUrl: "#",
-    privacyPolicyUrl: "#",
-  };
-
-  const onAuthStateChanged = (user) => {
-    if (user) {
-      console.log(user.uid, user.email);
-    } else {
-      authUi.start("#firebaseui-auth-container", uiConfig);
-    }
-  };
-
   onMount(async () => {
-    firebase.initializeApp(firebaseConfig);
-    firebase.auth().onAuthStateChanged(onAuthStateChanged, (e) => {
-      console.log(e);
-    });
-    authUi = new firebaseui.auth.AuthUI(firebase.auth());
-
     feeds = await getFeeds(feedInfos);
   });
 
@@ -101,9 +65,6 @@
   </Router>
   {/if}
 </main>
-
-<div id="firebaseui-auth-container"></div>
-<input type="button" value="SignOut" on:click={() => firebase.auth().signOut()}>
 
 <svelte:head>
 	<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css">
