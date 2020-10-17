@@ -1,54 +1,60 @@
 <script lang="ts">
   import { onMount, onDestroy, createEventDispatcher } from "svelte";
-  import { Authpack } from "@authpack/sdk";
+  import * as firebase from "firebase/app";
+  import "firebase/auth";
+  import "firebaseui";
   import type { Iuser } from "../common/Auth.ts";
 
   export let user: Iuser = null;
-  let authpack = null;
-  let unlisten = null;
   let authLabel = "ログイン";
+  let authUi = null;
   const dispatch = createEventDispatcher();
 
-  onMount(async () => {
-    authpack = new Authpack({
-		  key: "wga-client-key-687e9f9d7e762835aad651f8f",
-    });
-		
-		unlisten = authpack.listen((state) => {
-      console.log(state);
-      
-			if (state.ready) {
-        if (state.bearer) {
-          localStorage.setItem("bearer", state.bearer);
-        }
-          
-				if (state.user) {
-          if (!user || state.user.id !== user.id) {
-            authLabel = "ログアウト";
-            user = state.user;
-            dispatch("exec", { payload: "login" });
-          }
-				} else {
-          if (user) {
-            authLabel = "ログイン";
-            user = null;
-            dispatch("exec", { payload: "logout" });
-          }
-        }
-			} else {
-				console.log("Loading...");
-			}
-		});
-  });
+  const firebaseConfig = {
+    apiKey: "AIzaSyCKxOAhXymGjUrtiodvue3xL7WA16qd9cc",
+    authDomain: "rss-feed-proxy.firebaseapp.com",
+    projectId: "rss-feed-proxy",
+    appId: "1:1090474250814:web:6a5631b43bc8b5e13d376f"
+  };
 
-  onDestroy(() => {
-    unlisten();
+  const uiConfig = {
+    signInSuccessUrl: `${location.origin}/`,
+    signInOptions: [
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    ],
+    tosUrl: "#",
+    privacyPolicyUrl: "#",
+  };
+
+  const onAuthStateChanged = (authUser) => {
+    if (authUser) {
+      if (!user || authUser.uid !== user.id) {
+        authLabel = "ログアウト";
+        user = { id: authUser.uid, name: authUser.email, email: authUser.email };
+        dispatch("exec", { payload: "login" });
+      }
+    } else {
+      if (user) {
+        authLabel = "ログイン";
+        user = null;
+        dispatch("exec", { payload: "logout" });
+      }
+    }
+  };
+
+  onMount(async () => {
+    firebase.initializeApp(firebaseConfig);
+    firebase.auth().onAuthStateChanged(onAuthStateChanged, (e) => {
+      console.log(e);
+    });
+    authUi = new firebaseui.auth.AuthUI(firebase.auth());
   });
 
   const onClick = () => {
-    if (user) authpack.exit();
-    else authpack.open();
+    if (user) firebase.auth().signOut();
+    else authUi.start("#firebaseui-auth-container", uiConfig);
   };
 </script>
 
-<a href="#" on:click={onClick}>{authLabel}</a>
+<div id="firebaseui-auth-container"></div>
+<a href={"#"} on:click={onClick}>{authLabel}</a>

@@ -75,6 +75,8 @@
 	<link rel="stylesheet" href="//writ.cmcenroe.me/1.0.4/writ.min.css">
 	<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css">
 -->
+
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 </svelte:head>
 
 <style>
