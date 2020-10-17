@@ -29,15 +29,17 @@
     if (authUser) {
       console.log(authUser)
       if (!user || authUser.uid !== user.id) {
-        authLabel = "ログアウト";
-        user = { id: authUser.uid, name: authUser.email, email: authUser.email };
+        user = { id: authUser.uid, name: authUser.displayName, email: authUser.email };
+        if (!user.name) user.name = authUser.email;
+        authLabel = user.name;
         dispatch("exec", { payload: "login" });
       }
     } else {
       if (user) {
-        authLabel = "ログイン";
         user = null;
+        authLabel = "";
         dispatch("exec", { payload: "logout" });
+        authUi.start("#firebaseui-auth-container", uiConfig);
       }
     }
   };
@@ -51,8 +53,9 @@
   });
 
   const onClick = () => {
-    if (user) firebase.auth().signOut();
-    else authUi.start("#firebaseui-auth-container", uiConfig);
+    if (user) {
+      if (confirm("サインアウトしますか？")) firebase.auth().signOut();
+    }
   };
 </script>
 

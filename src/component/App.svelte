@@ -53,8 +53,6 @@
 
 <main>
   {#if user}
-	<h1>Hello {user.name}!</h1>
-
   <Router>
     <Route path="/">
       <FeedList feeds={feeds} />

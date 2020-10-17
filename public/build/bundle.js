@@ -9645,9 +9645,9 @@ var app = (function () {
     			a = element("a");
     			t1 = text(/*authLabel*/ ctx[0]);
     			attr_dev(div, "id", "firebaseui-auth-container");
-    			add_location(div, file$3, 63, 0, 2292);
+    			add_location(div, file$3, 66, 0, 2411);
     			attr_dev(a, "href", a_href_value = "#");
-    			add_location(a, file$3, 64, 0, 2335);
+    			add_location(a, file$3, 67, 0, 2454);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -9753,21 +9753,22 @@ var app = (function () {
     			console.log(authUser);
 
     			if (!user || authUser.uid !== user.id) {
-    				$$invalidate(0, authLabel = "ログアウト");
-
     				$$invalidate(2, user = {
     					id: authUser.uid,
-    					name: authUser.email,
+    					name: authUser.displayName,
     					email: authUser.email
     				});
 
+    				if (!user.name) $$invalidate(2, user.name = authUser.email, user);
+    				$$invalidate(0, authLabel = user.name);
     				dispatch("exec", { payload: "login" });
     			}
     		} else {
     			if (user) {
-    				$$invalidate(0, authLabel = "ログイン");
     				$$invalidate(2, user = null);
+    				$$invalidate(0, authLabel = "");
     				dispatch("exec", { payload: "logout" });
+    				authUi.start("#firebaseui-auth-container", uiConfig);
     			}
     		}
     	};
@@ -9783,7 +9784,9 @@ var app = (function () {
     	}));
 
     	const onClick = () => {
-    		if (user) index_cjs$3.auth().signOut(); else authUi.start("#firebaseui-auth-container", uiConfig);
+    		if (user) {
+    			if (confirm("サインアウトしますか？")) index_cjs$3.auth().signOut();
+    		}
     	};
 
     	const writable_props = ["user"];
@@ -10270,12 +10273,6 @@ var app = (function () {
 
     // (55:2) {#if user}
     function create_if_block$4(ctx) {
-    	let h1;
-    	let t0;
-    	let t1_value = /*user*/ ctx[0].name + "";
-    	let t1;
-    	let t2;
-    	let t3;
     	let router;
     	let current;
 
@@ -10289,25 +10286,13 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			h1 = element("h1");
-    			t0 = text("Hello ");
-    			t1 = text(t1_value);
-    			t2 = text("!");
-    			t3 = space();
     			create_component(router.$$.fragment);
-    			add_location(h1, file$5, 55, 1, 1950);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, h1, anchor);
-    			append_dev(h1, t0);
-    			append_dev(h1, t1);
-    			append_dev(h1, t2);
-    			insert_dev(target, t3, anchor);
     			mount_component(router, target, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if ((!current || dirty & /*user*/ 1) && t1_value !== (t1_value = /*user*/ ctx[0].name + "")) set_data_dev(t1, t1_value);
     			const router_changes = {};
 
     			if (dirty & /*$$scope, feedInfos, feeds*/ 134) {
@@ -10326,8 +10311,6 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(h1);
-    			if (detaching) detach_dev(t3);
     			destroy_component(router, detaching);
     		}
     	};
@@ -10343,7 +10326,7 @@ var app = (function () {
     	return block;
     }
 
-    // (59:4) <Route path="/">
+    // (57:4) <Route path="/">
     function create_default_slot_2$1(ctx) {
     	let feedlist;
     	let current;
@@ -10384,14 +10367,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2$1.name,
     		type: "slot",
-    		source: "(59:4) <Route path=\\\"/\\\">",
+    		source: "(57:4) <Route path=\\\"/\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (62:4) <Route path="/feed-info">
+    // (60:4) <Route path="/feed-info">
     function create_default_slot_1$1(ctx) {
     	let feedinfo;
     	let updating_feedInfos;
@@ -10448,14 +10431,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1$1.name,
     		type: "slot",
-    		source: "(62:4) <Route path=\\\"/feed-info\\\">",
+    		source: "(60:4) <Route path=\\\"/feed-info\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (58:2) <Router>
+    // (56:2) <Router>
     function create_default_slot$1(ctx) {
     	let route0;
     	let t;
@@ -10530,7 +10513,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(58:2) <Router>",
+    		source: "(56:2) <Router>",
     		ctx
     	});
 
@@ -10569,11 +10552,11 @@ var app = (function () {
     			add_location(main, file$5, 53, 0, 1929);
     			attr_dev(link0, "rel", "stylesheet");
     			attr_dev(link0, "href", "https://unpkg.com/sakura.css/css/sakura.css");
-    			add_location(link0, file$5, 69, 1, 2207);
+    			add_location(link0, file$5, 67, 1, 2177);
     			attr_dev(link1, "type", "text/css");
     			attr_dev(link1, "rel", "stylesheet");
     			attr_dev(link1, "href", "https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css");
-    			add_location(link1, file$5, 78, 2, 2666);
+    			add_location(link1, file$5, 76, 2, 2636);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
