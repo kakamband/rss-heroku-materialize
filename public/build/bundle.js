@@ -9645,9 +9645,9 @@ var app = (function () {
     			a = element("a");
     			t1 = text(/*authLabel*/ ctx[0]);
     			attr_dev(div, "id", "firebaseui-auth-container");
-    			add_location(div, file$3, 63, 0, 2294);
+    			add_location(div, file$3, 63, 0, 2292);
     			attr_dev(a, "href", a_href_value = "#");
-    			add_location(a, file$3, 64, 0, 2337);
+    			add_location(a, file$3, 64, 0, 2335);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -9744,8 +9744,8 @@ var app = (function () {
     	const uiConfig = {
     		signInSuccessUrl: `${location.origin}/`,
     		signInOptions: [index_cjs$3.auth.EmailAuthProvider.PROVIDER_ID],
-    		tosUrl: "#",
-    		privacyPolicyUrl: "#"
+    		tosUrl: "",
+    		privacyPolicyUrl: ""
     	};
 
     	const onAuthStateChanged = authUser => {

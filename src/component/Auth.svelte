@@ -21,8 +21,8 @@
     signInOptions: [
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
     ],
-    tosUrl: "#",
-    privacyPolicyUrl: "#",
+    tosUrl: "",
+    privacyPolicyUrl: "",
   };
 
   const onAuthStateChanged = (authUser) => {
