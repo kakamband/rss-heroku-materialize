@@ -9,6 +9,10 @@
   import Auth from "./Auth.svelte";
   import Header from "./Header.svelte";
 
+  import * as firebase from "firebase/app";
+  import "firebase/auth";
+  import "firebaseui";
+
   let user: Iuser = null;
   let feedInfos: IfeedInfo[] = [];
   let feeds: Ifeed[] = [];
@@ -18,46 +22,24 @@
   const firebaseConfig = {
     apiKey: "AIzaSyCKxOAhXymGjUrtiodvue3xL7WA16qd9cc",
     authDomain: "rss-feed-proxy.firebaseapp.com",
-    // databaseURL: "https://rss-feed-proxy.firebaseio.com",
     projectId: "rss-feed-proxy",
-    // storageBucket: "rss-feed-proxy.appspot.com",
-    // messagingSenderId: "1090474250814",
     appId: "1:1090474250814:web:6a5631b43bc8b5e13d376f"
   };
 
   const uiConfig = {
-    // callbacks: {
-    //   signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-    //     // User successfully signed in.
-    //     // Return type determines whether we continue the redirect automatically
-    //     // or whether we leave that to developer to handle.
-    //     return true;
-    //   },
-    //   uiShown: function() {
-    //     // The widget is rendered.
-    //     // Hide the loader.
-    //     document.getElementById('loader').style.display = 'none';
-    //   }
-    // },
-    // // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-    // signInFlow: 'popup',
     signInSuccessUrl: `${location.origin}/`,
     signInOptions: [
-      // Leave the lines as is for the providers you want to offer your users.
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
     ],
-    // Terms of service url.
-    tosUrl: '<your-tos-url>',
-    // Privacy policy url.
-    privacyPolicyUrl: '<your-privacy-policy-url>'
+    tosUrl: "#",
+    privacyPolicyUrl: "#",
   };
 
   const onAuthStateChanged = (user) => {
     if (user) {
       console.log(user.uid, user.email);
     } else {
-      console.log("User not logged in.");
-      authUi.start('#firebaseui-auth-container', uiConfig);
+      authUi.start("#firebaseui-auth-container", uiConfig);
     }
   };
 
@@ -67,9 +49,6 @@
       console.log(e);
     });
     authUi = new firebaseui.auth.AuthUI(firebase.auth());
-    // if (authUi.isPendingRedirect()) {
-    //   authUi.start('#firebaseui-auth-container', uiConfig);
-    // }
 
     feeds = await getFeeds(feedInfos);
   });
@@ -135,6 +114,8 @@
 	<link rel="stylesheet" href="//writ.cmcenroe.me/1.0.4/writ.min.css">
 	<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css">
 -->
+
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 </svelte:head>
 
 <style>

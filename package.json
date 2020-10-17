@@ -37,6 +37,8 @@
     "@authpack/sdk": "^0.8.18",
     "dayjs": "^1.8.36",
     "express": "^4.17.1",
+    "firebase": "^7.24.0",
+    "firebaseui": "^4.7.0",
     "pg": "^8.3.3",
     "rss-parser": "^3.9.0",
     "svelte-routing": "^1.4.2"
