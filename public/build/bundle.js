@@ -9645,9 +9645,9 @@ var app = (function () {
     			a = element("a");
     			t1 = text(/*authLabel*/ ctx[0]);
     			attr_dev(div, "id", "firebaseui-auth-container");
-    			add_location(div, file$3, 66, 0, 2411);
+    			add_location(div, file$3, 69, 0, 2496);
     			attr_dev(a, "href", a_href_value = "#");
-    			add_location(a, file$3, 67, 0, 2454);
+    			add_location(a, file$3, 70, 0, 2539);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -9730,7 +9730,7 @@ var app = (function () {
 
     	
     	let { user = null } = $$props;
-    	let authLabel = "ログイン";
+    	let authLabel = "サインイン";
     	let authUi = null;
     	const dispatch = createEventDispatcher();
 
@@ -9766,7 +9766,7 @@ var app = (function () {
     		} else {
     			if (user) {
     				$$invalidate(2, user = null);
-    				$$invalidate(0, authLabel = "");
+    				$$invalidate(0, authLabel = "サインイン");
     				dispatch("exec", { payload: "logout" });
     				authUi.start("#firebaseui-auth-container", uiConfig);
     			}
@@ -9786,6 +9786,8 @@ var app = (function () {
     	const onClick = () => {
     		if (user) {
     			if (confirm("サインアウトしますか？")) index_cjs$3.auth().signOut();
+    		} else {
+    			authUi.start("#firebaseui-auth-container", uiConfig);
     		}
     	};
 

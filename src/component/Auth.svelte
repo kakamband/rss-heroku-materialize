@@ -5,7 +5,7 @@
   import type { Iuser } from "../common/Auth.ts";
 
   export let user: Iuser = null;
-  let authLabel = "ログイン";
+  let authLabel = "サインイン";
   let authUi = null;
   const dispatch = createEventDispatcher();
 
@@ -37,7 +37,7 @@
     } else {
       if (user) {
         user = null;
-        authLabel = "";
+        authLabel = "サインイン";
         dispatch("exec", { payload: "logout" });
         authUi.start("#firebaseui-auth-container", uiConfig);
       }
@@ -55,6 +55,8 @@
   const onClick = () => {
     if (user) {
       if (confirm("サインアウトしますか？")) firebase.auth().signOut();
+    } else {
+      authUi.start("#firebaseui-auth-container", uiConfig);
     }
   };
 </script>
