@@ -80,7 +80,7 @@
 </svelte:head>
 
 <style>
-	main {
+	/* main {
 		text-align: center;
 		padding: 1em;
 		max-width: 240px;
@@ -98,5 +98,5 @@
 		main {
 			max-width: none;
 		}
-	}
+	} */
 </style>

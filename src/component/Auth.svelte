@@ -1,8 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy, createEventDispatcher } from "svelte";
   import * as firebase from "firebase/app";
-  import "firebase/auth";
-  import "firebaseui";
+  import * as firebaseui from 'firebaseui';
   import type { Iuser } from "../common/Auth.ts";
 
   export let user: Iuser = null;
@@ -28,6 +27,7 @@
 
   const onAuthStateChanged = (authUser) => {
     if (authUser) {
+      console.log(authUser)
       if (!user || authUser.uid !== user.id) {
         authLabel = "ログアウト";
         user = { id: authUser.uid, name: authUser.email, email: authUser.email };
