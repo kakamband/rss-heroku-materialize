@@ -10064,15 +10064,15 @@ var app = (function () {
     			if (if_block) if_block.c();
     			t1 = space();
     			if (auth_slot) auth_slot.c();
-    			attr_dev(img, "class", "logo svelte-1nbu6fm");
+    			attr_dev(img, "class", "logo svelte-19dyvaz");
     			if (img.src !== (img_src_value = "favicon.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "brand");
     			add_location(img, file$4, 7, 4, 165);
-    			attr_dev(nav, "class", "nav svelte-1nbu6fm");
+    			attr_dev(nav, "class", "nav svelte-19dyvaz");
     			add_location(nav, file$4, 9, 4, 221);
-    			attr_dev(div, "class", "site-header__wrapper svelte-1nbu6fm");
+    			attr_dev(div, "class", "site-header__wrapper svelte-19dyvaz");
     			add_location(div, file$4, 6, 2, 126);
-    			attr_dev(header, "class", "site-header svelte-1nbu6fm");
+    			attr_dev(header, "class", "site-header svelte-19dyvaz");
     			add_location(header, file$4, 5, 0, 95);
     		},
     		l: function claim(nodes) {
@@ -10527,8 +10527,6 @@ var app = (function () {
     	let t0;
     	let main;
     	let t1;
-    	let link0;
-    	let link1;
     	let current;
 
     	header = new Header({
@@ -10549,16 +10547,7 @@ var app = (function () {
     			main = element("main");
     			if (if_block) if_block.c();
     			t1 = space();
-    			link0 = element("link");
-    			link1 = element("link");
     			add_location(main, file$5, 53, 0, 1929);
-    			attr_dev(link0, "rel", "stylesheet");
-    			attr_dev(link0, "href", "https://unpkg.com/sakura.css/css/sakura.css");
-    			add_location(link0, file$5, 67, 1, 2177);
-    			attr_dev(link1, "type", "text/css");
-    			attr_dev(link1, "rel", "stylesheet");
-    			attr_dev(link1, "href", "https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css");
-    			add_location(link1, file$5, 76, 2, 2636);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -10569,8 +10558,6 @@ var app = (function () {
     			insert_dev(target, main, anchor);
     			if (if_block) if_block.m(main, null);
     			insert_dev(target, t1, anchor);
-    			append_dev(document.head, link0);
-    			append_dev(document.head, link1);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
@@ -10623,8 +10610,6 @@ var app = (function () {
     			if (detaching) detach_dev(main);
     			if (if_block) if_block.d();
     			if (detaching) detach_dev(t1);
-    			detach_dev(link0);
-    			detach_dev(link1);
     		}
     	};
 

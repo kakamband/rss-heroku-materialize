@@ -21,9 +21,37 @@
 </header>
 
 <style>
+  /* header {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    background-color: darkgrey;
+    align-items: center;
+    position: fixed;
+  }
+  
+  .logo {
+    margin-right: auto;
+  }
+  
+  .menu-item {
+    list-style: none;
+    display: inline-block;
+    padding: 10px;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  } */
+
+
   .site-header {
     position: relative;
-    background-color: #def7ff;
+    /* position: fixed; */
+    background-color: darkgrey;
   }
 
   .site-header__wrapper {
@@ -39,6 +67,7 @@
     width: 3rem;
     height: 3rem;
     margin: 0;
+    margin-right: auto;
   }
 
   .nav {
