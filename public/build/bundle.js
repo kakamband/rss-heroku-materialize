@@ -2179,7 +2179,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (77:4) {:else}
+    // (78:4) {:else}
     function create_else_block$1(ctx) {
     	let span;
 
@@ -2187,7 +2187,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "×";
-    			add_location(span, file$1, 77, 4, 2407);
+    			add_location(span, file$1, 78, 4, 2403);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -2201,14 +2201,14 @@ var app = (function () {
     		block,
     		id: create_else_block$1.name,
     		type: "else",
-    		source: "(77:4) {:else}",
+    		source: "(78:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (75:4) {#if valids[i]}
+    // (76:4) {#if valids[i]}
     function create_if_block$1(ctx) {
     	let span;
 
@@ -2216,7 +2216,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "○";
-    			add_location(span, file$1, 75, 4, 2376);
+    			add_location(span, file$1, 76, 4, 2372);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -2230,14 +2230,14 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(75:4) {#if valids[i]}",
+    		source: "(76:4) {#if valids[i]}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (71:2) {#each feedInfos as feedInfo, i}
+    // (72:2) {#each feedInfos as feedInfo, i}
     function create_each_block(ctx) {
     	let div;
     	let input0;
@@ -2270,15 +2270,16 @@ var app = (function () {
     			t1 = space();
     			input1 = element("input");
     			attr_dev(input0, "type", "url");
+    			attr_dev(input0, "class", "url svelte-wzwel3");
     			attr_dev(input0, "name", input0_name_value = /*i*/ ctx[13]);
     			input0.required = true;
-    			add_location(input0, file$1, 72, 4, 2288);
+    			add_location(input0, file$1, 73, 4, 2272);
     			attr_dev(input1, "type", "button");
     			attr_dev(input1, "name", input1_name_value = /*i*/ ctx[13]);
     			input1.value = "削除";
-    			add_location(input1, file$1, 80, 4, 2437);
-    			attr_dev(div, "class", "feed-info svelte-1210cu9");
-    			add_location(div, file$1, 71, 2, 2260);
+    			add_location(input1, file$1, 81, 4, 2433);
+    			attr_dev(div, "class", "feed-info svelte-wzwel3");
+    			add_location(div, file$1, 72, 2, 2244);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -2327,7 +2328,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(71:2) {#each feedInfos as feedInfo, i}",
+    		source: "(72:2) {#each feedInfos as feedInfo, i}",
     		ctx
     	});
 
@@ -2369,20 +2370,17 @@ var app = (function () {
     			t2 = space();
     			input2 = element("input");
     			attr_dev(input0, "type", "button");
-    			attr_dev(input0, "class", "nav-item svelte-1210cu9");
     			input0.value = "追加";
-    			add_location(input0, file$1, 85, 4, 2541);
+    			add_location(input0, file$1, 86, 4, 2537);
     			attr_dev(input1, "type", "button");
-    			attr_dev(input1, "class", "nav-item svelte-1210cu9");
     			input1.value = "確定";
-    			add_location(input1, file$1, 86, 4, 2610);
+    			add_location(input1, file$1, 87, 4, 2589);
     			attr_dev(input2, "type", "button");
-    			attr_dev(input2, "class", "nav-item svelte-1210cu9");
     			input2.value = "サーバーから読込";
-    			add_location(input2, file$1, 87, 4, 2683);
-    			attr_dev(div, "class", "nav svelte-1210cu9");
-    			add_location(div, file$1, 84, 2, 2519);
-    			add_location(form, file$1, 69, 0, 2216);
+    			add_location(input2, file$1, 88, 4, 2645);
+    			attr_dev(div, "class", "nav svelte-wzwel3");
+    			add_location(div, file$1, 85, 2, 2515);
+    			add_location(form, file$1, 70, 0, 2200);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -10544,7 +10542,8 @@ var app = (function () {
     	let t0;
     	let main;
     	let t1;
-    	let link;
+    	let link0;
+    	let link1;
     	let current;
 
     	header = new Header({
@@ -10565,12 +10564,16 @@ var app = (function () {
     			main = element("main");
     			if (if_block) if_block.c();
     			t1 = space();
-    			link = element("link");
+    			link0 = element("link");
+    			link1 = element("link");
     			add_location(main, file$5, 53, 0, 1929);
-    			attr_dev(link, "type", "text/css");
-    			attr_dev(link, "rel", "stylesheet");
-    			attr_dev(link, "href", "https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css");
-    			add_location(link, file$5, 78, 2, 3010);
+    			attr_dev(link0, "rel", "stylesheet");
+    			attr_dev(link0, "href", "https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css");
+    			add_location(link0, file$5, 76, 2, 2900);
+    			attr_dev(link1, "type", "text/css");
+    			attr_dev(link1, "rel", "stylesheet");
+    			attr_dev(link1, "href", "https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css");
+    			add_location(link1, file$5, 78, 2, 3001);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -10581,7 +10584,8 @@ var app = (function () {
     			insert_dev(target, main, anchor);
     			if (if_block) if_block.m(main, null);
     			insert_dev(target, t1, anchor);
-    			append_dev(document.head, link);
+    			append_dev(document.head, link0);
+    			append_dev(document.head, link1);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
@@ -10634,7 +10638,8 @@ var app = (function () {
     			if (detaching) detach_dev(main);
     			if (if_block) if_block.d();
     			if (detaching) detach_dev(t1);
-    			detach_dev(link);
+    			detach_dev(link0);
+    			detach_dev(link1);
     		}
     	};
 

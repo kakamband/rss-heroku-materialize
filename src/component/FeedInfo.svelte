@@ -53,25 +53,26 @@
 <style>
   .feed-info {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+  }
+
+  .url {
+    flex-grow: 1;
   }
 
   .nav {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-  }
-
-  .nav-item {
-    margin-right: 1em;
+    gap: 1rem;
   }
 </style>
 
 <form>
   {#each feedInfos as feedInfo, i}
   <div class="feed-info">
-    <input type="url" name={i} required bind:value={feedInfo.url}>
+    <input type="url" class="url" name={i} required bind:value={feedInfo.url}>
 
     {#if valids[i]}
     <span>○</span>
@@ -84,8 +85,8 @@
   {/each}
 
   <div class="nav">
-    <input type="button" class="nav-item" value="追加" on:click={add}>
-    <input type="button" class="nav-item" value="確定" on:click={confirm}>
-    <input type="button" class="nav-item" value="サーバーから読込" on:click={getFeedInfos}>
+    <input type="button" value="追加" on:click={add}>
+    <input type="button" value="確定" on:click={confirm}>
+    <input type="button" value="サーバーから読込" on:click={getFeedInfos}>
   </div>
 </form>
