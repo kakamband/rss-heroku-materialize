@@ -9859,7 +9859,7 @@ var app = (function () {
     const get_auth_slot_changes = dirty => ({});
     const get_auth_slot_context = ctx => ({});
 
-    // (11:6) {#if user}
+    // (10:4) {#if user}
     function create_if_block$3(ctx) {
     	let router;
     	let current;
@@ -9898,14 +9898,14 @@ var app = (function () {
     		block,
     		id: create_if_block$3.name,
     		type: "if",
-    		source: "(11:6) {#if user}",
+    		source: "(10:4) {#if user}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (13:8) <Link to="/">
+    // (12:6) <Link to="/">
     function create_default_slot_2(ctx) {
     	let t;
 
@@ -9925,14 +9925,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(13:8) <Link to=\\\"/\\\">",
+    		source: "(12:6) <Link to=\\\"/\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (14:8) <Link to="/feed-info">
+    // (13:6) <Link to="/feed-info">
     function create_default_slot_1(ctx) {
     	let t;
 
@@ -9952,14 +9952,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(14:8) <Link to=\\\"/feed-info\\\">",
+    		source: "(13:6) <Link to=\\\"/feed-info\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (12:6) <Router>
+    // (11:4) <Router>
     function create_default_slot(ctx) {
     	let link0;
     	let t;
@@ -10034,7 +10034,7 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(12:6) <Router>",
+    		source: "(11:4) <Router>",
     		ctx
     	});
 
@@ -10043,7 +10043,6 @@ var app = (function () {
 
     function create_fragment$6(ctx) {
     	let header;
-    	let div;
     	let img;
     	let img_src_value;
     	let t0;
@@ -10057,22 +10056,19 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			header = element("header");
-    			div = element("div");
     			img = element("img");
     			t0 = space();
     			nav = element("nav");
     			if (if_block) if_block.c();
     			t1 = space();
     			if (auth_slot) auth_slot.c();
-    			attr_dev(img, "class", "logo svelte-19dyvaz");
+    			attr_dev(img, "class", "logo svelte-qflw2t");
     			if (img.src !== (img_src_value = "favicon.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "brand");
-    			add_location(img, file$4, 7, 4, 165);
-    			attr_dev(nav, "class", "nav svelte-19dyvaz");
-    			add_location(nav, file$4, 9, 4, 221);
-    			attr_dev(div, "class", "site-header__wrapper svelte-19dyvaz");
-    			add_location(div, file$4, 6, 2, 126);
-    			attr_dev(header, "class", "site-header svelte-19dyvaz");
+    			add_location(img, file$4, 6, 2, 106);
+    			attr_dev(nav, "class", "svelte-qflw2t");
+    			add_location(nav, file$4, 8, 2, 160);
+    			attr_dev(header, "class", "svelte-qflw2t");
     			add_location(header, file$4, 5, 0, 95);
     		},
     		l: function claim(nodes) {
@@ -10080,10 +10076,9 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, header, anchor);
-    			append_dev(header, div);
-    			append_dev(div, img);
-    			append_dev(div, t0);
-    			append_dev(div, nav);
+    			append_dev(header, img);
+    			append_dev(header, t0);
+    			append_dev(header, nav);
     			if (if_block) if_block.m(nav, null);
     			append_dev(nav, t1);
 
@@ -10527,6 +10522,8 @@ var app = (function () {
     	let t0;
     	let main;
     	let t1;
+    	let t2;
+    	let link;
     	let current;
 
     	header = new Header({
@@ -10547,7 +10544,13 @@ var app = (function () {
     			main = element("main");
     			if (if_block) if_block.c();
     			t1 = space();
+    			t2 = text("-->\n\n\n  ");
+    			link = element("link");
     			add_location(main, file$5, 53, 0, 1929);
+    			attr_dev(link, "type", "text/css");
+    			attr_dev(link, "rel", "stylesheet");
+    			attr_dev(link, "href", "https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css");
+    			add_location(link, file$5, 79, 2, 3011);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -10558,6 +10561,8 @@ var app = (function () {
     			insert_dev(target, main, anchor);
     			if (if_block) if_block.m(main, null);
     			insert_dev(target, t1, anchor);
+    			append_dev(document.head, t2);
+    			append_dev(document.head, link);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
@@ -10610,6 +10615,8 @@ var app = (function () {
     			if (detaching) detach_dev(main);
     			if (if_block) if_block.d();
     			if (detaching) detach_dev(t1);
+    			detach_dev(t2);
+    			detach_dev(link);
     		}
     	};
 
