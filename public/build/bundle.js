@@ -10544,7 +10544,6 @@ var app = (function () {
     	let t0;
     	let main;
     	let t1;
-    	let t2;
     	let link;
     	let current;
 
@@ -10566,13 +10565,12 @@ var app = (function () {
     			main = element("main");
     			if (if_block) if_block.c();
     			t1 = space();
-    			t2 = text("-->\n\n\n  ");
     			link = element("link");
     			add_location(main, file$5, 53, 0, 1929);
     			attr_dev(link, "type", "text/css");
     			attr_dev(link, "rel", "stylesheet");
     			attr_dev(link, "href", "https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css");
-    			add_location(link, file$5, 79, 2, 3011);
+    			add_location(link, file$5, 78, 2, 3010);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -10583,7 +10581,6 @@ var app = (function () {
     			insert_dev(target, main, anchor);
     			if (if_block) if_block.m(main, null);
     			insert_dev(target, t1, anchor);
-    			append_dev(document.head, t2);
     			append_dev(document.head, link);
     			current = true;
     		},
@@ -10637,7 +10634,6 @@ var app = (function () {
     			if (detaching) detach_dev(main);
     			if (if_block) if_block.d();
     			if (detaching) detach_dev(t1);
-    			detach_dev(t2);
     			detach_dev(link);
     		}
     	};
