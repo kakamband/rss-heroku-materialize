@@ -10063,8 +10063,7 @@ var app = (function () {
 
     function create_fragment$6(ctx) {
     	let header;
-    	let img;
-    	let img_src_value;
+    	let i;
     	let t0;
     	let nav;
     	let t1;
@@ -10076,19 +10075,17 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			header = element("header");
-    			img = element("img");
+    			i = element("i");
     			t0 = space();
     			nav = element("nav");
     			if (if_block) if_block.c();
     			t1 = space();
     			if (auth_slot) auth_slot.c();
-    			attr_dev(img, "class", "logo svelte-qflw2t");
-    			if (img.src !== (img_src_value = "favicon.png")) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", "brand");
-    			add_location(img, file$4, 6, 2, 106);
-    			attr_dev(nav, "class", "svelte-qflw2t");
-    			add_location(nav, file$4, 8, 2, 160);
-    			attr_dev(header, "class", "svelte-qflw2t");
+    			attr_dev(i, "class", "fas fa-rss");
+    			add_location(i, file$4, 6, 2, 106);
+    			attr_dev(nav, "class", "svelte-e5y62v");
+    			add_location(nav, file$4, 8, 2, 136);
+    			attr_dev(header, "class", "svelte-e5y62v");
     			add_location(header, file$4, 5, 0, 95);
     		},
     		l: function claim(nodes) {
@@ -10096,7 +10093,7 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, header, anchor);
-    			append_dev(header, img);
+    			append_dev(header, i);
     			append_dev(header, t0);
     			append_dev(header, nav);
     			if (if_block) if_block.m(nav, null);
@@ -10544,6 +10541,8 @@ var app = (function () {
     	let t1;
     	let link0;
     	let link1;
+    	let script;
+    	let script_src_value;
     	let current;
 
     	header = new Header({
@@ -10566,6 +10565,7 @@ var app = (function () {
     			t1 = space();
     			link0 = element("link");
     			link1 = element("link");
+    			script = element("script");
     			add_location(main, file$5, 53, 0, 1929);
     			attr_dev(link0, "rel", "stylesheet");
     			attr_dev(link0, "href", "https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css");
@@ -10574,6 +10574,9 @@ var app = (function () {
     			attr_dev(link1, "rel", "stylesheet");
     			attr_dev(link1, "href", "https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css");
     			add_location(link1, file$5, 78, 2, 3001);
+    			if (script.src !== (script_src_value = "https://kit.fontawesome.com/5f39c04e79.js")) attr_dev(script, "src", script_src_value);
+    			attr_dev(script, "crossorigin", "anonymous");
+    			add_location(script, file$5, 79, 2, 3114);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -10586,6 +10589,7 @@ var app = (function () {
     			insert_dev(target, t1, anchor);
     			append_dev(document.head, link0);
     			append_dev(document.head, link1);
+    			append_dev(document.head, script);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
@@ -10640,6 +10644,7 @@ var app = (function () {
     			if (detaching) detach_dev(t1);
     			detach_dev(link0);
     			detach_dev(link1);
+    			detach_dev(script);
     		}
     	};
 

@@ -4,7 +4,7 @@
 </script>
 
 <header>
-  <img class="logo" src="favicon.png" alt="brand" />
+  <i class="fas fa-rss"></i>
 
   <nav>
     {#if user}
@@ -21,7 +21,8 @@
 <style>
   header {
     position: sticky;
-    top: 8px;
+    top: 2rem;
+    margin: 0 1rem 0.5rem 1rem;
     padding: 0.5rem;
     background-color: darkgrey;
     display: flex;
@@ -30,13 +31,8 @@
     gap: 1rem;
   }
 
-  .logo {
-    width: 2rem;
-    height: auto;
-    margin-right: auto;
-  }
-
   nav {
+    margin-left: auto;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
