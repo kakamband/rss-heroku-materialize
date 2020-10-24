@@ -3,39 +3,28 @@
   export let user = null;
 </script>
 
-<header>
-  <i class="fas fa-rss"></i>
+<header class="navbar is-primary is-fixed-top">
+  <div class="navbar-brand">
+    <span class="navbar-item">
+      <i class="fas fa-rss"></i>
+    </span>
+  </div>
 
-  <nav>
+  <nav class="navbar-menu navbar-end">
     {#if user}
     <Router>
-      <Link to="/">Feedリスト</Link>
-      <Link to="/feed-info">Feed設定</Link>
+      <span class="navbar-item">
+        <Link to="/">Feedリスト</Link>
+      </span>
+
+      <span class="navbar-item">
+        <Link to="/feed-info">Feed設定</Link>
+      </span>
     </Router>
     {/if}
 
-    <slot name="auth"></slot>
+    <span class="navbar-item">
+      <slot name="auth"></slot>
+    </span>
   </nav>
 </header>
-
-<style>
-  header {
-    position: sticky;
-    top: 2rem;
-    margin: 0 1rem 0.5rem 1rem;
-    padding: 0.5rem;
-    background-color: darkgrey;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  nav {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-</style>

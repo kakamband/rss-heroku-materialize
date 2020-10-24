@@ -65,17 +65,7 @@
 </main>
 
 <svelte:head>
-	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css"> -->
-	<!-- <link rel="stylesheet" href="https://newcss.net/new.min.css"> -->
-	<!-- <link rel="stylesheet" href="https://unpkg.com/mvp.css"> -->
-	<!-- <link rel="stylesheet" href="//writ.cmcenroe.me/1.0.4/writ.min.css"> -->
-	<!-- <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css"> -->
-  <!-- <link rel="stylesheet" href="https://cdn.rawgit.com/kimeiga/bahunya/css/bahunya-0.1.3.css" /> -->
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css-1.5.1.min.css"/> -->
-
-  <!-- <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css"> -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
-
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
   <script src="https://kit.fontawesome.com/5f39c04e79.js" crossorigin="anonymous"></script>
 </svelte:head>
