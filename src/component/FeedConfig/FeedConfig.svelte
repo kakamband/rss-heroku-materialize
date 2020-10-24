@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, createEventDispatcher } from "svelte";
-  import { getFeeds } from "../api/rssFeedProxy.ts";
-  import type { Ifeed, IfeedInfo } from "../common/Feed";
+  import { getFeeds } from "../../api/rssFeedProxy.ts";
+  import type { Ifeed, IfeedInfo } from "../../common/Feed";
 
   export let feedInfos: IfeedInfo[] = [];
   let valids = feedInfos.map(() => true);
