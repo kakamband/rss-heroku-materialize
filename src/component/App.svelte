@@ -4,8 +4,8 @@
   import { getFeeds, putFeedInfos, getFeedInfos } from "../api/rssFeedProxy.ts";
   import type { Icontent, Ifeed, IfeedInfo } from "../common/Feed.ts";
   import type { Iuser } from "../common/Auth.ts";
-  import FeedInfo from "./FeedInfo.svelte";
-  import FeedList from "./FeedList.svelte";
+  import FeedConfig from "./FeedConfig/FeedConfig.svelte";
+  import FeedList from "./FeedList/FeedList.svelte";
   import Auth from "./Auth.svelte";
   import Header from "./Header.svelte";
 
@@ -59,7 +59,7 @@
         <FeedList feeds={feeds} />
       </Route>
       <Route path="/feed-info">
-        <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
+        <FeedConfig bind:feedInfos={feedInfos} on:exec={onExec} />
       </Route>
     </Router>
     {/if}
