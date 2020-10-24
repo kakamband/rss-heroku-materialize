@@ -1,3 +1,31 @@
+# CloudShell
+
+## エディターの設定
+
+タブサイズ変更
+```
+"editor.tabSize": 2,
+```
+
+ミニマップ非表示
+```
+"editor.minimap.enabled": false,
+```
+
+オートフォーマット
+```
+"editor.formatOnPaste": false,
+"editor.formatOnType": true,
+```
+
+.vueや.svelteをhtmlファイルとして扱う
+```
+"files.associations": {
+    "*.vue": "html",
+    "*.svelte": "html"
+}
+```
+
 # Svelte
 
 [Svelte + TypeScript + SCSS やってみる](https://neos21.hatenablog.com/entry/2020/09/07/080000)
