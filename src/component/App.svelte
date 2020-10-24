@@ -51,18 +51,20 @@
   </span>
 </Header>
 
-<main>
-  {#if user}
-  <Router>
-    <Route path="/">
-      <FeedList feeds={feeds} />
-    </Route>
-    <Route path="/feed-info">
-      <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
-    </Route>
-  </Router>
-  {/if}
-</main>
+<section class="section">
+  <main class="container is-max-desktop">
+    {#if user}
+    <Router>
+      <Route path="/">
+        <FeedList feeds={feeds} />
+      </Route>
+      <Route path="/feed-info">
+        <FeedInfo bind:feedInfos={feedInfos} on:exec={onExec} />
+      </Route>
+    </Router>
+    {/if}
+  </main>
+</section>
 
 <svelte:head>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />

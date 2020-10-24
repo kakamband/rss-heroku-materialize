@@ -17,14 +17,17 @@
 </script>
 
 <style>
+  .link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
   .content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .content-item {
-    margin-right: 1em;
+    gap: 1rem;
   }
 
   .title {
@@ -38,28 +41,30 @@
 </style>
 
 {#each feedsSorted as feed}
-<form>
-  {#if feed.ok}
-  <details>
-    <summary>{feed.title}</summary>
 
+{#if feed.ok}
+<details>
+  <summary>{feed.title}</summary>
+
+  {#if feed.description}
+  <p>{feed.description}</p>
+  {/if}
+
+  <div class="link">
     <a href={feed.link} target="_blank" rel="noopener noreferrer">ホームページ</a>
     <a href={feed.url} target="_blank" rel="noopener noreferrer">フィードのリンク</a>
+  </div>
 
-    {#if feed.description}
-    <p>{feed.description}</p>
-    {/if}
+  {#each feed.contents as content}
+  <div class="content">
+    <span class="title"><a href={content.link} target="_blank" rel="noopener noreferrer">{content.title}</a></span>
+    <span class="date">{content.date.format("YYYY/MM/DD HH:mm")}</span>
+  </div>
+  {/each}
+</details>
 
-    {#each feed.contents as content}
-    <div class="content">
-      <p class="content-item title"><a href={content.link} target="_blank" rel="noopener noreferrer">{content.title}</a></p>
-      <p class="date">{content.date.format("YYYY/MM/DD HH:mm")}</p>
-    </div>
-    {/each}
-  </details>
+{:else}
+<p><a href={feed.url}>{feed.url}</a>&nbsp;[{feed.status}]{feed.statusText}</p>
+{/if}
 
-  {:else}
-  <p><a href={feed.url}>{feed.url}</a>&nbsp;[{feed.status}]{feed.statusText}</p>
-  {/if}
-</form>
 {/each}
