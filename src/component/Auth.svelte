@@ -39,7 +39,6 @@
         user = null;
         authLabel = "サインイン";
         dispatch("exec", { payload: "logout" });
-        authUi.start("#firebaseui-auth-container", uiConfig);
       }
     }
   };
@@ -52,14 +51,31 @@
     authUi = new firebaseui.auth.AuthUI(firebase.auth());
   });
 
-  const onClick = () => {
-    if (user) {
-      if (confirm("サインアウトしますか？")) firebase.auth().signOut();
-    } else {
+  const signIn = () => {
       authUi.start("#firebaseui-auth-container", uiConfig);
-    }
+  };
+
+  const signOut = () => {
+    // if (confirm("サインアウトしますか？")) firebase.auth().signOut();
+    firebase.auth().signOut();
   };
 </script>
 
 <div id="firebaseui-auth-container"></div>
-<a href={"#"} on:click={onClick}>{authLabel}</a>
+
+<span class="dropdown">
+  <a href={"#"} class="dropdown-trigger">
+    <i class="fas fa-user"></i>
+  </a>
+  
+  <div class="dropdown-menu">
+    <div class="dropdown-content">
+      {#if user}
+        <span class="dropdown-item">{user.name}</span>
+        <a class="dropdown-item" href={"#"} on:click={signOut}>サインアウト</a>
+      {:else}
+        <a class="dropdown-item" href={"#"} on:click={signIn}>サインイン</a>
+      {/if}
+    </div>
+  </div>
+</span>
