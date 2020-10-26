@@ -1,6 +1,12 @@
 <script lang="ts">
   import type { Icontent } from "../../common/Feed";
   export let contents: Icontent[] = [];
+
+  $: contentsSorted = contents.sort((a, b) => {
+    if (a.date.isBefore(b.date)) return 1;
+    if (b.date.isBefore(a.date)) return -1;
+    return 0;
+  });
 </script>
 
 <style>
@@ -21,7 +27,7 @@
   }
 </style>
 
-{#each contents as content}
+{#each contentsSorted as content}
   <div class="content">
     <span class="title">
       <a href={content.link} target="_blank" rel="noopener noreferrer">{content.title}</a>
