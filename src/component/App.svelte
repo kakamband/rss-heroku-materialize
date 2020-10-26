@@ -45,7 +45,7 @@
   };
 </script>
 
-<Header user={user}>
+<Header>
   <span slot="auth"> 
     <Auth bind:user={user} on:exec={onExec} />
   </span>

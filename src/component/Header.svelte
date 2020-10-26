@@ -1,6 +1,5 @@
 <script>
   import { Router, Link } from "svelte-routing";
-  export let user = null;
 </script>
 
 <header class="navbar is-primary is-fixed-top">
