@@ -12,28 +12,28 @@
 <style>
   .content {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 1rem;
   }
 
-  .title {
+  .content-title {
     overflow-wrap: break-word;
     text-align: justify;
+    margin-right: auto;
   }
   
-  .date {
+  .content-date {
     white-space: nowrap;
   }
 </style>
 
 {#each contentsSorted as content}
-  <div class="content">
-    <span class="title">
+  <div class="panel-block content">
+    <span class="content-title">
       <a href={content.link} target="_blank" rel="noopener noreferrer">{content.title}</a>
     </span>
     
-    <span class="date">
+    <span class="content-date">
       {content.date.format("YYYY/MM/DD HH:mm")}
     </span>
   </div>
