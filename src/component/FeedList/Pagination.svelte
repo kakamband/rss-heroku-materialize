@@ -11,13 +11,17 @@
 </script>
 
 <nav class="pagination">
-  <a class="pagination-previous">Previous</a>
-  <a class="pagination-next">Next page</a>
+  <!-- <a class="pagination-previous">Previous</a> -->
+  <!-- <a class="pagination-next">Next page</a> -->
 
   <ul class="pagination-list">
     {#each Array(pageNum) as _, i}
       <li>
-        <a class="pagination-link" class:is-current={i === currentPageNo} name={i + 1} on:click={pageSelected}>
+        <a 
+          class="pagination-link" class:is-current={i === currentPageNo} 
+          name={i + 1} on:click={pageSelected}
+          href={"#"}
+        >
           {i + 1}
         </a>
       </li>

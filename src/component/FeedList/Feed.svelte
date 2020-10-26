@@ -5,24 +5,35 @@
 </script>
 
 <style>
-  .link {
+  .feed-heading {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
+
+  .feed-title {
+    margin-right: auto;
+  }
 </style>
 
-<details>
-  <summary>{feed.title}</summary>
+<div class="panel">
+  <div class="panel-heading feed-heading">
+    <span class="feed-title">{feed.title}</span>
 
-  {#if feed.description}
-    <p>{feed.description}</p>
-  {/if}
+    <a href={feed.link} target="_blank" rel="noopener noreferrer">
+      <i class="fas fa-home"></i>
+    </a>
 
-  <div class="link">
-    <a href={feed.link} target="_blank" rel="noopener noreferrer">ホームページ</a>
-    <a href={feed.url} target="_blank" rel="noopener noreferrer">フィードのリンク</a>
+    <a href={feed.url} target="_blank" rel="noopener noreferrer">
+      <i class="fas fa-rss"></i>
+    </a>
   </div>
 
+  {#if feed.description}
+    <div class="panel-block">
+      {feed.description}
+    </div>
+  {/if}
+
   <FeedContents contents={feed.contents} />
-</details>
+</div>
