@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { Icontent, Ifeed, IfeedInfo } from "../common/Feed";
+import type { Icontent, Ifeed, IfeedInfo } from "../common/Feed";
 
 type Tmethod = "GET" | "PUT" | "DELTE" | "POST";
 
