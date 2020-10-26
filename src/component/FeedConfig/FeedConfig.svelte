@@ -50,43 +50,31 @@
   });
 </script>
 
-<style>
-  .feed-info {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .url {
-    flex-grow: 1;
-  }
-
-  .nav {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 1rem;
-  }
-</style>
-
 <form>
   {#each feedInfos as feedInfo, i}
-  <div class="feed-info">
-    <input type="url" class="url" name={i} required bind:value={feedInfo.url}>
+    <div class="field has-addons">
+      <div class="control is-expanded">
+        <input class="input url" class:is-danger={!valids[i]} type="url" name={i} required bind:value={feedInfo.url}>
+      </div>
 
-    {#if valids[i]}
-    <span>○</span>
-    {:else}
-    <span>×</span>
-    {/if}
-
-    <input type="button" name={i} value="削除" on:click={remove}>
-  </div>
+      <div class="control">
+        <a class="button" href={"#"} name={i} on:click={remove}>
+          <!-- <i class="fas fa-trash"></i> -->
+          ×
+        </a>
+      </div>
+    </div>
   {/each}
 
-  <div class="nav">
-    <input type="button" value="追加" on:click={add}>
-    <input type="button" value="確定" on:click={confirm}>
-    <input type="button" value="サーバーから読込" on:click={getFeedInfos}>
+  <div class="field is-grouped">
+    <div class="control">
+      <input class="button" type="button" value="追加" on:click={add}>
+    </div>
+    <div class="control">
+      <input class="button" type="button" value="確定" on:click={confirm}>
+    </div>
+    <div class="control">
+      <input class="button" type="button" value="サーバーから読込" on:click={getFeedInfos}>
+    </div>
   </div>
 </form>
