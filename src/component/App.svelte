@@ -14,6 +14,7 @@
   let feeds: Ifeed[] = [];
 
   onMount(async () => {
+    M.AutoInit();
     feeds = await getFeeds(feedInfos);
   });
 
@@ -51,23 +52,13 @@
   </span>
 </Header>
 
-<section class="section">
-  <main class="container is-max-desktop">
-    {#if user}
-    <Router>
-      <Route path="/">
-        <FeedList feeds={feeds} />
-      </Route>
-      <Route path="/feed-info">
-        <FeedConfig bind:feedInfos={feedInfos} on:exec={onExec} />
-      </Route>
-    </Router>
-    {/if}
-  </main>
-</section>
-
-<svelte:head>
-  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-  <script src="https://kit.fontawesome.com/5f39c04e79.js" crossorigin="anonymous"></script>
-</svelte:head>
+<main>
+  <Router>
+    <Route path="/">
+      <FeedList feeds={feeds} />
+    </Route>
+    <Route path="/feed-info">
+      <FeedConfig bind:feedInfos={feedInfos} on:exec={onExec} />
+    </Route>
+  </Router>
+</main>

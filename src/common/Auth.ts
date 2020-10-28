@@ -1,4 +1,5 @@
-// import { Authpack } from "@authpack/sdk";
+import firebase from "firebase/app";
+import { auth } from "firebaseui";
 
 export interface Iuser {
   id: string;
@@ -6,41 +7,54 @@ export interface Iuser {
   email: string;
 }
 
-// class Auth {
-//   private authpack;
-//   private unlisten;
+const firebaseConfig = {
+  apiKey: "AIzaSyCKxOAhXymGjUrtiodvue3xL7WA16qd9cc",
+  authDomain: "rss-feed-proxy.firebaseapp.com",
+  projectId: "rss-feed-proxy",
+  appId: "1:1090474250814:web:6a5631b43bc8b5e13d376f"
+};
 
-//   constructor() {
-//     this.authpack = new Authpack({
-// 		  key: "wga-client-key-687e9f9d7e762835aad651f8f",
-//     });
+const uiConfig = {
+  signInSuccessUrl: `${location.origin}/`,
+  signInOptions: [
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+  ],
+  tosUrl: "",
+  privacyPolicyUrl: "",
+};
 
-// 		this.unlisten = this.authpack.listen((state) => {
-//       console.log(state);
-      
-// 			if (!state.ready) {
-// 				console.log("Loading...");
-// 			} else {
-//         if (state.bearer) {
-//           localStorage.setItem('bearer', state.bearer);
-//         }
-          
-// 				if (state.user) {
-// 					console.log(state.user);
-//           if (!user || state.user.id !== user.id) {
-//             authLabel = "ログアウト";
-//             user = { id: state.user.id, name: state.user.name, email: state.user.email, };
-//             dispatch("exec", { payload: "login" });
-//           }
-// 				} else {
-// 					console.log("User not logged in.");
-//           if (user) {
-//             authLabel = "ログイン";
-//             user = null;
-//             dispatch("exec", { payload: "logout" });
-//           }
-//         }
-// 			}
-// 		});
-//   }
-// }
+let authUi = null;
+let user: Iuser = null;
+let authStateChangeCallback = null;
+
+const onAuthStateChanged = (authUser) => {
+  if (authUser) {
+    console.log(authUser)
+    if (!user || authUser.uid !== user.id) {
+      user = { id: authUser.uid, name: authUser.displayName, email: authUser.email };
+      if (!user.name) user.name = authUser.email;
+      authStateChangeCallback(user);
+    }
+  } else {
+    if (user) {
+      user = null;
+      authStateChangeCallback(user);
+    }
+  }
+};
+
+export const init = (onStateChange: (user: Iuser) => void) => {
+  authStateChangeCallback = onStateChange;
+
+  firebase.initializeApp(firebaseConfig);
+  firebase.auth().onAuthStateChanged(onAuthStateChanged, (e) => { throw e };
+  authUi = new auth.AuthUI(firebase.auth());
+}
+
+export const signIn = () => {
+  authUi.start("#firebaseui-auth-container", uiConfig);
+};
+
+export const signOut = () => {
+  firebase.auth().signOut();
+};
