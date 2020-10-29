@@ -7,6 +7,8 @@ export interface Iuser {
   email: string;
 }
 
+export type TauthStateChangeCallback = (user: Iuser) => void;
+
 const firebaseConfig = {
   apiKey: "AIzaSyCKxOAhXymGjUrtiodvue3xL7WA16qd9cc",
   authDomain: "rss-feed-proxy.firebaseapp.com",
@@ -25,9 +27,10 @@ const uiConfig = {
 
 let authUi = null;
 let user: Iuser = null;
-let authStateChangeCallback = null;
+let authStateChangeCallback: TauthStateChangeCallback = null;
+let authContainerId: string = null;
 
-const onAuthStateChanged = (authUser) => {
+const onAuthStateChanged = (authUser: { uid: string; displayName: string; email: string; }) => {
   if (authUser) {
     console.log(authUser)
     if (!user || authUser.uid !== user.id) {
@@ -43,16 +46,17 @@ const onAuthStateChanged = (authUser) => {
   }
 };
 
-export const init = (onStateChange: (user: Iuser) => void) => {
-  authStateChangeCallback = onStateChange;
+export const init = (callback: TauthStateChangeCallback, id: string) => {
+  authStateChangeCallback = callback;
+  authContainerId = id;
 
   firebase.initializeApp(firebaseConfig);
-  firebase.auth().onAuthStateChanged(onAuthStateChanged, (e) => { throw e };
+  firebase.auth().onAuthStateChanged(onAuthStateChanged, (e) => { throw e });
   authUi = new auth.AuthUI(firebase.auth());
 }
 
 export const signIn = () => {
-  authUi.start("#firebaseui-auth-container", uiConfig);
+  authUi.start(`#${authContainerId}`, uiConfig);
 };
 
 export const signOut = () => {
