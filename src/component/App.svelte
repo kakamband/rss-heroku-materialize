@@ -52,7 +52,7 @@
   </span>
 </Header>
 
-<main>
+<main class="container">
   <Router>
     <Route path="/">
       <FeedList feeds={feeds} />

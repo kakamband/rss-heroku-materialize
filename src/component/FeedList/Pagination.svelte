@@ -10,21 +10,26 @@
   }
 </script>
 
-<nav class="pagination">
-  <!-- <a class="pagination-previous">Previous</a> -->
-  <!-- <a class="pagination-next">Next page</a> -->
-
+<div class="pagination">
   <ul class="pagination-list">
+    <li>
+      <a href={"#"}>
+        <i class="material-icons">chevron_left</i>
+      </a>
+    </li>
+
     {#each Array(pageNum) as _, i}
-      <li>
-        <a 
-          class="pagination-link" class:is-current={i === currentPageNo} 
-          name={i + 1} on:click={pageSelected}
-          href={"#"}
-        >
+      <li class:active={i === currentPageNo}>
+        <a href={"#"} name={i + 1} on:click={pageSelected}>
           {i + 1}
         </a>
       </li>
     {/each}
+
+    <li>
+      <a href={"#"}>
+        <i class="material-icons">chevron_right</i>
+      </a>
+    </li>
   </ul>
-</nav>
+</div>
