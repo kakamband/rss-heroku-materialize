@@ -41,13 +41,11 @@
 
   <div class="modal-footer teal lighten-2">
     {#if user}
-      <a href={"#"} on:click={signOut} class="btn-flat">サインアウト</a>
+      <a href="#!" on:click={signOut} class="btn-flat">サインアウト</a>
     {:else}
-      <a href={"#"} on:click={signIn} class="btn-flat">サインイン</a>
+      <a href="#!" on:click={signIn} class="btn-flat">サインイン</a>
     {/if}
 
-    <a href={"#!"} class="modal-close waves-effect waves-green btn-flat">
-      閉じる
-    </a>
+    <a href="#!" class="modal-close btn-flat">閉じる</a>
   </div>
 </div>

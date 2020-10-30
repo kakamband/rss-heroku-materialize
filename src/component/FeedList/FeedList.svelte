@@ -25,11 +25,3 @@
     </p>
   {/if}
 {/if}
-
-<!-- {#each feedsSorted as feed}
-  {#if feed.ok}
-    <Feed feed={feed} />
-  {:else}
-    <p><a href={feed.url}>{feed.url}</a>&nbsp;[{feed.status}]{feed.statusText}</p>
-  {/if}
-{/each} -->

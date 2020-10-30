@@ -28,7 +28,7 @@
 </style>
 
 {#each contentsSorted as content}
-  <div class="panel-block content">
+  <div class="content collection-item">
     <span class="content-title">
       <a href={content.link} target="_blank" rel="noopener noreferrer">{content.title}</a>
     </span>

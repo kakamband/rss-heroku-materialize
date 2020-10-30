@@ -17,17 +17,23 @@
 <div class="navbar-fixed">
 <nav>
   <div class="nav-wrapper">
-    <a href="#!" class="brand-logo">Logo</a>
+    <a href="#!" class="brand-logo left">Logo</a>
 
-    <ul class="right hide-on-med-and-down">
-      <li><a href="#!">Sass</a></li>
-      <li><a href="#!">Components</a></li>
-    </ul>
+    <Router>
+      <ul class="hide-on-med-and-down left">
+        <li>
+          <Link to="/">Feed</Link>
+        </li>
+        <li>
+          <Link to="/feed-info">設定</Link>
+        </li>
+      </ul>
+    </Router>
 
     <ul class="right">
       <li>
         <a class="dropdown-trigger" href="#!" data-target="dropdown1">
-          Dropdown<i class="material-icons right">arrow_drop_down</i>
+          <i class="material-icons right">more_vert</i>
         </a>
       </li>
 

@@ -16,8 +16,7 @@
     valids = [...valids, true];
   };
 
-  const remove = (e) => {
-    const removeIndex = parseInt(e.target.name, 10);
+  const remove = (removeIndex: number) => {
     feedInfos = feedInfos.filter((_, index) => index !== removeIndex);
     valids = valids.filter((_, index) => index !== removeIndex);
   };
@@ -50,31 +49,34 @@
   });
 </script>
 
+<style>
+  .feed-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .feed-url {
+    flex-grow: 1;
+  }
+</style>
+
 <form>
   {#each feedInfos as feedInfo, i}
-    <div class="field has-addons">
-      <div class="control is-expanded">
-        <input class="input url" class:is-danger={!valids[i]} type="url" name={i} required bind:value={feedInfo.url}>
+    <div class="feed-info">
+      <div class="input-field feed-url">
+        <input class:invalid={!valids[i]} type="url" required bind:value={feedInfo.url}>
       </div>
 
-      <div class="control">
-        <a class="button" href={"#"} name={i} on:click={remove}>
-          <!-- <i class="fas fa-trash"></i> -->
-          ×
-        </a>
-      </div>
+      <a href="#!" on:click={() => { remove(i) }}>
+        <i class="material-icons">delete_forever</i>
+      </a>
     </div>
   {/each}
 
-  <div class="field is-grouped">
-    <div class="control">
-      <input class="button" type="button" value="追加" on:click={add}>
-    </div>
-    <div class="control">
-      <input class="button" type="button" value="確定" on:click={confirm}>
-    </div>
-    <div class="control">
-      <input class="button" type="button" value="サーバーから読込" on:click={getFeedInfos}>
-    </div>
+  <div class="">
+    <input class="btn-flat" type="button" value="追加" on:click={add}>
+    <input class="btn-flat" type="button" value="確定" on:click={confirm}>
+    <input class="btn-flat" type="button" value="サーバーから読込" on:click={getFeedInfos}>
   </div>
 </form>
