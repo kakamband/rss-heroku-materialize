@@ -3,7 +3,8 @@ const DB = require("./database");
 const getFeed = require("./feed");
 
 /* DB準備 */
-const dbUri = "postgres://mpscwekfnxqtes:a01a652f1ca3830b3887a698492bb6e9a5e16fb58d38162f323963b42ad69478@ec2-35-169-92-231.compute-1.amazonaws.com:5432/d2u978t58np3dl";
+const dbUri =
+  "postgres://mpscwekfnxqtes:a01a652f1ca3830b3887a698492bb6e9a5e16fb58d38162f323963b42ad69478@ec2-35-169-92-231.compute-1.amazonaws.com:5432/d2u978t58np3dl";
 const db = new DB(dbUri);
 
 process.on("exit", () => {
@@ -15,12 +16,12 @@ process.on("SIGINT", () => {
 });
 
 /* Webサーバー準備 */
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5000;
 
 const app = express();
 
 app.use(express.static("public"));
-app.use(express.json());  // requestのbodyを解析できるようにする。
+app.use(express.json()); // requestのbodyを解析できるようにする。
 // app.use(express.urlencoded({ extended: true }));
 
 // app.use((req, res, next) => {
@@ -49,7 +50,9 @@ app.put("/feed-infos", async (req, res) => {
     await db.query(`delete from feed_infos where id = \'${req.query.id}\';`);
 
     for (let feedInfo of req.body.feedInfos) {
-      await db.query(`insert into feed_infos values (\'${req.query.id}\', \'${feedInfo.url}\');`);
+      await db.query(
+        `insert into feed_infos values (\'${req.query.id}\', \'${feedInfo.url}\');`
+      );
     }
 
     res.sendStatus(200);
@@ -63,7 +66,9 @@ app.put("/feed-infos", async (req, res) => {
 
 app.get("/feed-infos", async (req, res) => {
   try {
-    const result = await db.query(`SELECT * FROM feed_infos where id = \'${req.query.id}\';`);
+    const result = await db.query(
+      `SELECT * FROM feed_infos where id = \'${req.query.id}\';`
+    );
     // for (let row of result.rows) console.log(row);
     res.json(result.rows);
   } catch (e) {
