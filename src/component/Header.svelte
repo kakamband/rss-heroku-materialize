@@ -3,10 +3,11 @@
 </script>
 
 <Router>
-  <ul id="dropdown1" class="dropdown-content">
+  <ul class="sidenav" id="mobile-demo">
     <li>
       <Link to="/"><i class="material-icons">rss_feed</i></Link>
     </li>
+
     <li>
       <Link to="/feed-info"><i class="material-icons">settings</i></Link>
     </li>
@@ -16,7 +17,12 @@
 <div class="navbar-fixed">
   <nav>
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo left dropdown-trigger" data-target="dropdown1">
+      <span class="brand-logo">
+        <i class="material-icons">rss_feed</i>
+        RSS Feed
+      </span>
+
+      <a href="#!" data-target="mobile-demo" class="sidenav-trigger">
         <i class="material-icons">menu</i>
       </a>
 
