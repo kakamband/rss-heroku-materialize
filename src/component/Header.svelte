@@ -19,7 +19,7 @@
     <div class="nav-wrapper">
       <span class="brand-logo">
         <i class="material-icons">rss_feed</i>
-        RSS Feed!!!
+        RSS Feed www!
       </span>
 
       <a href="#!" data-target="mobile-demo" class="sidenav-trigger">
