@@ -8,14 +8,13 @@
     "node": "10.x"
   },
   "scripts": {
-    "start1": "rollup -c -w",
-    "start2": "node server/server.js",
     "build": "rollup -c",
-    "validate": "svelte-check",
     "dev": "rollup -c -w",
     "stop-dev": "killall -9 npm node",
-    "local-server": "heroku local web &",
+    "server": "node server/server.js",
+    "validate": "svelte-check",
     "heroku": "heroku",
+    "heroku:server": "heroku local web",
     "heroku:pg": "heroku pg:psql postgresql-horizontal-48352 --app frozen-badlands-00663"
   },
   "devDependencies": {
