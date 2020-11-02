@@ -5,6 +5,7 @@
   "scope": "/",
   "start_url": "/index.html",
   "app_name": "RSS Feed",
+  "name": "RSS Feed",
   "short_name": "Feed",
   "icons": [
     {
