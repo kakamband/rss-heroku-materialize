@@ -48,19 +48,27 @@
 
 1. 上記リポジトリを CodeSandbox で import
 
+# PWA
+
+[PWA をもっと簡単に初めてみる](https://qiita.com/poster-keisuke/items/6651140fa20c7aa18474)
+
+[PWA（Progressive Web Apps）を最低限で試してみる](https://qiita.com/tsunet111/items/450728056ba92d35508c)
+
+[PWA Manifest Generator](https://www.simicart.com/manifest-generator.html/)
+
 # Svelte
 
 [Svelte + TypeScript + SCSS やってみる](https://neos21.hatenablog.com/entry/2020/09/07/080000)
 
 [svelte-spa-router](https://github.com/ItalyPaleAle/svelte-spa-router)
 
+## router
+
+[Svelte Routing](https://www.npmjs.com/package/svelte-routing)
+
 # TypeScript
 
 [Intro to the TSConfig Reference](https://www.typescriptlang.org/ja/tsconfig)
-
-# router
-
-[Svelte Routing](https://www.npmjs.com/package/svelte-routing)
 
 # Heroku
 
