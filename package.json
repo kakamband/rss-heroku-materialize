@@ -9,8 +9,6 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "autobuild": "rollup -c -w",
-    "start": "node server/server.js",
     "dev": "node server/server.js & rollup -c -w",
     "stop-dev": "killall -9 npm node",
     "validate": "svelte-check",
