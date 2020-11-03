@@ -1,6 +1,6 @@
 // キャッシュファイルの指定
-const CACHE_NAME = "rss-feed-app-caches";
-const urlsToCache = ["index.html", "/build/bundle.js", "/bundle.css"];
+var CACHE_NAME = "rss-feed-app-caches";
+var urlsToCache = ["index.html", "/build/bundle.js", "/bundle.css"];
 
 // インストール処理
 self.addEventListener("install", (event) => {
@@ -8,6 +8,7 @@ self.addEventListener("install", (event) => {
 
   event.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
+      console.log("[Service Worker] Caching all: app shell and content");
       return cache.addAll(urlsToCache);
     })
   );
