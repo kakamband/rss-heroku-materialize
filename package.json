@@ -9,9 +9,10 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w",
+    "autobuild": "rollup -c -w",
+    "start": "node server/server.js",
+    "dev": "node server/server.js & rollup -c -w",
     "stop-dev": "killall -9 npm node",
-    "server": "node server/server.js",
     "validate": "svelte-check",
     "heroku": "heroku",
     "heroku:server": "heroku local web",

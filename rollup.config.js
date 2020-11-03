@@ -8,30 +8,30 @@ import typescript from "@rollup/plugin-typescript";
 
 const production = !process.env.ROLLUP_WATCH;
 
-function serve() {
-  let server;
+// function serve() {
+//   let server;
 
-  function toExit() {
-    if (server) server.kill(0);
-  }
+//   function toExit() {
+//     if (server) server.kill(0);
+//   }
 
-  return {
-    writeBundle() {
-      if (server) return;
-      // server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
-      // 	stdio: ['ignore', 'inherit', 'inherit'],
-      // 	shell: true
-      // });
-      server = require("child_process").spawn("yarn", ["heroku:server"], {
-        stdio: ["ignore", "inherit", "inherit"],
-        shell: true
-      });
+//   return {
+//     writeBundle() {
+//       if (server) return;
+//       // server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+//       // 	stdio: ['ignore', 'inherit', 'inherit'],
+//       // 	shell: true
+//       // });
+//       server = require("child_process").spawn("yarn", ["heroku:server"], {
+//         stdio: ["ignore", "inherit", "inherit"],
+//         shell: true
+//       });
 
-      process.on("SIGTERM", toExit);
-      process.on("exit", toExit);
-    }
-  };
-}
+//       process.on("SIGTERM", toExit);
+//       process.on("exit", toExit);
+//     }
+//   };
+// }
 
 export default {
   input: "src/main.ts",
@@ -70,7 +70,7 @@ export default {
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated
-    !production && serve(),
+    // !production && serve(),
 
     // Watch the `public` directory and refresh the
     // browser on changes when not in production
@@ -79,8 +79,8 @@ export default {
     // If we're building for production (npm run build
     // instead of npm run dev), minify
     production && terser()
-  ],
-  watch: {
-    clearScreen: false
-  }
+  ]
+  // watch: {
+  //   clearScreen: false
+  // }
 };
