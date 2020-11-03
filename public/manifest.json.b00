@@ -1,13 +1,12 @@
 {
-  "theme_color": "#f69435",
-  "background_color": "#f69435",
-  "display": "standalone",
-  "scope": "/",
-  "start_url": "/index.html",
-  "app_name": "RSS Feed",
   "name": "RSS Feed",
   "short_name": "Feed",
   "description": "RSS Feed Applecation",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#f69435",
+  "background_color": "#f69435",
   "icons": [
     {
       "src": "/icon/icon-192x192.png",
