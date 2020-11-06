@@ -130,6 +130,10 @@
     on:dragover={(e) => draggingOver(e, i)} 
     on:drop={(e) => dropped(e, i)}
   >
+    <span>
+      <i class="material-icons">menu</i>
+    </span>
+
     <div class="input-field feed-url">
       <input class:invalid={!valids[i]} type="url" required bind:value={feedInfo.url}>
     </div>
@@ -137,10 +141,6 @@
     <a href="#!" on:click={() => { remove(i) }}>
       <i class="material-icons">delete_forever</i>
     </a>
-
-    <span>
-      Drag!
-    </span>
   </li>
 {/each}
 
