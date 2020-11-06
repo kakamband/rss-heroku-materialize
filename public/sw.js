@@ -1,7 +1,8 @@
 // キャッシュファイルの指定
 var CACHE_NAME = "rss-feed-app-caches";
 // var urlsToCache = ["/index.html", "/build/bundle.js", "/build/bundle.css"];
-var urlsToCache = ["/index.html"];
+// var urlsToCache = ["/index.html"];
+var urlsToCache = [];
 
 // インストール処理
 self.addEventListener("install", (event) => {
