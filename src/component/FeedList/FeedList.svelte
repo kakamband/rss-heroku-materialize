@@ -31,7 +31,7 @@
   let startY; // タッチ開始 y座標
   let moveX; // スワイプ中の x座標
   let moveY; // スワイプ中の y座標
-  let dist = 30; // スワイプを感知する最低距離（ピクセル単位）
+  let dist = 60; // スワイプを感知する最低距離（ピクセル単位）
 
   const touchStart = e => {
     e.preventDefault();
@@ -49,11 +49,11 @@
     if (startX > moveX && startX > moveX + dist) {
       // 右から左にスワイプした時の処理
       console.log("右から左にスワイプ");
-      pageSelected("previous");
+      pageSelected("next");
     } else if (startX < moveX && startX + dist < moveX) {
       // 左から右にスワイプした時の処理
       console.log("左から右にスワイプ");
-      pageSelected("next");
+      pageSelected("previous");
     }
   };
 </script>
