@@ -1,6 +1,6 @@
 # Git
 
-[GitHub で ssh 接続する手順~公開鍵・秘密鍵の生成から~](https://qiita.com/shizuma/items/2b2f873a0034839e47ce)
+[GitHub で ssh 接続する手順 - 公開鍵・秘密鍵の生成から](https://qiita.com/shizuma/items/2b2f873a0034839e47ce)
 
 [Git でやりたいこと、ここで見つかる](https://qiita.com/shimotaroo/items/b73d896ace10894fd290)
 

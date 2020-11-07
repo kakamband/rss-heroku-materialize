@@ -1,5 +1,7 @@
 # CloudShell
 
+[CloudShell](https://ssh.cloud.google.com/cloudshell/editor)
+
 ## エディターの設定
 
 タブサイズ変更

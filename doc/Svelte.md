@@ -1,5 +1,7 @@
 # Svelte
 
+[Svelte](https://svelte.dev/)
+
 [Svelte + TypeScript + SCSS やってみる](https://neos21.hatenablog.com/entry/2020/09/07/080000)
 
 [svelte-spa-router](https://github.com/ItalyPaleAle/svelte-spa-router)
