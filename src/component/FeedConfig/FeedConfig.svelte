@@ -1,5 +1,8 @@
 <script lang="ts">
   import { onMount, createEventDispatcher } from "svelte";
+  import { polyfill } from "mobile-drag-drop";
+  import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scroll-behaviour";
+
   import { getFeeds } from "../../api/rssFeedProxy.ts";
   import type { Ifeed, IfeedInfo } from "../../common/Feed";
 
@@ -48,6 +51,11 @@
   };
 
   onMount(async () => {
+    polyfill({
+      // use this to make use of the scroll behaviour
+      dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride
+    });
+
     await checkValidation(feedInfos);
   });
 
@@ -76,22 +84,24 @@
   };
 
   const dragStarted = (e, idx) => {
-    console.log("dragStarted", idx);
-
+    console.log(e.type, idx);
     e.dataTransfer.effectAllowed = "move";
     src = idx;
   };
 
-  const draggingOver = (e, idx) => {
-    console.log("draggingOver", idx);
+  const dragEnter = (e, idx) => {
+    console.log(e.type, idx);
+    e.preventDefault();
+  };
 
+  const draggingOver = (e, idx) => {
+    console.log(e.type, idx);
     e.preventDefault();
     e.dataTransfer.dropEffect = "move";
   };
 
   const dropped = (e, idx) => {
-    console.log("dropped", idx);
-
+    console.log(e.type, idx);
     e.preventDefault();
     e.stopPropagation();
     moveList(idx);
@@ -116,39 +126,42 @@
 </style>
 
 <ul>
-<li class="dummy-contents"
-  on:dragover={(e) => draggingOver(e, -1)} 
-  on:drop={(e) => dropped(e, -1)}
->
-</li>
-
-{#each feedInfos as feedInfo, i}
-  <li 
-    class="feed-info"
-    draggable="true" 
-    on:dragstart={(e) => dragStarted(e, i)} 
-    on:dragover={(e) => draggingOver(e, i)} 
-    on:drop={(e) => dropped(e, i)}
+  <li class="dummy-contents"
+    on:dragenter={(e) => dragEnter(e, -1)}
+    on:dragover={(e) => draggingOver(e, -1)} 
+    on:drop={(e) => dropped(e, -1)}
   >
-    <span>
-      <i class="material-icons">menu</i>
-    </span>
-
-    <div class="input-field feed-url">
-      <input class:invalid={!valids[i]} type="url" required bind:value={feedInfo.url}>
-    </div>
-
-    <a href="#!" on:click={() => { remove(i) }}>
-      <i class="material-icons">delete_forever</i>
-    </a>
   </li>
-{/each}
 
-<li class="dummy-contents"
-  on:dragover={(e) => draggingOver(e, feedInfos.length)} 
-  on:drop={(e) => dropped(e, feedInfos.length)}
->
-</li>
+  {#each feedInfos as feedInfo, i}
+    <li 
+      class="feed-info"
+      draggable="true" 
+      on:dragstart={(e) => dragStarted(e, i)} 
+      on:dragenter={(e) => dragEnter(e, i)}
+      on:dragover={(e) => draggingOver(e, i)} 
+      on:drop={(e) => dropped(e, i)}
+    >
+      <span>
+        <i class="material-icons">menu</i>
+      </span>
+
+      <div class="input-field feed-url">
+        <input class:invalid={!valids[i]} type="url" required bind:value={feedInfo.url}>
+      </div>
+
+      <a href="#!" on:click={() => { remove(i) }}>
+        <i class="material-icons">delete_forever</i>
+      </a>
+    </li>
+  {/each}
+
+  <li class="dummy-contents"
+    on:dragenter={(e) => dragEnter(e, feedInfos.length)}
+    on:dragover={(e) => draggingOver(e, feedInfos.length)} 
+    on:drop={(e) => dropped(e, feedInfos.length)}
+  >
+  </li>
 </ul>
 
 <div class="">

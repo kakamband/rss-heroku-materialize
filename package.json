@@ -37,6 +37,7 @@
     "express": "^4.17.1",
     "firebase": "^7.24.0",
     "firebaseui": "^4.7.0",
+    "mobile-drag-drop": "2.3.0-rc.2",
     "pg": "^8.4.1",
     "rss-parser": "^3.9.0",
     "svelte-routing": "^1.4.2"
