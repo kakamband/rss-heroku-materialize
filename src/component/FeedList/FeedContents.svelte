@@ -21,7 +21,7 @@
     text-align: justify;
     margin-right: auto;
   }
-  
+
   .content-date {
     white-space: nowrap;
   }
@@ -30,7 +30,13 @@
 {#each contentsSorted as content}
   <div class="content collection-item">
     <span class="content-title">
-      <a href={content.link} target="_blank" rel="noopener noreferrer">{content.title}</a>
+      <a 
+        href={content.link} 
+        target="_blank" rel="noopener noreferrer"
+        on:touchstart={() => window.open(content.link, "_blank")}
+      >
+        {content.title}
+      </a>
     </span>
     
     <span class="content-date">

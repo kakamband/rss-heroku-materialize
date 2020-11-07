@@ -27,10 +27,10 @@
     pageSelected(e.detail.type, e.detail.pageNo);
   };
 
-  let startX; // タッチ開始 x座標
-  let startY; // タッチ開始 y座標
-  let moveX; // スワイプ中の x座標
-  let moveY; // スワイプ中の y座標
+  let startX = undefined; // タッチ開始 x座標
+  let startY = undefined; // タッチ開始 y座標
+  let moveX = undefined; // スワイプ中の x座標
+  let moveY = undefined; // スワイプ中の y座標
   let dist = 60; // スワイプを感知する最低距離（ピクセル単位）
 
   const touchStart = e => {
@@ -46,15 +46,24 @@
   };
 
   const touchEnd = e => {
-    if (startX > moveX && startX > moveX + dist) {
-      // 右から左にスワイプした時の処理
-      console.log("右から左にスワイプ");
+    console.log(`startX=${startX} moveX=${moveX}`);
+    if (!startX || !moveX) return;
+
+    const diff = moveX - startX;
+    console.log(`(moveX - startX)=${diff}`);
+
+    if (diff <= -dist) {
+      // 右から左にスワイプ
       pageSelected("next");
-    } else if (startX < moveX && startX + dist < moveX) {
-      // 左から右にスワイプした時の処理
-      console.log("左から右にスワイプ");
+    } else if (diff >= dist) {
+      // 左から右にスワイプ
       pageSelected("previous");
     }
+
+    startX = undefined;
+    startY = undefined;
+    moveX = undefined;
+    moveY = undefined;
   };
 </script>
 
