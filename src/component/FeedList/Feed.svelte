@@ -29,11 +29,19 @@
       <span class="feed-title">{feed.title}</span>
     {/if}
 
-    <a href={feed.link} target="_blank" rel="noopener noreferrer">
+    <a 
+      href={feed.link} 
+      target="_blank" rel="noopener noreferrer"
+      on:touchstart={() => window.open(feed.link, "_blank")}
+    >
       <i class="material-icons">home</i>
     </a>
 
-    <a href={feed.url} target="_blank" rel="noopener noreferrer">
+    <a 
+      href={feed.url} 
+      target="_blank" rel="noopener noreferrer"
+      on:touchstart={() => window.open(feed.url, "_blank")}
+    >
       <i class="material-icons">rss_feed</i>
     </a>
   </div>
