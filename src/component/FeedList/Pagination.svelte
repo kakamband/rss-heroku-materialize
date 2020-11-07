@@ -1,24 +1,20 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
   export let pageNum = 0;
-  let currentPageNo = 0;
+  export let currentPageNo = 0;
   const dispatch = createEventDispatcher();
 
   const previousPage = () => {
-    if (currentPageNo <= 0) return;
-    --currentPageNo;
-    dispatch("page-selected", { currentPageNo });
+    dispatch("click", { type: "previous" });
   };
 
   const nextPage = () => {
-    if (currentPageNo >= pageNum - 1) return;
-    ++currentPageNo;
-    dispatch("page-selected", { currentPageNo });
+    dispatch("click", { type: "next" });
   };
 
-  const selectPage = (e) => {
-    currentPageNo = parseInt(e.target.name, 10);
-    dispatch("page-selected", { currentPageNo });
+  const selectPage = e => {
+    const pageNo = parseInt(e.target.name, 10);
+    dispatch("click", { type: "select", pageNo });
   };
 </script>
 
