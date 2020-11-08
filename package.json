@@ -40,6 +40,7 @@
     "mobile-drag-drop": "2.3.0-rc.2",
     "pg": "^8.4.1",
     "rss-parser": "^3.9.0",
+    "svelte-dnd-action": "0.6.21",
     "svelte-routing": "^1.4.2"
   }
 }

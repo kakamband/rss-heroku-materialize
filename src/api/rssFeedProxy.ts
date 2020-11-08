@@ -69,6 +69,11 @@ export const putFeedInfos = async (id: string, feedInfos: IfeedInfo[]) => {
 export const getFeedInfos = async (id: string): Promise<IfeedInfo[]> => {
   const response: Response = await api("feed-infos", `id=${id}`, "GET");
   if (!response.ok) throw new Error(`API error: ${response.url} ${response.status} ${response.statusText}`);
-  const feedInfos = await response.json();
-  return feedInfos;
+  const feedInfos: IfeedInfo[] = await response.json();
+
+  // ！！！暫定処理！！！
+  // idを連番にする
+  return feedInfos.map((feedInfo, i) => ({...feedInfo, id: i}));
+  
+  // return feedInfos;
 };

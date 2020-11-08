@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, createEventDispatcher } from "svelte";
-  import { polyfill } from "mobile-drag-drop";
-  import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scroll-behaviour";
+  import { flip } from "svelte/animate";
+  import { dndzone } from "svelte-dnd-action";
 
   import { getFeeds } from "../../api/rssFeedProxy.ts";
   import type { Ifeed, IfeedInfo } from "../../common/Feed";
@@ -11,10 +11,12 @@
   const dispatch = createEventDispatcher();
 
   const add = () => {
+    const id = feedInfos.length;
+
     feedInfos = [
       ...feedInfos,
       {
-        id: "",
+        id,
         url: ""
       }
     ];
@@ -51,60 +53,12 @@
   };
 
   onMount(async () => {
-    polyfill({
-      // use this to make use of the scroll behaviour
-      dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride
-    });
-
     await checkValidation(feedInfos);
   });
 
-  let src = -1;
-
-  const moveList = dst => {
-    console.log(`moveList source=${src} target=${dst}`);
-
-    if (src < 0) return;
-
-    if (dst < 0) {
-      const sourceElms = feedInfos.splice(src, 1);
-      feedInfos = [sourceElms[0], ...feedInfos];
-    } else if (dst >= feedInfos.length) {
-      const sourceElms = feedInfos.splice(src, 1);
-      feedInfos = [...feedInfos, sourceElms[0]];
-    } else {
-      feedInfos = feedInfos.reduce((result, currentElm, idx) => {
-        if (idx !== src) result.push(currentElm);
-        if (idx === dst) result.push(feedInfos[src]);
-        return result;
-      }, []);
-    }
-
-    src = -1;
-  };
-
-  const dragStarted = (e, idx) => {
-    console.log(e.type, idx);
-    e.dataTransfer.effectAllowed = "move";
-    src = idx;
-  };
-
-  const dragEnter = (e, idx) => {
-    console.log(e.type, idx);
-    e.preventDefault();
-  };
-
-  const draggingOver = (e, idx) => {
-    console.log(e.type, idx);
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "move";
-  };
-
-  const dropped = (e, idx) => {
-    console.log(e.type, idx);
-    e.preventDefault();
-    e.stopPropagation();
-    moveList(idx);
+  const flipDurationMs = 300;
+  const handleDnd = e => {
+    feedInfos = e.detail.items;
   };
 </script>
 
@@ -118,29 +72,17 @@
   .feed-url {
     flex-grow: 1;
   }
-
-  .dummy-contents {
-    list-style-type: none;
-    height: 1rem;
-  }
 </style>
 
-<ul>
-  <li class="dummy-contents"
-    on:dragenter={(e) => dragEnter(e, -1)}
-    on:dragover={(e) => draggingOver(e, -1)} 
-    on:drop={(e) => dropped(e, -1)}
-  >
-  </li>
-
-  {#each feedInfos as feedInfo, i}
+<ul
+  use:dndzone={{ items: feedInfos, flipDurationMs }} 
+  on:consider={handleDnd} 
+  on:finalize={handleDnd}
+>
+  {#each feedInfos as feedInfo, i (feedInfo.id)}
     <li 
       class="feed-info"
-      draggable="true" 
-      on:dragstart={(e) => dragStarted(e, i)} 
-      on:dragenter={(e) => dragEnter(e, i)}
-      on:dragover={(e) => draggingOver(e, i)} 
-      on:drop={(e) => dropped(e, i)}
+      animate:flip={{ duration: flipDurationMs }}
     >
       <span>
         <i class="material-icons">menu</i>
@@ -155,13 +97,6 @@
       </a>
     </li>
   {/each}
-
-  <li class="dummy-contents"
-    on:dragenter={(e) => dragEnter(e, feedInfos.length)}
-    on:dragover={(e) => draggingOver(e, feedInfos.length)} 
-    on:drop={(e) => dropped(e, feedInfos.length)}
-  >
-  </li>
 </ul>
 
 <div class="">
