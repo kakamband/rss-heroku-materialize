@@ -2,6 +2,7 @@
   import { onMount, createEventDispatcher } from "svelte";
   import { flip } from "svelte/animate";
   import { dndzone } from "svelte-dnd-action";
+  import { v4 as uuidv4 } from "uuid";
 
   import { getFeeds } from "../../api/rssFeedProxy.ts";
   import type { Ifeed, IfeedInfo } from "../../common/Feed";
@@ -11,7 +12,7 @@
   const dispatch = createEventDispatcher();
 
   const add = () => {
-    const id = feedInfos.length;
+    const id = uuidv4();
 
     feedInfos = [
       ...feedInfos,
