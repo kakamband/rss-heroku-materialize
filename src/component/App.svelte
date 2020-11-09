@@ -18,8 +18,7 @@
     feeds = await getFeeds(feedInfos);
   });
 
-  const onExec = async (e) => {
-
+  const onExec = async e => {
     switch (e.detail.payload) {
       case "confirm":
         await putFeedInfos(user.id, feedInfos);
@@ -29,7 +28,7 @@
       case "getFeedInfos":
         feedInfos = await getFeedInfos(user.id);
         break;
-        
+
       case "login":
         feedInfos = await getFeedInfos(user.id);
         feeds = await getFeeds(feedInfos);
