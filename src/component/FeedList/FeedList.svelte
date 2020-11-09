@@ -19,13 +19,11 @@
 
 <style>
   .feed-list {
-    /* height: 100vh; */
-    overflow: auto;
+    height: 100%;
   }
 </style>
 
-<!-- <div class="carousel carousel-slider center"> -->
-<div class="carousel carousel-slider feed-list">
+<div class="carousel carousel-slider center feed-list">
   {#if feeds.length <= 0}
     <div class="carousel-item red white-text">
       <h2>No feeds</h2>

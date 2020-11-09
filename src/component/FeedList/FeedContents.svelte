@@ -10,6 +10,11 @@
 </script>
 
 <style>
+  .content-list {
+    height: 100%;
+    overflow: auto;
+  }
+
   .content {
     display: flex;
     align-items: center;
@@ -29,6 +34,7 @@
   }
 </style>
 
+<div class="content-list">
 {#each contentsSorted as content}
   <div class="content collection-item">
     <span class="content-title">
@@ -46,3 +52,4 @@
     </span>
   </div>
 {/each}
+</div>

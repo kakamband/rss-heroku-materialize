@@ -45,6 +45,12 @@
   };
 </script>
 
+<style>
+  main {
+    height: 80vh;
+  }
+</style>
+
 <Header>
   <span slot="auth"> 
     <Auth bind:user={user} on:exec={onExec} />

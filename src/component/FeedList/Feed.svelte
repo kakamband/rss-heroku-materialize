@@ -5,6 +5,11 @@
 </script>
 
 <style>
+  .feed {
+    height: 100%;
+    background-color: silver;
+  }
+
   .feed-heading {
     display: flex;
     align-items: center;
@@ -16,7 +21,7 @@
   }
 </style>
 
-<div class="collection with-header">
+<div class="collection with-header feed">
   <div class="collection-header feed-heading">
     {#if feed.description}
       <details class="feed-title">
