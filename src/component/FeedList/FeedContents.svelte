@@ -14,6 +14,8 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    color: whitesmoke;
+    background-color: silver;
   }
 
   .content-title {
