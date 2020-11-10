@@ -46,24 +46,38 @@
 </script>
 
 <style>
-  main {
-    height: 80vh;
+  .wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    flex: 0 1 auto;
+  }
+
+  .main {
+    flex: 1 1 auto;
   }
 </style>
 
-<Header>
-  <span slot="auth"> 
-    <Auth bind:user={user} on:exec={onExec} />
-  </span>
-</Header>
+<div class="wrapper">
+  <header class="header">
+    <Header>
+      <span slot="auth"> 
+        <Auth bind:user={user} on:exec={onExec} />
+      </span>
+    </Header>
+  </header>
 
-<main class="container">
-  <Router>
-    <Route path="/">
-      <FeedList feeds={feeds} />
-    </Route>
-    <Route path="/feed-info">
-      <FeedConfig bind:feedInfos={feedInfos} on:exec={onExec} />
-    </Route>
-  </Router>
-</main>
+  <main class="container main">
+    <Router>
+      <Route path="/">
+        <FeedList feeds={feeds} />
+      </Route>
+      <Route path="/feed-info">
+        <FeedConfig bind:feedInfos={feedInfos} on:exec={onExec} />
+      </Route>
+    </Router>
+  </main>
+</div>

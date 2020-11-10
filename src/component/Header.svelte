@@ -18,12 +18,12 @@
   <nav>
     <div class="nav-wrapper">
       <span class="brand-logo">
-        <i class="material-icons">rss_feed</i>
         RSS!
       </span>
 
       <a href="#!" data-target="mobile-demo" class="sidenav-trigger">
-        <i class="material-icons">menu</i>
+        <!-- <i class="material-icons">menu</i> -->
+        <i class="material-icons">rss_feed</i>
       </a>
 
       <Router>

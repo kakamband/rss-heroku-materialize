@@ -10,46 +10,39 @@
 </script>
 
 <style>
-  .content-list {
-    height: 100%;
-    overflow: auto;
-  }
-
   .content {
     display: flex;
     align-items: center;
     gap: 1rem;
-    color: whitesmoke;
-    background-color: silver;
+    background-color: gray;
   }
 
   .content-title {
     overflow-wrap: break-word;
     text-align: justify;
     margin-right: auto;
+    color: whitesmoke;
   }
 
   .content-date {
     white-space: nowrap;
+    color: whitesmoke;
   }
 </style>
 
-<div class="content-list">
 {#each contentsSorted as content}
   <div class="content collection-item">
-    <span class="content-title">
-      <a 
-        href={content.link} 
-        target="_blank" rel="noopener noreferrer"
-        on:touchstart={() => window.open(content.link, "_blank")}
-      >
-        {content.title}
-      </a>
-    </span>
+    <a 
+      class="content-title"
+      href={content.link} 
+      target="_blank" rel="noopener noreferrer"
+      on:touchstart={() => window.open(content.link, "_blank")}
+    >
+      {content.title}
+    </a>
     
     <span class="content-date">
       {content.date.format("YYYY/MM/DD HH:mm")}
     </span>
   </div>
 {/each}
-</div>
