@@ -1,12 +1,14 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { afterUpdate } from "svelte";
   import type { Ifeed } from "../../common/Feed";
   import Feed from "./Feed.svelte";
 
   export let feeds: Ifeed[] = [];
   let currentPageNo = 0;
 
-  onMount(() => {
+  afterUpdate(() => {
+    console.log("afterUpdate");
+
     const elems = document.querySelectorAll(".carousel");
     console.log(elems);
 
@@ -25,8 +27,8 @@
 
 <div class="carousel carousel-slider center feed-list">
   {#if feeds.length <= 0}
-    <div class="carousel-item red white-text">
-      <h2>No feeds</h2>
+    <div class="carousel-item blue white-text">
+      <h2>Loading...</h2>
     </div>
   {/if}
 

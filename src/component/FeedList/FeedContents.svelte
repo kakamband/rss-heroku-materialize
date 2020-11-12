@@ -36,7 +36,6 @@
       class="content-title"
       href={content.link} 
       target="_blank" rel="noopener noreferrer"
-      on:touchstart={() => window.open(content.link, "_blank")}
     >
       {content.title}
     </a>
