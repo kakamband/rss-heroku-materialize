@@ -51,7 +51,7 @@ app.put("/feed-infos", async (req, res) => {
 
     for (let feedInfo of req.body.feedInfos) {
       await db.query(
-        `insert into feed_infos values (\'${req.query.id}\', \'${feedInfo.url}\');`
+        `insert into feed_infos values (\'${req.query.id}\', \'${feedInfo.url}\', \'${feedInfo.title}\', \'${feedInfo.valid}\');`
       );
     }
 

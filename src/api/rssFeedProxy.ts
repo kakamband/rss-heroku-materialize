@@ -27,7 +27,7 @@ const api = async (
   return response;
 };
 
-const getFeed = async (rssUrl: string): Promise<Ifeed> => {
+export const getFeed = async (rssUrl: string): Promise<Ifeed> => {
   const response: Response = await api("rss-feed", `url=${rssUrl}`, "GET");
 
   const feed: Ifeed = {
