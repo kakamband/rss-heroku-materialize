@@ -13,7 +13,7 @@
     feedInfo.valid = feed.ok;
 
     if (!feedInfo.valid) {
-      const enforce = confirm(
+      const enforce = window.confirm(
         "指定されたURLのフィードは取得できません。\nこのまま登録しますか？"
       );
       if (!enforce) return;
@@ -22,8 +22,12 @@
     dispatch("finish-edit");
   };
 
+  const cancel = () => {
+    dispatch("finish-edit");
+  };
+
   const remove = () => {
-    const enforce = confirm("本当に削除しますか？");
+    const enforce = window.confirm("本当に削除しますか？");
     if (!enforce) return;
     dispatch("remove");
   };
@@ -35,6 +39,10 @@
 
 <a href="#!" on:click={confirm}>
   <i class="material-icons">done</i>
+</a>
+
+<a href="#!" on:click={cancel}>
+  <i class="material-icons">close</i>
 </a>
 
 <a href="#!" on:click={remove}>

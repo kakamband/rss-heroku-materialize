@@ -2,6 +2,7 @@
   import { afterUpdate } from "svelte";
   import type { Ifeed } from "../../common/Feed";
   import Feed from "./Feed.svelte";
+  import Error from "./Error.svelte";
 
   export let feeds: Ifeed[] = [];
 
@@ -36,12 +37,7 @@
       {#if feed.ok}
         <Feed feed={feed} />
       {:else}
-        <p>
-          <a href={feed.url}>
-            {feed.url}
-          </a>
-          &nbsp;[{feed.status}]{feed.statusText}
-        </p>
+        <Error feed={feed} />
       {/if}
     </div>
   {/each}

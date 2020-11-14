@@ -25,10 +25,6 @@
         feeds = await getFeeds(feedInfos);
         break;
 
-      case "getFeedInfos":
-        feedInfos = await getFeedInfos(user.id);
-        break;
-
       case "login":
         feedInfos = await getFeedInfos(user.id);
         feeds = await getFeeds(feedInfos);
