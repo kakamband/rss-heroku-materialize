@@ -2,6 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import { flip } from "svelte/animate";
   import { dndzone } from "svelte-dnd-action";
+  import { navigate } from "svelte-routing";
   import { v4 as uuidv4 } from "uuid";
 
   import type { IfeedInfo } from "../../common/Feed";
@@ -34,6 +35,7 @@
 
   const confirm = async () => {
     dispatch("exec", { payload: "confirm" });
+    navigate("/", { replace: true });
   };
 
   const flipDurationMs = 300;
@@ -49,7 +51,7 @@
     gap: 1rem;
   }
 
-  .feed-title {
+  .header a:first-child {
     flex-grow: 1;
   }
 
@@ -85,25 +87,13 @@
           class="collection-item feed-info"
           class:invalid={!feedInfo.valid}
           animate:flip={{ duration: flipDurationMs }}
+          on:click={() => editingIndex = i}
         >
-          <!-- <span>
-            <i class="material-icons">menu</i>
-          </span> -->
-
-          <span 
-            class="feed-title" 
-            on:click={() => editingIndex = i}
-          >
-            {#if feedInfo.valid}
-              {feedInfo.title}
-            {:else}
-              {feedInfo.url}
-            {/if}
-          </span>
-
-          <!-- <a href="#!" on:click={() => editingIndex = i}>
-            <i class="material-icons">edit</i>
-          </a> -->
+          {#if feedInfo.valid}
+            {feedInfo.title}
+          {:else}
+            {feedInfo.url}
+          {/if}
         </div>
       {/each}
     </div>
