@@ -4,8 +4,6 @@
   import { getFeed } from "../../api/rssFeedProxy.ts";
 
   export let feedInfo: IfeedInfo;
-  export let id: number;
-
   const dispatch = createEventDispatcher();
 
   const confirm = async () => {
@@ -21,18 +19,18 @@
       if (!enforce) return;
     }
 
-    dispatch("finishEdit");
+    dispatch("finish-edit");
   };
 
   const remove = () => {
     const enforce = confirm("本当に削除しますか？");
     if (!enforce) return;
-    dispatch("remove", { payload: id });
+    dispatch("remove");
   };
 </script>
 
 <div class="input-field feed-url">
-  <input class:invalid={invalid} type="url" required bind:value={feedInfo.url}>
+  <input type="url" required bind:value={feedInfo.url}>
 </div>
 
 <a href="#!" on:click={confirm}>

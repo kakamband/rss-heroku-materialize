@@ -4,7 +4,6 @@
   import Feed from "./Feed.svelte";
 
   export let feeds: Ifeed[] = [];
-  let currentPageNo = 0;
 
   afterUpdate(() => {
     console.log("afterUpdate");
@@ -38,10 +37,10 @@
         <Feed feed={feed} />
       {:else}
         <p>
-          <a href={feeds[currentPageNo].url}>
-            {feeds[currentPageNo].url}
+          <a href={feed.url}>
+            {feed.url}
           </a>
-          &nbsp;[{feeds[currentPageNo].status}]{feeds[currentPageNo].statusText}
+          &nbsp;[{feed.status}]{feed.statusText}
         </p>
       {/if}
     </div>

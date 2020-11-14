@@ -6,10 +6,11 @@
 
   import { getFeeds } from "../../api/rssFeedProxy.ts";
   import type { Ifeed, IfeedInfo } from "../../common/Feed";
+  import FeedInfoEditor from "./FeedInfoEditor.svelte";
 
   export let feedInfos: IfeedInfo[] = [];
-  let valids = feedInfos.map(() => true);
   const dispatch = createEventDispatcher();
+  let editingIndex = -1;
 
   const add = () => {
     const id = uuidv4();
@@ -18,44 +19,27 @@
       ...feedInfos,
       {
         id,
-        url: ""
+        url: "",
+        title: "",
+        valid: true
       }
     ];
 
-    valids = [...valids, true];
+    editingIndex = feedInfos.length - 1;
   };
 
-  const remove = (removeIndex: number) => {
-    feedInfos = feedInfos.filter((_, index) => index !== removeIndex);
-    valids = valids.filter((_, index) => index !== removeIndex);
-  };
-
-  const checkValidation = async (feedInfos: IfeedInfo[]) => {
-    const feeds = await getFeeds(feedInfos);
-    valids = feeds.map((feed: Ifeed) => feed.ok);
-  };
-
-  const isAllValid = () => {
-    return !valids.includes(false);
+  const remove = () => {
+    feedInfos = feedInfos.filter((_, index) => index !== editingIndex);
+    editingIndex = -1;
   };
 
   const confirm = async () => {
-    await checkValidation(feedInfos);
-
-    if (isAllValid()) {
-      dispatch("exec", { payload: "confirm" });
-    } else {
-      alert("不適切なFeed情報があります。");
-    }
+    dispatch("exec", { payload: "confirm" });
   };
 
   const getFeedInfos = () => {
     dispatch("exec", { payload: "getFeedInfos" });
   };
-
-  onMount(async () => {
-    await checkValidation(feedInfos);
-  });
 
   const flipDurationMs = 300;
   const handleDnd = e => {
@@ -70,8 +54,12 @@
     gap: 1rem;
   }
 
-  .feed-url {
+  .feed-title {
     flex-grow: 1;
+  }
+
+  .invalid {
+    background-color: red;
   }
 </style>
 
@@ -89,12 +77,16 @@
         <i class="material-icons">menu</i>
       </span>
 
-      <div class="input-field feed-url">
-        <input class:invalid={!valids[i]} type="url" required bind:value={feedInfo.url}>
-      </div>
+      <span class="feed-title" class:invalid={!feedInfo.valid}>
+        {#if feedInfo.valid}
+          {feedInfo.title}
+        {:else}
+          {feedInfo.url}
+        {/if}
+      </span>
 
-      <a href="#!" on:click={() => { remove(i) }}>
-        <i class="material-icons">delete_forever</i>
+      <a href="#!" on:click={() => editingIndex = i}>
+        <i class="material-icons">edit</i>
       </a>
     </li>
   {/each}
@@ -105,3 +97,11 @@
   <input class="btn-flat" type="button" value="確定" on:click={confirm}>
   <input class="btn-flat" type="button" value="サーバーから読込" on:click={getFeedInfos}>
 </div>
+
+{#if editingIndex >= 0}
+  <FeedInfoEditor 
+    feedInfo={feedInfos[editingIndex]}
+    on:finish-edit={() => editingIndex = -1}
+    on:remove={remove}
+  />
+{/if}
