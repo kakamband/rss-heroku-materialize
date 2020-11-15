@@ -4,14 +4,10 @@
   import Feed from "./Feed.svelte";
   import Error from "./Error.svelte";
 
-  export let feeds: Ifeed[] = [];
+  import { feed } from "./store/store.ts";
 
   afterUpdate(() => {
-    console.log("afterUpdate");
-
     const elems = document.querySelectorAll(".carousel");
-    console.log(elems);
-
     M.Carousel.init(elems, {
       fullWidth: true,
       indicators: true
@@ -26,13 +22,13 @@
 </style>
 
 <div class="carousel carousel-slider center feed-list">
-  {#if feeds.length <= 0}
+  {#if $feed.feeds.length <= 0}
     <div class="carousel-item blue white-text">
       <h2>Loading...</h2>
     </div>
   {/if}
 
-  {#each feeds as feed}
+  {#each $feed.feeds as feed}
     <div class="carousel-item">
       {#if feed.ok}
         <Feed feed={feed} />
