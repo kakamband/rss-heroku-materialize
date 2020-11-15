@@ -11,8 +11,8 @@ const api = async (
   data: object = null
 ) => {
   const resourceRow = query
-    ? `${location.origin}/${path}?${query}`
-    : `${location.origin}/${path}`;
+    ? `${window.location.origin}/${path}?${query}`
+    : `${window.location.origin}/${path}`;
   const resource = encodeURI(resourceRow);
 
   const init: RequestInit = {
@@ -27,7 +27,7 @@ const api = async (
   return response;
 };
 
-const getFeed = async (rssUrl: string): Promise<Ifeed> => {
+export const getFeed = async (rssUrl: string): Promise<Ifeed> => {
   const response: Response = await api("rss-feed", `url=${rssUrl}`, "GET");
 
   const feed: Ifeed = {

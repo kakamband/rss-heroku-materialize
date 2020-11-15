@@ -21,5 +21,7 @@ export interface Ifeed {
 
 export interface IfeedInfo {
   id: string;
+  title: string;
   url: string;
+  valid: boolean;
 }

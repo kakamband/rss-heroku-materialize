@@ -2,9 +2,9 @@
   import { afterUpdate } from "svelte";
   import type { Ifeed } from "../../common/Feed";
   import Feed from "./Feed.svelte";
+  import Error from "./Error.svelte";
 
   export let feeds: Ifeed[] = [];
-  let currentPageNo = 0;
 
   afterUpdate(() => {
     console.log("afterUpdate");
@@ -37,12 +37,7 @@
       {#if feed.ok}
         <Feed feed={feed} />
       {:else}
-        <p>
-          <a href={feeds[currentPageNo].url}>
-            {feeds[currentPageNo].url}
-          </a>
-          &nbsp;[{feeds[currentPageNo].status}]{feeds[currentPageNo].statusText}
-        </p>
+        <Error feed={feed} />
       {/if}
     </div>
   {/each}

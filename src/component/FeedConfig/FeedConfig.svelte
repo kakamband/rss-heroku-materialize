@@ -1,107 +1,81 @@
 <script lang="ts">
-  import { onMount, createEventDispatcher } from "svelte";
+  import { createEventDispatcher } from "svelte";
   import { flip } from "svelte/animate";
   import { dndzone } from "svelte-dnd-action";
-  import { v4 as uuidv4 } from "uuid";
+  import { navigate } from "svelte-routing";
 
-  import { getFeeds } from "../../api/rssFeedProxy.ts";
-  import type { Ifeed, IfeedInfo } from "../../common/Feed";
+  import type { IfeedInfo } from "../../common/Feed";
+  import FeedInfoEditor from "./FeedInfoEditor.svelte";
 
-  export let feedInfos: IfeedInfo[] = [];
-  let valids = feedInfos.map(() => true);
+  import { feedInfos } from "./store/store.ts";
+
   const dispatch = createEventDispatcher();
 
-  const add = () => {
-    const id = uuidv4();
-
-    feedInfos = [
-      ...feedInfos,
-      {
-        id,
-        url: ""
-      }
-    ];
-
-    valids = [...valids, true];
-  };
-
-  const remove = (removeIndex: number) => {
-    feedInfos = feedInfos.filter((_, index) => index !== removeIndex);
-    valids = valids.filter((_, index) => index !== removeIndex);
-  };
-
-  const checkValidation = async (feedInfos: IfeedInfo[]) => {
-    const feeds = await getFeeds(feedInfos);
-    valids = feeds.map((feed: Ifeed) => feed.ok);
-  };
-
-  const isAllValid = () => {
-    return !valids.includes(false);
-  };
-
   const confirm = async () => {
-    await checkValidation(feedInfos);
-
-    if (isAllValid()) {
-      dispatch("exec", { payload: "confirm" });
-    } else {
-      alert("不適切なFeed情報があります。");
-    }
+    dispatch("exec", { payload: "confirm" });
+    navigate("/", { replace: true });
   };
-
-  const getFeedInfos = () => {
-    dispatch("exec", { payload: "getFeedInfos" });
-  };
-
-  onMount(async () => {
-    await checkValidation(feedInfos);
-  });
 
   const flipDurationMs = 300;
   const handleDnd = e => {
-    feedInfos = e.detail.items;
+    feedInfos.setItems(e.detail.items);
   };
 </script>
 
 <style>
-  .feed-info {
+  .header {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
 
-  .feed-url {
+  .header a:first-child {
     flex-grow: 1;
+  }
+
+  .invalid {
+    background-color: red;
+    color: white;
   }
 </style>
 
-<ul
-  use:dndzone={{ items: feedInfos, flipDurationMs }} 
-  on:consider={handleDnd} 
-  on:finalize={handleDnd}
->
-  {#each feedInfos as feedInfo, i (feedInfo.id)}
-    <li 
-      class="feed-info"
-      animate:flip={{ duration: flipDurationMs }}
-    >
-      <span>
-        <i class="material-icons">menu</i>
-      </span>
-
-      <div class="input-field feed-url">
-        <input class:invalid={!valids[i]} type="url" required bind:value={feedInfo.url}>
-      </div>
-
-      <a href="#!" on:click={() => { remove(i) }}>
-        <i class="material-icons">delete_forever</i>
+{#if $feedInfos.editingIndex < 0}
+  <div class="collection with-header">
+    <div class="collection-header header">
+      <a href="#!" on:click={confirm}>
+        <i class="material-icons">arrow_back</i>
       </a>
-    </li>
-  {/each}
-</ul>
 
-<div class="">
-  <input class="btn-flat" type="button" value="追加" on:click={add}>
-  <input class="btn-flat" type="button" value="確定" on:click={confirm}>
-  <input class="btn-flat" type="button" value="サーバーから読込" on:click={getFeedInfos}>
-</div>
+      <a 
+        href="#!"
+        class="btn-floating waves-effect waves-light blue"
+        on:click={feedInfos.add}
+      >
+        <i class="material-icons">add</i>
+      </a>
+    </div>
+
+    <div
+      use:dndzone={{ items: $feedInfos.items, flipDurationMs }} 
+      on:consider={handleDnd} 
+      on:finalize={handleDnd}
+    >
+      {#each $feedInfos.items as feedInfo, i (feedInfo.id)}
+        <div 
+          class="collection-item feed-info"
+          class:invalid={!feedInfo.valid}
+          animate:flip={{ duration: flipDurationMs }}
+          on:click={() => $feedInfos.editingIndex = i}
+        >
+          {#if feedInfo.valid}
+            {feedInfo.title}
+          {:else}
+            {feedInfo.url}
+          {/if}
+        </div>
+      {/each}
+    </div>
+  </div>
+{:else}
+  <FeedInfoEditor />
+{/if}
