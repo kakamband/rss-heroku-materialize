@@ -3,35 +3,13 @@
   import { flip } from "svelte/animate";
   import { dndzone } from "svelte-dnd-action";
   import { navigate } from "svelte-routing";
-  import { v4 as uuidv4 } from "uuid";
 
   import type { IfeedInfo } from "../../common/Feed";
   import FeedInfoEditor from "./FeedInfoEditor.svelte";
 
-  export let feedInfos: IfeedInfo[] = [];
+  import { feedInfos } from "./store/store.ts";
+
   const dispatch = createEventDispatcher();
-  let editingIndex = -1;
-
-  const add = () => {
-    const id = uuidv4();
-
-    feedInfos = [
-      ...feedInfos,
-      {
-        id,
-        url: "",
-        title: "",
-        valid: false
-      }
-    ];
-
-    editingIndex = feedInfos.length - 1;
-  };
-
-  const remove = () => {
-    feedInfos = feedInfos.filter((_, index) => index !== editingIndex);
-    editingIndex = -1;
-  };
 
   const confirm = async () => {
     dispatch("exec", { payload: "confirm" });
@@ -40,7 +18,7 @@
 
   const flipDurationMs = 300;
   const handleDnd = e => {
-    feedInfos = e.detail.items;
+    feedInfos.setItems(e.detail.items);
   };
 </script>
 
@@ -61,7 +39,7 @@
   }
 </style>
 
-{#if editingIndex < 0}
+{#if $feedInfos.editingIndex < 0}
   <div class="collection with-header">
     <div class="collection-header header">
       <a href="#!" on:click={confirm}>
@@ -71,23 +49,23 @@
       <a 
         href="#!"
         class="btn-floating waves-effect waves-light blue"
-        on:click={add}
+        on:click={feedInfos.add}
       >
         <i class="material-icons">add</i>
       </a>
     </div>
 
     <div
-      use:dndzone={{ items: feedInfos, flipDurationMs }} 
+      use:dndzone={{ items: $feedInfos.items, flipDurationMs }} 
       on:consider={handleDnd} 
       on:finalize={handleDnd}
     >
-      {#each feedInfos as feedInfo, i (feedInfo.id)}
+      {#each $feedInfos.items as feedInfo, i (feedInfo.id)}
         <div 
           class="collection-item feed-info"
           class:invalid={!feedInfo.valid}
           animate:flip={{ duration: flipDurationMs }}
-          on:click={() => editingIndex = i}
+          on:click={() => $feedInfos.editingIndex = i}
         >
           {#if feedInfo.valid}
             {feedInfo.title}
@@ -99,9 +77,5 @@
     </div>
   </div>
 {:else}
-  <FeedInfoEditor 
-    feedInfo={feedInfos[editingIndex]}
-    on:finish-edit={() => editingIndex = -1}
-    on:remove={remove}
-  />
+  <FeedInfoEditor />
 {/if}

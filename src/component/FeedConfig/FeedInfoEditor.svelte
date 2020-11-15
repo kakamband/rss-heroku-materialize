@@ -1,40 +1,40 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import type { Ifeed, IfeedInfo } from "../../common/Feed";
   import { getFeed } from "../../api/rssFeedProxy.ts";
+  import { feedInfos } from "./store/store.ts";
 
-  export let feedInfo: IfeedInfo;
-  const dispatch = createEventDispatcher();
+  $: item = $feedInfos.items[$feedInfos.editingIndex];
 
   const confirm = async () => {
-    const feed = await getFeed(feedInfo.url);
+    const feed = await getFeed(item.url);
 
-    feedInfo.title = feed.title;
-    feedInfo.valid = feed.ok;
+    item.title = feed.title;
+    item.valid = feed.ok;
 
-    if (!feedInfo.valid) {
+    if (!item.valid) {
       const enforce = window.confirm(
         "指定されたURLのフィードは取得できません。\nこのまま登録しますか？"
       );
       if (!enforce) return;
     }
 
-    dispatch("finish-edit");
+    $feedInfos.editingIndex = -1;
   };
 
   const cancel = () => {
-    dispatch("finish-edit");
+    $feedInfos.editingIndex = -1;
   };
 
   const remove = () => {
     const enforce = window.confirm("本当に削除しますか？");
     if (!enforce) return;
-    dispatch("remove");
+    feedInfos.remove();
   };
 </script>
 
+{#if item}
 <div class="input-field feed-url">
-  <input type="url" required bind:value={feedInfo.url}>
+  <input type="url" required bind:value={item.url}>
 </div>
 
 <a href="#!" on:click={confirm}>
@@ -48,3 +48,4 @@
 <a href="#!" on:click={remove}>
   <i class="material-icons">delete_forever</i>
 </a>
+{/if}

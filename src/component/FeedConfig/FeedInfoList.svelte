@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { IfeedInfo } from "../../common/Feed";
-  export let feedInfos: IfeedInfo[] = [];
+  import { store } from "../../store/store.ts";
 </script>
 
 <div class="collection with-header">
@@ -12,7 +12,7 @@
     <a 
       href="#!"
       class="btn-floating waves-effect waves-light blue"
-      on:click={add}
+      on:click={store.$feedInfos.add}
     >
       <i class="material-icons">add</i>
     </a>

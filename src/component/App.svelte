@@ -3,35 +3,35 @@
   import { Router, Route } from "svelte-routing";
   import { getFeeds, putFeedInfos, getFeedInfos } from "../api/rssFeedProxy.ts";
   import type { Icontent, Ifeed, IfeedInfo } from "../common/Feed.ts";
-  import type { Iuser } from "../common/Auth.ts";
   import FeedConfig from "./FeedConfig/FeedConfig.svelte";
   import FeedList from "./FeedList/FeedList.svelte";
   import Auth from "./Auth.svelte";
   import Header from "./Header.svelte";
 
-  let user: Iuser = null;
-  let feedInfos: IfeedInfo[] = [];
+  import { auth } from "../store/auth.ts";
+  import { feedInfos } from "./FeedConfig/store/store.ts";
+
   let feeds: Ifeed[] = [];
 
   onMount(async () => {
     M.AutoInit();
-    feeds = await getFeeds(feedInfos);
+    feeds = await getFeeds($feedInfos.items);
   });
 
   const onExec = async e => {
     switch (e.detail.payload) {
       case "confirm":
-        await putFeedInfos(user.id, feedInfos);
-        feeds = await getFeeds(feedInfos);
+        await feedInfos.save($auth.user.id);
+        feeds = await getFeeds($feedInfos.items);
         break;
 
       case "login":
-        feedInfos = await getFeedInfos(user.id);
-        feeds = await getFeeds(feedInfos);
+        await feedInfos.load($auth.user.id);
+        feeds = await getFeeds($feedInfos.items);
         break;
 
       case "logout":
-        feedInfos = [];
+        feedInfos.clear();
         feeds = [];
         break;
 
@@ -61,7 +61,7 @@
   <header class="header">
     <Header>
       <span slot="auth"> 
-        <Auth bind:user={user} on:exec={onExec} />
+        <Auth on:exec={onExec} />
       </span>
     </Header>
   </header>
@@ -72,7 +72,7 @@
         <FeedList feeds={feeds} />
       </Route>
       <Route path="/feed-info">
-        <FeedConfig bind:feedInfos={feedInfos} on:exec={onExec} />
+        <FeedConfig on:exec={onExec} />
       </Route>
     </Router>
   </main>
