@@ -12,29 +12,28 @@
 
   import { auth } from "./Auth/store/store.ts";
   import { feedInfos } from "./FeedConfig/store/store.ts";
-
-  let feeds: Ifeed[] = [];
+  import { feed } from "./FeedList/store/store.ts";
 
   onMount(async () => {
     M.AutoInit();
-    feeds = await getFeeds($feedInfos.items);
+    await feed.load($feedInfos.items);
   });
 
   const onExec = async e => {
     switch (e.detail.payload) {
       case "confirm":
         await feedInfos.save($auth.user.id);
-        feeds = await getFeeds($feedInfos.items);
+        await feed.load($feedInfos.items);
         break;
 
       case "login":
         await feedInfos.load($auth.user.id);
-        feeds = await getFeeds($feedInfos.items);
+        await feed.load($feedInfos.items);
         break;
 
       case "logout":
         feedInfos.clear();
-        feeds = [];
+        feed.clear();
         break;
 
       default:
@@ -71,7 +70,7 @@
   <main class="container main">
     <Router>
       <Route path="/">
-        <FeedList feeds={feeds} />
+        <FeedList />
       </Route>
       <Route path="/feed-info">
         <FeedConfig on:exec={onExec} />
