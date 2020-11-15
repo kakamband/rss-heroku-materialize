@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount, onDestroy, createEventDispatcher } from "svelte";
-  import type { Iuser, TauthStateChangeCallback } from "../common/Auth.ts";
-  import { init, signIn, signOut } from "../common/Auth.ts";
+  import type { Iuser, TauthStateChangeCallback } from "../../common/Auth.ts";
+  import { init, signIn, signOut } from "../../common/Auth.ts";
 
-  import { auth } from "../store/auth.ts";
+  import { auth } from "./store/store.ts";
 
   const dispatch = createEventDispatcher();
   const authContainerId = "firebaseui-auth-container";

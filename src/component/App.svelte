@@ -1,14 +1,16 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { Router, Route } from "svelte-routing";
+
   import { getFeeds, putFeedInfos, getFeedInfos } from "../api/rssFeedProxy.ts";
   import type { Icontent, Ifeed, IfeedInfo } from "../common/Feed.ts";
+
+  import Header from "./Header.svelte";
   import FeedConfig from "./FeedConfig/FeedConfig.svelte";
   import FeedList from "./FeedList/FeedList.svelte";
-  import Auth from "./Auth.svelte";
-  import Header from "./Header.svelte";
+  import Auth from "./Auth/Auth.svelte";
 
-  import { auth } from "../store/auth.ts";
+  import { auth } from "./Auth/store/store.ts";
   import { feedInfos } from "./FeedConfig/store/store.ts";
 
   let feeds: Ifeed[] = [];
