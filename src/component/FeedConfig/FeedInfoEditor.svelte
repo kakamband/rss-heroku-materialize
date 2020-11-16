@@ -18,11 +18,11 @@
       if (!enforce) return;
     }
 
-    $feedInfos.editingIndex = -1;
+    feedInfos.finishEdit();
   };
 
   const cancel = () => {
-    $feedInfos.editingIndex = -1;
+    feedInfos.finishEdit();
   };
 
   const remove = () => {

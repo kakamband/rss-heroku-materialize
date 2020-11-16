@@ -49,6 +49,14 @@ const setItems = (items: IfeedInfo[]) => {
   update((n) => ({ ...n, items }));
 };
 
+const startEdit = (editingIndex: number) => {
+  update((n) => ({ ...n, editingIndex }));
+};
+
+const finishEdit = () => {
+  update((n) => ({ ...n, editingIndex: -1 }));
+};
+
 export const feedInfos = {
   subscribe,
   set,
@@ -60,5 +68,7 @@ export const feedInfos = {
   clear,
   add,
   remove,
-  setItems
+  setItems,
+  startEdit,
+  finishEdit
 };
