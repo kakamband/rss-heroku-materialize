@@ -1,6 +1,5 @@
 <script lang="ts">
   import { afterUpdate } from "svelte";
-  import type { Ifeed } from "../../common/Feed";
   import Feed from "./Feed.svelte";
   import Error from "./Error.svelte";
 

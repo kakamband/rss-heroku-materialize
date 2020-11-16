@@ -1,4 +1,4 @@
-import { writable, get } from "svelte/store";
+import { writable } from "svelte/store";
 import type { Iuser } from "../../../common/Auth";
 
 interface IauthStore {

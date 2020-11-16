@@ -4,9 +4,7 @@
   import { dndzone } from "svelte-dnd-action";
   import { navigate } from "svelte-routing";
 
-  import type { IfeedInfo } from "../../common/Feed";
   import FeedInfoEditor from "./FeedInfoEditor.svelte";
-
   import { feedInfos } from "./store/store.ts";
 
   const dispatch = createEventDispatcher();
