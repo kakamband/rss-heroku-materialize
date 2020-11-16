@@ -65,7 +65,7 @@
           class="collection-item feed-info"
           class:invalid={!feedInfo.valid}
           animate:flip={{ duration: flipDurationMs }}
-          on:click={() => $feedInfos.editingIndex = i}
+          on:click={() => feedInfos.startEdit(i)}
         >
           {#if feedInfo.valid}
             {feedInfo.title}
