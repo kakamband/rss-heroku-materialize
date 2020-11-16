@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { Ifeed, IfeedInfo } from "../../common/Feed";
   import { getFeed } from "../../api/rssFeedProxy.ts";
   import { feedInfos } from "./store/store.ts";
 

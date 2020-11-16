@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Icontent, Ifeed } from "../../common/Feed";
+  import type { Ifeed } from "../../common/Feed";
   import FeedContents from "./FeedContents.svelte";
   export let feed: Ifeed = null;
 </script>
