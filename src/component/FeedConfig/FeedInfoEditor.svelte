@@ -2,7 +2,8 @@
   import { getFeed } from "../../api/rssFeedProxy.ts";
   import { feedInfos } from "./store/store.ts";
 
-  $: item = $feedInfos.items[$feedInfos.editingIndex];
+  // $: item = $feedInfos.items[$feedInfos.editingIndex];
+  $: item = $feedInfos.editingItem;
 
   const confirm = async () => {
     const feed = await getFeed(item.url);
@@ -21,7 +22,7 @@
   };
 
   const cancel = () => {
-    feedInfos.finishEdit();
+    feedInfos.cancelEdit();
   };
 
   const remove = () => {
