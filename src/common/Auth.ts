@@ -17,7 +17,7 @@ const firebaseConfig = {
 };
 
 const uiConfig = {
-  signInSuccessUrl: `${location.origin}/`,
+  signInSuccessUrl: `${window.location.origin}/`,
   signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
   tosUrl: "",
   privacyPolicyUrl: ""

@@ -28,7 +28,7 @@
   }
 
   .header a:first-child {
-    flex-grow: 1;
+    margin-right: auto;
   }
 
   .invalid {
@@ -40,16 +40,16 @@
 {#if $feedInfos.editingIndex < 0}
   <div class="collection with-header">
     <div class="collection-header header">
-      <a href="#!" on:click={confirm}>
-        <i class="material-icons">arrow_back</i>
-      </a>
-
       <a 
         href="#!"
         class="btn-floating waves-effect waves-light blue"
         on:click={feedInfos.add}
       >
         <i class="material-icons">add</i>
+      </a>
+
+      <a href="#!" on:click={confirm}>
+        <i class="material-icons">done</i>
       </a>
     </div>
 
