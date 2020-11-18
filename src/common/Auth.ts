@@ -18,11 +18,9 @@ const firebaseConfig = {
 
 const uiConfig = {
   signInSuccessUrl: `${location.origin}/`,
-  signInOptions: [
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-  ],
+  signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
   tosUrl: "",
-  privacyPolicyUrl: "",
+  privacyPolicyUrl: ""
 };
 
 let authUi = null;
@@ -30,11 +28,19 @@ let user: Iuser = null;
 let authStateChangeCallback: TauthStateChangeCallback = null;
 let authContainerId: string = null;
 
-const onAuthStateChanged = (authUser: { uid: string; displayName: string; email: string; }) => {
+const onAuthStateChanged = (authUser: {
+  uid: string;
+  displayName: string;
+  email: string;
+}) => {
   if (authUser) {
-    console.log(authUser)
+    // console.log(authUser);
     if (!user || authUser.uid !== user.id) {
-      user = { id: authUser.uid, name: authUser.displayName, email: authUser.email };
+      user = {
+        id: authUser.uid,
+        name: authUser.displayName,
+        email: authUser.email
+      };
       if (!user.name) user.name = authUser.email;
       authStateChangeCallback(user);
     }
@@ -51,9 +57,11 @@ export const init = (callback: TauthStateChangeCallback, id: string) => {
   authContainerId = id;
 
   firebase.initializeApp(firebaseConfig);
-  firebase.auth().onAuthStateChanged(onAuthStateChanged, (e) => { throw e });
+  firebase.auth().onAuthStateChanged(onAuthStateChanged, (e) => {
+    throw e;
+  });
   authUi = new auth.AuthUI(firebase.auth());
-}
+};
 
 export const signIn = () => {
   authUi.start(`#${authContainerId}`, uiConfig);

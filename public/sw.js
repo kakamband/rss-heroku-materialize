@@ -6,11 +6,11 @@ var urlsToCache = [];
 
 // インストール処理
 self.addEventListener("install", (event) => {
-  console.log("[Service Worker] Install");
+  // console.log("[Service Worker] Install");
 
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log("[Service Worker] Caching all: app shell and content");
+      // console.log("[Service Worker] Caching all: app shell and content");
       return cache.addAll(urlsToCache);
     })
   );
@@ -18,11 +18,11 @@ self.addEventListener("install", (event) => {
 
 // リソースフェッチ時のキャッシュロード処理
 self.addEventListener("fetch", (event) => {
-  console.log("[Service Worker] Fetch");
+  // console.log("[Service Worker] Fetch");
 
   event.respondWith(
     caches.match(event.request).then((response) => {
-      console.log("[Service Worker] Retuen contents");
+      // console.log("[Service Worker] Retuen contents");
       return response ? response : fetch(event.request);
     })
   );

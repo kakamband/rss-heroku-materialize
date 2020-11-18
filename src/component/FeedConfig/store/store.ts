@@ -33,7 +33,7 @@ const add = () => {
   update((n) => {
     const items = [...n.items, newItem];
     const editingIndex = items.length - 1;
-    const editingItem = { ...n.items[editingIndex] };
+    const editingItem = { ...items[editingIndex] };
     return { ...n, items, editingIndex, editingItem };
   });
 };
@@ -47,17 +47,14 @@ const setItems = (items: IfeedInfo[]) => {
 const startEdit = (editingIndex: number) => {
   update((n) => {
     const editingItem = { ...n.items[editingIndex] };
-    console.log(editingItem);
     return { ...n, editingIndex, editingItem };
   });
 };
 
 const finishEdit = () => {
   update((n) => {
-    // const items = n.items.map((item: IfeedInfo, i: number) => (i === n.editingIndex) ? n.editingItem: item);
     const items = [...n.items];
     items[n.editingIndex] = n.editingItem;
-    console.log(items);
     const editingIndex = -1;
     const editingItem = null;
     return { ...n, items, editingIndex, editingItem };

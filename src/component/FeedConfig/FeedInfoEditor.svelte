@@ -2,7 +2,6 @@
   import { getFeed } from "../../api/rssFeedProxy.ts";
   import { feedInfos } from "./store/store.ts";
 
-  // $: item = $feedInfos.items[$feedInfos.editingIndex];
   $: item = $feedInfos.editingItem;
 
   const confirm = async () => {
